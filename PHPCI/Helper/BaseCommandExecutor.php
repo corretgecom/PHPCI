@@ -81,6 +81,19 @@ abstract class BaseCommandExecutor implements CommandExecutor
 
         if ($this->quiet) {
             $this->logger->log('Executing: ' . $command);
+        } else {
+            /**
+             * show the command to execute in purple
+             * @link http://tldp.org/HOWTO/Bash-Prompt-HOWTO/x329.html
+             */
+            $this->logger->log(
+                [
+                    null,
+                    null,
+                    "\033[0;35mExecuting: ".$command."\033[0m",
+                    null
+                ]
+            );
         }
 
         $status = 0;
@@ -162,7 +175,6 @@ abstract class BaseCommandExecutor implements CommandExecutor
             $this->logger->log(Lang::get('looking_for_binary', $bin), LogLevel::DEBUG);
 
             if (is_dir($composerBin) && is_file($composerBin.'/'.$bin)) {
-
                 $this->logger->log(Lang::get('found_in_path', $composerBin, $bin), LogLevel::DEBUG);
                 $binaryPath = $composerBin . '/' . $bin;
                 break;
