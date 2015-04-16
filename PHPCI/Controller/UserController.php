@@ -10,12 +10,10 @@
 namespace PHPCI\Controller;
 
 use b8;
-use b8\Exception\HttpException\ForbiddenException;
 use b8\Exception\HttpException\NotFoundException;
 use b8\Form;
 use PHPCI\Controller;
 use PHPCI\Helper\Lang;
-use PHPCI\Model\User;
 use PHPCI\Service\UserService;
 
 /**
@@ -125,6 +123,7 @@ class UserController extends Controller
         $lang->setLabel(Lang::get('language'));
         $lang->setRequired(true);
         $lang->setOptions(Lang::getLanguageOptions());
+        $lang->setValue(Lang::getLanguage());
         $form->addField($lang);
 
         $submit = new Form\Element\Submit();
@@ -175,8 +174,9 @@ class UserController extends Controller
 
         $this->userService->createUser($name, $email, $password, $isAdmin);
 
-        header('Location: '.PHPCI_URL.'user');
-        die;
+        $response = new b8\Http\Response\RedirectResponse();
+        $response->setHeader('Location', PHPCI_URL . 'user');
+        return $response;
     }
 
     /**
@@ -215,8 +215,9 @@ class UserController extends Controller
 
         $this->userService->updateUser($user, $name, $email, $password, $isAdmin);
 
-        header('Location: '.PHPCI_URL.'user');
-        die;
+        $response = new b8\Http\Response\RedirectResponse();
+        $response->setHeader('Location', PHPCI_URL . 'user');
+        return $response;
     }
 
     /**
@@ -288,7 +289,8 @@ class UserController extends Controller
 
         $this->userService->deleteUser($user);
 
-        header('Location: '.PHPCI_URL.'user');
-        die;
+        $response = new b8\Http\Response\RedirectResponse();
+        $response->setHeader('Location', PHPCI_URL . 'user');
+        return $response;
     }
 }

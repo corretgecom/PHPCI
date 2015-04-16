@@ -14,7 +14,6 @@ use b8\Exception\HttpException;
 use b8\Http\Response;
 use b8\Http\Response\RedirectResponse;
 use b8\View;
-use PHPCI\Model\Build;
 
 /**
 * PHPCI Front Controller
@@ -52,13 +51,13 @@ class Application extends b8\Application
             return false;
         };
 
-        $skipAuth = [$this, 'shouldSkipAuth'];
+        $skipAuth = array($this, 'shouldSkipAuth');
 
         // Handler for the route we're about to register, checks for a valid session where necessary:
         $routeHandler = function (&$route, Response &$response) use (&$request, $validateSession, $skipAuth) {
             $skipValidation = in_array($route['controller'], array('session', 'webhook', 'build-status'));
 
-            if (!$skipValidation && !$validateSession() && !$skipAuth()) {
+            if (!$skipValidation && !$validateSession() && (!is_callable($skipAuth) || !$skipAuth())) {
                 if ($request->isAjax()) {
                     $response->setResponseCode(401);
                     $response->setContent('');
@@ -138,7 +137,13 @@ class Application extends b8\Application
     {
         /** @var \PHPCI\Store\ProjectStore $projectStore */
         $projectStore = b8\Store\Factory::getStore('Project');
-        $layout->projects = $projectStore->getAll();
+        $layout->projects = $projectStore->getWhere(
+            array('archived' => (int)isset($_GET['archived'])),
+            50,
+            0,
+            array(),
+            array('title' => 'ASC')
+        );
     }
 
     /**
