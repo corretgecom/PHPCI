@@ -51,3 +51,44 @@
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
+.small-box > .inner {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+.small-box > .small-box-footer-project {
+    width: 60%;
+    float: left;
+}
+.small-box > .small-box-footer-build {
+    width: 8%;
+    float: left;
+}
+.small-box-minimal > .inner {
+    width: 71%;
+    float: left;
+}
+.small-box-minimal > .small-box-footer-build {
+    width: 5%;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    margin-left: 1px;
+    margin-top: 19px;
+    font-size: 11px;
+}
+
+.user-panel > .image {
+    padding-right: 15px;
+}
+
+.user-panel > .info {
+    padding: 0;
+    font-size: inherit;
+    line-height: inherit;
+}
+
+#phpunit-data th div { margin: 0 0.5em; }
+#phpunit-data .success td { background: none; color: #00a65a; }
+#phpunit-data .fail td { background: none; color: #f56954; }
+#phpunit-data .error td { background: none; color: #f56954; }
+#phpunit-data .skipped td { background: none; color: #e08e0b; }
+#phpunit-data .todo td { background: none; color: #00c0ef; }
