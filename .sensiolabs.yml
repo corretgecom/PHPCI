@@ -188,11 +188,13 @@ rules:
         enabled: true
     symfony.web_config_should_not_be_present:
         enabled: true
+
+#   We are in development phase, we allow TODO and FIXME in code.
     task_fixme_comment:
-        enabled: true
-#   We are in development phase, we allow TODO in code.
+        enabled: false
     task_todo_comment:
         enabled: false
+
     task_xxx_comment:
         enabled: true
     third_party.use_deprecated_class:
