@@ -29,7 +29,8 @@ if (!file_exists($configFile) && (!defined('PHPCI_IS_CONSOLE') || !PHPCI_IS_CONS
     $message = 'PHPCI has not yet been installed - Please use the command "./console phpci:install" ';
     $message .= '(or "php ./console phpci:install" for Windows) to install it.';
 
-    die($message);
+    file_put_contents('php://stderr', $message);
+    throw  new \Exception($message);
 }
 
 // If composer has not been run, fail at this point and tell the user to install:
@@ -38,7 +39,7 @@ if (!file_exists(dirname(__FILE__) . '/vendor/autoload.php') && defined('PHPCI_I
     $message .= ' for Windows) before using console';
     
     file_put_contents('php://stderr', $message);
-    exit(1);
+    throw  new \Exception($message);
 }
 
 // Load Composer autoloader:
