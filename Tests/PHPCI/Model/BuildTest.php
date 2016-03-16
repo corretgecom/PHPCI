@@ -25,9 +25,6 @@ class BuildTest extends \PHPUnit_Framework_TestCase
     {
     }
 
-    /**
-     * @covers PHPUnit::execute
-     */
     public function testExecute_TestIsAValidModel()
     {
         $build = new Build();
@@ -36,9 +33,6 @@ class BuildTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($build instanceof Model\Base\BuildBase);
     }
 
-    /**
-     * @covers PHPUnit::execute
-     */
     public function testExecute_TestBaseBuildDefaults()
     {
         $build = new Build();
@@ -47,9 +41,6 @@ class BuildTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(null, $build->getFileLinkTemplate());
     }
 
-    /**
-     * @covers PHPUnit::execute
-     */
     public function testExecute_TestIsSuccessful()
     {
         $build = new Build();
@@ -66,9 +57,6 @@ class BuildTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($build->isSuccessful());
     }
 
-    /**
-     * @covers PHPUnit::execute
-     */
     public function testExecute_TestBuildExtra()
     {
         $info = array(

@@ -24,9 +24,6 @@ class MailerFactoryTest extends \PHPUnit_Framework_TestCase
     {
     }
 
-    /**
-     * @covers PHPUnit::execute
-     */
     public function testExecute_TestGetMailConfig()
     {
         $config = array(
@@ -48,9 +45,6 @@ class MailerFactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($config['default_mailto_address'], $factory->getMailConfig('default_mailto_address'));
     }
 
-    /**
-     * @covers PHPUnit::execute
-     */
     public function testExecute_TestMailer()
     {
         $config = array(

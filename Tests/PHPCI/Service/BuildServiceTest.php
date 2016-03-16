@@ -42,9 +42,6 @@ class BuildServiceTest extends \PHPUnit_Framework_TestCase
         $this->testedService = new BuildService($this->mockBuildStore);
     }
 
-    /**
-     * @covers PHPUnit::execute
-     */
     public function testExecute_CreateBasicBuild()
     {
         $project = new Project();
@@ -66,9 +63,6 @@ class BuildServiceTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Manual', $returnValue->getCommitId());
     }
 
-    /**
-     * @covers PHPUnit::execute
-     */
     public function testExecute_CreateBuildWithOptions()
     {
         $project = new Project();
@@ -83,9 +77,6 @@ class BuildServiceTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('test@example.com', $returnValue->getCommitterEmail());
     }
 
-    /**
-     * @covers PHPUnit::execute
-     */
     public function testExecute_CreateBuildWithExtra()
     {
         $project = new Project();
@@ -97,9 +88,6 @@ class BuildServiceTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(1001, $returnValue->getExtra('item1'));
     }
 
-    /**
-     * @covers PHPUnit::execute
-     */
     public function testExecute_CreateDuplicateBuild()
     {
         $build = new Build();
@@ -132,9 +120,6 @@ class BuildServiceTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($build->getExtra('item1'), $returnValue->getExtra('item1'));
     }
 
-    /**
-     * @covers PHPUnit::execute
-     */
     public function testExecute_DeleteBuild()
     {
         $store = $this->getMock('PHPCI\Store\BuildStore');
