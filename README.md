@@ -13,6 +13,9 @@ This is a fork.
 
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/corretgecom/PHPCI/badges/quality-score.png?b=develop)](https://scrutinizer-ci.com/g/corretgecom/PHPCI/?branch=develop)
 
+[![Code Coverage](https://scrutinizer-ci.com/g/corretgecom/PHPCI/badges/coverage.png?b=develop)](https://scrutinizer-ci.com/g/corretgecom/PHPCI/?branch=develop)
+
+[![Build Status](https://scrutinizer-ci.com/g/corretgecom/PHPCI/badges/build.png?b=develop)](https://scrutinizer-ci.com/g/corretgecom/PHPCI/build-status/develop)
 
 ## Getting Started:
 We've got documentation on our website on [installing PHPCI](https://www.phptesting.org/install-phpci) and [adding support for PHPCI to your projects](https://www.phptesting.org/wiki/Adding-PHPCI-Support-to-Your-Projects).
