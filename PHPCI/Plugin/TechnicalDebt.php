@@ -58,6 +58,11 @@ class TechnicalDebt implements PHPCI\Plugin, PHPCI\ZeroConfigPlugin
      */
     protected $searches;
 
+    /**
+     * @var Build
+     */
+    protected $build;
+
 
     /**
      * Check if this plugin can be executed.
