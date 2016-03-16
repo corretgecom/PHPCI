@@ -5,7 +5,9 @@ PHPCI is a free and open source (BSD License) continuous integration tool specif
 
 **Current Build Status**
 
-[![Build Status](http://phpci.block8.net/build-status/image/2?branch=master)](http://phpci.block8.net/build-status/view/2?branch=master)
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/3ced3763-d912-4782-9c0e-9464aabdfc8d/big.png)](https://insight.sensiolabs.com/projects/3ced3763-d912-4782-9c0e-9464aabdfc8d)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/corretgecom/PHPCI/badges/quality-score.png?b=develop)](https://scrutinizer-ci.com/g/corretgecom/PHPCI/?branch=develop)
+[![Code Coverage](https://scrutinizer-ci.com/g/corretgecom/PHPCI/badges/coverage.png?b=develop)](https://scrutinizer-ci.com/g/corretgecom/PHPCI/?branch=develop)
 
 **Chat Room**
 
