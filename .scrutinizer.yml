@@ -9,9 +9,9 @@ coding_style:
                 after_type_cast: false
 build: true
 filter:
-        paths: [PHPCI/*]
+    paths: [PHPCI/*]
 tools:
-   php_cpd:
+    php_cpd:
         excluded_dirs: [vendor]
     php_pdepend:
         excluded_dirs: [vendor]
