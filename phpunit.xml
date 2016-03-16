@@ -10,6 +10,11 @@
          syntaxCheck="false"
          bootstrap="./Tests/bootstrap.php"
 >
+    <filter>
+        <whitelist processUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">./Tests</directory>
+        </whitelist>
+    </filter>
     <testsuites>
         <testsuite name="PHPCI Command Test Suite">
             <directory suffix="Test.php">./Tests/PHPCI/Command</directory>
