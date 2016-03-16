@@ -1,9 +1,10 @@
 <?php
 /**
- * PHPCI - Continuous Integration for PHP
+ * PHPCI - Continuous Integration for PHP.
  *
  * @copyright    Copyright 2014, Block 8 Limited.
  * @license      https://github.com/Block8/PHPCI/blob/master/LICENSE.md
+ *
  * @link         https://www.phptesting.org/
  */
 
@@ -18,15 +19,12 @@ use Symfony\Component\Yaml\Dumper;
 use Symfony\Component\Yaml\Parser;
 
 /**
- * Settings Controller
+ * Settings Controller.
  *
  * @author       Dan Cryer <dan@block8.co.uk>
- * @package      PHPCI
- * @subpackage   Web
  */
 class SettingsController extends Controller
 {
-
     /**
      * @var array
      */
@@ -39,13 +37,14 @@ class SettingsController extends Controller
     {
         parent::init();
 
-        $parser         = new Parser();
-        $yaml           = file_get_contents(PHPCI_CONFIG_FILE);
+        $parser = new Parser();
+        $yaml = file_get_contents(PHPCI_CONFIG_FILE);
         $this->settings = $parser->parse($yaml);
     }
 
     /**
      * Display settings forms.
+     *
      * @return string
      */
     public function index()
@@ -98,16 +97,16 @@ class SettingsController extends Controller
     {
         $this->requireAdmin();
 
-        $this->settings['phpci']['github']['id']     = $this->getParam('githubid', '');
+        $this->settings['phpci']['github']['id'] = $this->getParam('githubid', '');
         $this->settings['phpci']['github']['secret'] = $this->getParam('githubsecret', '');
-        $error                                       = $this->storeSettings();
+        $error = $this->storeSettings();
 
         $response = new b8\Http\Response\RedirectResponse();
 
         if ($error) {
-            $response->setHeader('Location', PHPCI_URL . 'settings?saved=2');
+            $response->setHeader('Location', PHPCI_URL.'settings?saved=2');
         } else {
-            $response->setHeader('Location', PHPCI_URL . 'settings?saved=1');
+            $response->setHeader('Location', PHPCI_URL.'settings?saved=1');
         }
 
         return $response;
@@ -120,7 +119,7 @@ class SettingsController extends Controller
     {
         $this->requireAdmin();
 
-        $this->settings['phpci']['email_settings']                    = $this->getParams();
+        $this->settings['phpci']['email_settings'] = $this->getParams();
         $this->settings['phpci']['email_settings']['smtp_encryption'] = $this->getParam('smtp_encryption', 0);
 
         $error = $this->storeSettings();
@@ -128,9 +127,9 @@ class SettingsController extends Controller
         $response = new b8\Http\Response\RedirectResponse();
 
         if ($error) {
-            $response->setHeader('Location', PHPCI_URL . 'settings?saved=2');
+            $response->setHeader('Location', PHPCI_URL.'settings?saved=2');
         } else {
-            $response->setHeader('Location', PHPCI_URL . 'settings?saved=1');
+            $response->setHeader('Location', PHPCI_URL.'settings?saved=1');
         }
 
         return $response;
@@ -150,9 +149,9 @@ class SettingsController extends Controller
         $response = new b8\Http\Response\RedirectResponse();
 
         if ($error) {
-            $response->setHeader('Location', PHPCI_URL . 'settings?saved=2');
+            $response->setHeader('Location', PHPCI_URL.'settings?saved=2');
         } else {
-            $response->setHeader('Location', PHPCI_URL . 'settings?saved=1');
+            $response->setHeader('Location', PHPCI_URL.'settings?saved=1');
         }
 
         return $response;
@@ -171,22 +170,22 @@ class SettingsController extends Controller
         $response = new b8\Http\Response\RedirectResponse();
 
         if ($error) {
-            $response->setHeader('Location', PHPCI_URL . 'settings?saved=2');
+            $response->setHeader('Location', PHPCI_URL.'settings?saved=2');
         } else {
-            $response->setHeader('Location', PHPCI_URL . 'settings?saved=1');
+            $response->setHeader('Location', PHPCI_URL.'settings?saved=1');
         }
 
         return $response;
     }
 
     /**
-     * Handle authentication settings
+     * Handle authentication settings.
      */
     public function authentication()
     {
         $this->requireAdmin();
 
-        $this->settings['phpci']['authentication_settings']['state']   = $this->getParam('disable_authentication', 0);
+        $this->settings['phpci']['authentication_settings']['state'] = $this->getParam('disable_authentication', 0);
         $this->settings['phpci']['authentication_settings']['user_id'] = $_SESSION['phpci_user_id'];
 
         $error = $this->storeSettings();
@@ -194,27 +193,27 @@ class SettingsController extends Controller
         $response = new b8\Http\Response\RedirectResponse();
 
         if ($error) {
-            $response->setHeader('Location', PHPCI_URL . 'settings?saved=2');
+            $response->setHeader('Location', PHPCI_URL.'settings?saved=2');
         } else {
-            $response->setHeader('Location', PHPCI_URL . 'settings?saved=1');
+            $response->setHeader('Location', PHPCI_URL.'settings?saved=1');
         }
 
         return $response;
     }
 
     /**
-     * Github redirects users back to this URL when t
+     * Github redirects users back to this URL when t.
      */
     public function githubCallback()
     {
-        $code   = $this->getParam('code', null);
+        $code = $this->getParam('code', null);
         $github = $this->settings['phpci']['github'];
 
         if (!is_null($code)) {
-            $http   = new HttpClient();
-            $url    = 'https://github.com/login/oauth/access_token';
+            $http = new HttpClient();
+            $url = 'https://github.com/login/oauth/access_token';
             $params = array('client_id' => $github['id'], 'client_secret' => $github['secret'], 'code' => $code);
-            $resp   = $http->post($url, $params);
+            $resp = $http->post($url, $params);
 
             if ($resp['success']) {
                 parse_str($resp['body'], $resp);
@@ -223,13 +222,15 @@ class SettingsController extends Controller
                 $this->storeSettings();
 
                 $response = new b8\Http\Response\RedirectResponse();
-                $response->setHeader('Location', PHPCI_URL . 'settings?linked=1');
+                $response->setHeader('Location', PHPCI_URL.'settings?linked=1');
+
                 return $response;
             }
         }
 
         $response = new b8\Http\Response\RedirectResponse();
-        $response->setHeader('Location', PHPCI_URL . 'settings?linked=2');
+        $response->setHeader('Location', PHPCI_URL.'settings?linked=2');
+
         return $response;
     }
 
@@ -241,24 +242,26 @@ class SettingsController extends Controller
     protected function storeSettings()
     {
         $dumper = new Dumper();
-        $yaml   = $dumper->dump($this->settings, 4);
+        $yaml = $dumper->dump($this->settings, 4);
         file_put_contents(PHPCI_CONFIG_FILE, $yaml);
 
         if (error_get_last()) {
             $error_get_last = error_get_last();
+
             return $error_get_last['message'];
         }
     }
 
     /**
      * Get the Github settings form.
+     *
      * @return Form
      */
     protected function getGithubForm()
     {
         $form = new Form();
         $form->setMethod('POST');
-        $form->setAction(PHPCI_URL . 'settings/github');
+        $form->setAction(PHPCI_URL.'settings/github');
         $form->addField(new Form\Element\Csrf('csrf'));
 
         $field = new Form\Element\Text('githubid');
@@ -295,14 +298,16 @@ class SettingsController extends Controller
 
     /**
      * Get the email settings form.
+     *
      * @param array $values
+     *
      * @return Form
      */
     protected function getEmailForm($values = array())
     {
         $form = new Form();
         $form->setMethod('POST');
-        $form->setAction(PHPCI_URL . 'settings/email');
+        $form->setAction(PHPCI_URL.'settings/email');
         $form->addField(new Form\Element\Csrf('csrf'));
 
         $field = new Form\Element\Text('smtp_address');
@@ -370,7 +375,9 @@ class SettingsController extends Controller
 
     /**
      * Call Github API for our Github user object.
+     *
      * @param $token
+     *
      * @return mixed
      */
     protected function getGithubUser($token)
@@ -383,6 +390,7 @@ class SettingsController extends Controller
 
     /**
      * Check if we can write the PHPCI config file.
+     *
      * @return bool
      */
     protected function canWriteConfig()
@@ -392,14 +400,16 @@ class SettingsController extends Controller
 
     /**
      * Get the Build settings form.
+     *
      * @param array $values
+     *
      * @return Form
      */
     protected function getBuildForm($values = array())
     {
         $form = new Form();
         $form->setMethod('POST');
-        $form->setAction(PHPCI_URL . 'settings/build');
+        $form->setAction(PHPCI_URL.'settings/build');
 
         $field = new Form\Element\Select('failed_after');
         $field->setRequired(false);
@@ -416,7 +426,6 @@ class SettingsController extends Controller
         $field->setValue(1800);
         $form->addField($field);
 
-
         $field = new Form\Element\Submit();
         $field->setValue(Lang::get('save'));
         $field->setClass('btn btn-success pull-right');
@@ -429,14 +438,16 @@ class SettingsController extends Controller
 
     /**
      * Get the Basic settings form.
+     *
      * @param array $values
+     *
      * @return Form
      */
     protected function getBasicForm($values = array())
     {
         $form = new Form();
         $form->setMethod('POST');
-        $form->setAction(PHPCI_URL . 'settings/basic');
+        $form->setAction(PHPCI_URL.'settings/basic');
 
         $field = new Form\Element\Select('language');
         $field->setRequired(true);
@@ -446,7 +457,6 @@ class SettingsController extends Controller
         $field->setOptions(Lang::getLanguageOptions());
         $field->setValue(Lang::getLanguage());
         $form->addField($field);
-
 
         $field = new Form\Element\Submit();
         $field->setValue(Lang::get('save'));
@@ -459,16 +469,17 @@ class SettingsController extends Controller
     }
 
     /**
-     * Form for disabling user authentication while using a default user
+     * Form for disabling user authentication while using a default user.
      *
      * @param array $values
+     *
      * @return Form
      */
     protected function getAuthenticationForm($values = array())
     {
         $form = new Form();
         $form->setMethod('POST');
-        $form->setAction(PHPCI_URL . 'settings/authentication');
+        $form->setAction(PHPCI_URL.'settings/authentication');
         $form->addField(new Form\Element\Csrf('csrf'));
 
         $field = new Form\Element\Checkbox('disable_authentication');
@@ -479,7 +490,7 @@ class SettingsController extends Controller
         $field->setValue(0);
 
         if (isset($values['state'])) {
-            $field->setValue((int)$values['state']);
+            $field->setValue((int) $values['state']);
         }
 
         $form->addField($field);

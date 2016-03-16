@@ -1,4 +1,5 @@
 <?php
+
 namespace Tests\PHPCI\ProcessControl;
 
 use PHPCI\ProcessControl\PosixProcessControl;

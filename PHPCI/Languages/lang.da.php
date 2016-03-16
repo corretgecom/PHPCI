@@ -1,12 +1,12 @@
 <?php
 /**
- * PHPCI - Continuous Integration for PHP
+ * PHPCI - Continuous Integration for PHP.
  *
  * @copyright    Copyright 2014, Block 8 Limited.
  * @license      https://github.com/Block8/PHPCI/blob/master/LICENSE.md
+ *
  * @link         https://www.phptesting.org/
  */
-
 $strings = array(
     'language_name' => 'Dansk',
     'language' => 'Sprog',
@@ -42,7 +42,6 @@ PHPCI',
     'login' => 'Login / Email Address',
     'password' => 'Adgangskode',
     'log_in' => 'Log ind',
-
 
     // Top Nav
     'toggle_navigation' => 'Vis/skjul navigation',
@@ -100,7 +99,7 @@ i din foretrukne hosting-platform.',
     'gitlab' => 'GitLab',
     'remote' => 'Ekstern URL',
     'local' => 'Lokalt filsystem',
-    'hg'    => 'Mercurial',
+    'hg' => 'Mercurial',
 
     'where_hosted' => 'Hvor er dit projekt hosted?',
     'choose_github' => 'Vælg et GitHub-repository:',
@@ -155,7 +154,6 @@ Services</a> sektionen under dit Bitbucket-repository.',
     'build_x_not_found' => 'Build med ID %d findes ikke.',
     'build_n' => 'Build %d',
     'rebuild_now' => 'Gentag Build',
-
 
     'committed_by_x' => 'Committed af %s',
     'commit_id_x' => 'Commit: %s',
@@ -393,5 +391,5 @@ Kontrollér venligst nedenstående fejl før du fortsætter.',
     'build_file_missing' => 'Den angivne build-fil findes ikke.',
     'property_file_missing' => 'Den angivne property-fil findes ikke',
     'could_not_process_report' => 'Kunne ikke behandle rapporten, som dette værktøj genererede.',
-    'shell_not_enabled' => 'Shell-plugin er ikke aktiveret. Aktivér det via config.yml.'
+    'shell_not_enabled' => 'Shell-plugin er ikke aktiveret. Aktivér det via config.yml.',
 );

@@ -1,9 +1,10 @@
 <?php
 /**
- * PHPCI - Continuous Integration for PHP
+ * PHPCI - Continuous Integration for PHP.
  *
  * @copyright    Copyright 2014, Block 8 Limited.
  * @license      https://github.com/Block8/PHPCI/blob/master/LICENSE.md
+ *
  * @link         https://www.phptesting.org/
  */
 
@@ -17,10 +18,9 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * Create admin command - creates an admin user
+ * Create admin command - creates an admin user.
+ *
  * @author       Wogan May (@woganmay)
- * @package      PHPCI
- * @subpackage   Console
  */
 class CreateAdminCommand extends Command
 {
@@ -47,9 +47,9 @@ class CreateAdminCommand extends Command
     }
 
     /**
-     * Creates an admin user in the existing PHPCI database
+     * Creates an admin user in the existing PHPCI database.
      *
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {

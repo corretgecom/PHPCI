@@ -23,7 +23,7 @@ class AddProjectGroups extends AbstractMigration
             'default' => $group->getId(),
         ));
 
-        $table->addForeignKey('group_id', 'project_group', 'id', array('delete'=> 'RESTRICT', 'update' => 'CASCADE'));
+        $table->addForeignKey('group_id', 'project_group', 'id', array('delete' => 'RESTRICT', 'update' => 'CASCADE'));
         $table->save();
     }
 }

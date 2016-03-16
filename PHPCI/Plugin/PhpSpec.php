@@ -1,9 +1,10 @@
 <?php
 /**
- * PHPCI - Continuous Integration for PHP
+ * PHPCI - Continuous Integration for PHP.
  *
  * @copyright    Copyright 2014, Block 8 Limited.
  * @license      https://github.com/Block8/PHPCI/blob/master/LICENSE.md
+ *
  * @link         https://www.phptesting.org/
  */
 
@@ -14,11 +15,10 @@ use PHPCI\Builder;
 use PHPCI\Model\Build;
 
 /**
-* PHP Spec Plugin - Allows PHP Spec testing.
-* @author       Dan Cryer <dan@block8.co.uk>
-* @package      PHPCI
-* @subpackage   Plugins
-*/
+ * PHP Spec Plugin - Allows PHP Spec testing.
+ *
+ * @author       Dan Cryer <dan@block8.co.uk>
+ */
 class PhpSpec implements PHPCI\Plugin
 {
     /**
@@ -38,9 +38,10 @@ class PhpSpec implements PHPCI\Plugin
 
     /**
      * Set up the plugin, configure options, etc.
+     *
      * @param Builder $phpci
-     * @param Build $build
-     * @param array $options
+     * @param Build   $build
+     * @param array   $options
      */
     public function __construct(Builder $phpci, Build $build, array $options = array())
     {
@@ -50,8 +51,8 @@ class PhpSpec implements PHPCI\Plugin
     }
 
     /**
-    * Runs PHP Spec tests.
-    */
+     * Runs PHP Spec tests.
+     */
     public function execute()
     {
         $curdir = getcwd();
@@ -59,7 +60,7 @@ class PhpSpec implements PHPCI\Plugin
 
         $phpspec = $this->phpci->findBinary(array('phpspec', 'phpspec.php'));
 
-        $success = $this->phpci->executeCommand($phpspec . ' --format=junit --no-code-generation run');
+        $success = $this->phpci->executeCommand($phpspec.' --format=junit --no-code-generation run');
         $output = $this->phpci->getLastOutput();
 
         chdir($curdir);
@@ -77,45 +78,45 @@ class PhpSpec implements PHPCI\Plugin
         $xml = new \SimpleXMLElement($output);
         $attr = $xml->attributes();
         $data = array(
-            'time' => (float)$attr['time'],
-            'tests' => (int)$attr['tests'],
-            'failures' => (int)$attr['failures'],
-            'errors' => (int)$attr['errors'],
+            'time' => (float) $attr['time'],
+            'tests' => (int) $attr['tests'],
+            'failures' => (int) $attr['failures'],
+            'errors' => (int) $attr['errors'],
 
             // now all the tests
-            'suites' => array()
+            'suites' => array(),
         );
 
         /**
-         * @var \SimpleXMLElement $group
+         * @var \SimpleXMLElement
          */
         foreach ($xml->xpath('testsuite') as $group) {
             $attr = $group->attributes();
             $suite = array(
-                'name' => (String)$attr['name'],
-                'time' => (float)$attr['time'],
-                'tests' => (int)$attr['tests'],
-                'failures' => (int)$attr['failures'],
-                'errors' => (int)$attr['errors'],
-                'skipped' => (int)$attr['skipped'],
+                'name' => (String) $attr['name'],
+                'time' => (float) $attr['time'],
+                'tests' => (int) $attr['tests'],
+                'failures' => (int) $attr['failures'],
+                'errors' => (int) $attr['errors'],
+                'skipped' => (int) $attr['skipped'],
 
                 // now the cases
-                'cases' => array()
+                'cases' => array(),
             );
 
             /**
-             * @var \SimpleXMLElement $child
+             * @var \SimpleXMLElement
              */
             foreach ($group->xpath('testcase') as $child) {
                 $attr = $child->attributes();
                 $case = array(
-                    'name' => (String)$attr['name'],
-                    'classname' => (String)$attr['classname'],
-                    'time' => (float)$attr['time'],
-                    'status' => (String)$attr['status'],
+                    'name' => (String) $attr['name'],
+                    'classname' => (String) $attr['classname'],
+                    'time' => (float) $attr['time'],
+                    'status' => (String) $attr['status'],
                 );
 
-                if ($case['status']=='failed') {
+                if ($case['status'] == 'failed') {
                     $error = array();
                     /*
                      * ok, sad, we had an error
@@ -124,12 +125,12 @@ class PhpSpec implements PHPCI\Plugin
                      */
                     foreach ($child->xpath('failure') as $failure) {
                         $attr = $failure->attributes();
-                        $error['type'] = (String)$attr['type'];
-                        $error['message'] = (String)$attr['message'];
+                        $error['type'] = (String) $attr['type'];
+                        $error['message'] = (String) $attr['message'];
                     }
 
                     foreach ($child->xpath('system-err') as $system_err) {
-                        $error['raw'] = (String)$system_err;
+                        $error['raw'] = (String) $system_err;
                     }
 
                     $case['error'] = $error;
@@ -142,7 +143,6 @@ class PhpSpec implements PHPCI\Plugin
         }
 
         $this->build->storeMeta('phpspec', $data);
-
 
         return $success;
     }

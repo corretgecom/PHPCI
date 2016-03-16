@@ -1,7 +1,7 @@
 <?php
 
 /**
- * User base store for table: user
+ * User base store for table: user.
  */
 
 namespace PHPCI\Store\Base;
@@ -12,16 +12,16 @@ use PHPCI\Store;
 use PHPCI\Model\User;
 
 /**
- * User Base Store
+ * User Base Store.
  */
 class UserStoreBase extends Store
 {
-    protected $tableName   = 'user';
-    protected $modelName   = '\PHPCI\Model\User';
-    protected $primaryKey  = 'id';
+    protected $tableName = 'user';
+    protected $modelName = '\PHPCI\Model\User';
+    protected $primaryKey = 'id';
 
     /**
-     * Get a User by primary key (Id)
+     * Get a User by primary key (Id).
      */
     public function getByPrimaryKey($value, $useConnection = 'read')
     {
@@ -30,12 +30,13 @@ class UserStoreBase extends Store
 
     /**
      * Get a single User by Id.
+     *
      * @return null|User
      */
     public function getById($value, $useConnection = 'read')
     {
         if (is_null($value)) {
-            throw new HttpException('Value passed to ' . __FUNCTION__ . ' cannot be null.');
+            throw new HttpException('Value passed to '.__FUNCTION__.' cannot be null.');
         }
 
         $query = 'SELECT * FROM `user` WHERE `id` = :id LIMIT 1';
@@ -48,17 +49,18 @@ class UserStoreBase extends Store
             }
         }
 
-        return null;
+        return;
     }
 
     /**
      * Get a single User by Email.
+     *
      * @return null|User
      */
     public function getByEmail($value, $useConnection = 'read')
     {
         if (is_null($value)) {
-            throw new HttpException('Value passed to ' . __FUNCTION__ . ' cannot be null.');
+            throw new HttpException('Value passed to '.__FUNCTION__.' cannot be null.');
         }
 
         $query = 'SELECT * FROM `user` WHERE `email` = :email LIMIT 1';
@@ -71,24 +73,24 @@ class UserStoreBase extends Store
             }
         }
 
-        return null;
+        return;
     }
 
     /**
      * Get multiple User by Name.
+     *
      * @return array
      */
     public function getByName($value, $limit = 1000, $useConnection = 'read')
     {
         if (is_null($value)) {
-            throw new HttpException('Value passed to ' . __FUNCTION__ . ' cannot be null.');
+            throw new HttpException('Value passed to '.__FUNCTION__.' cannot be null.');
         }
-
 
         $query = 'SELECT * FROM `user` WHERE `name` = :name LIMIT :limit';
         $stmt = Database::getConnection($useConnection)->prepare($query);
         $stmt->bindValue(':name', $value);
-        $stmt->bindValue(':limit', (int)$limit, \PDO::PARAM_INT);
+        $stmt->bindValue(':limit', (int) $limit, \PDO::PARAM_INT);
 
         if ($stmt->execute()) {
             $res = $stmt->fetchAll(\PDO::FETCH_ASSOC);

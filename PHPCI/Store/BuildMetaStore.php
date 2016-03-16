@@ -1,9 +1,10 @@
 <?php
 /**
- * PHPCI - Continuous Integration for PHP
+ * PHPCI - Continuous Integration for PHP.
  *
  * @copyright    Copyright 2014, Block 8 Limited.
  * @license      https://github.com/Block8/PHPCI/blob/master/LICENSE.md
+ *
  * @link         https://www.phptesting.org/
  */
 
@@ -14,15 +15,18 @@ use b8\Database;
 use PHPCI\Model\BuildMeta;
 
 /**
- * BuildMeta Store
+ * BuildMeta Store.
+ *
  * @uses PHPCI\Store\Base\BuildMetaStoreBase
  */
 class BuildMetaStore extends BuildMetaStoreBase
 {
     /**
-     * Only used by an upgrade migration to move errors from build_meta to build_error
+     * Only used by an upgrade migration to move errors from build_meta to build_error.
+     *
      * @param $start
      * @param $limit
+     *
      * @return array
      */
     public function getErrorsForUpgrade($limit)

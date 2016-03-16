@@ -1,9 +1,10 @@
 <?php
 /**
- * PHPCI - Continuous Integration for PHP
+ * PHPCI - Continuous Integration for PHP.
  *
  * @copyright    Copyright 2014, Block 8 Limited.
  * @license      https://github.com/Block8/PHPCI/blob/master/LICENSE.md
+ *
  * @link         https://www.phptesting.org/
  */
 
@@ -15,11 +16,10 @@ use PHPCI\Model\Build;
 use PHPCI\Model\BuildError;
 
 /**
-* PHP Code Sniffer Plugin - Allows PHP Code Sniffer testing.
-* @author       Dan Cryer <dan@block8.co.uk>
-* @package      PHPCI
-* @subpackage   Plugins
-*/
+ * PHP Code Sniffer Plugin - Allows PHP Code Sniffer testing.
+ *
+ * @author       Dan Cryer <dan@block8.co.uk>
+ */
 class PhpCodeSniffer implements PHPCI\Plugin, PHPCI\ZeroConfigPlugin
 {
     /**
@@ -64,7 +64,7 @@ class PhpCodeSniffer implements PHPCI\Plugin, PHPCI\ZeroConfigPlugin
 
     /**
      * @var string, based on the assumption the root may not hold the code to be
-     * tested, exteds the base path
+     *              tested, exteds the base path
      */
     protected $path;
 
@@ -75,9 +75,11 @@ class PhpCodeSniffer implements PHPCI\Plugin, PHPCI\ZeroConfigPlugin
 
     /**
      * Check if this plugin can be executed.
+     *
      * @param $stage
      * @param Builder $builder
-     * @param Build $build
+     * @param Build   $build
+     *
      * @return bool
      */
     public static function canExecute($stage, Builder $builder, Build $build)
@@ -90,9 +92,9 @@ class PhpCodeSniffer implements PHPCI\Plugin, PHPCI\ZeroConfigPlugin
     }
 
     /**
-     * @param \PHPCI\Builder $phpci
+     * @param \PHPCI\Builder     $phpci
      * @param \PHPCI\Model\Build $build
-     * @param array $options
+     * @param array              $options
      */
     public function __construct(Builder $phpci, Build $build, array $options = array())
     {
@@ -114,7 +116,7 @@ class PhpCodeSniffer implements PHPCI\Plugin, PHPCI\ZeroConfigPlugin
         }
 
         if (isset($options['suffixes'])) {
-            $this->suffixes = (array)$options['suffixes'];
+            $this->suffixes = (array) $options['suffixes'];
         }
 
         if (!empty($options['tab_width'])) {
@@ -122,7 +124,7 @@ class PhpCodeSniffer implements PHPCI\Plugin, PHPCI\ZeroConfigPlugin
         }
 
         if (!empty($options['encoding'])) {
-            $this->encoding = ' --encoding=' . $options['encoding'];
+            $this->encoding = ' --encoding='.$options['encoding'];
         }
 
         $this->setOptions($options);
@@ -130,6 +132,7 @@ class PhpCodeSniffer implements PHPCI\Plugin, PHPCI\ZeroConfigPlugin
 
     /**
      * Handle this plugin's options.
+     *
      * @param $options
      */
     protected function setOptions($options)
@@ -142,8 +145,8 @@ class PhpCodeSniffer implements PHPCI\Plugin, PHPCI\ZeroConfigPlugin
     }
 
     /**
-    * Runs PHP Code Sniffer in a specified directory, to a specified standard.
-    */
+     * Runs PHP Code Sniffer in a specified directory, to a specified standard.
+     */
     public function execute()
     {
         list($ignore, $standard, $suffixes) = $this->getFlags();
@@ -152,7 +155,7 @@ class PhpCodeSniffer implements PHPCI\Plugin, PHPCI\ZeroConfigPlugin
 
         $this->phpci->logExecOutput(false);
 
-        $cmd = $phpcs . ' --report=json %s %s %s %s %s "%s"';
+        $cmd = $phpcs.' --report=json %s %s %s %s %s "%s"';
         $this->phpci->executeCommand(
             $cmd,
             $standard,
@@ -160,7 +163,7 @@ class PhpCodeSniffer implements PHPCI\Plugin, PHPCI\ZeroConfigPlugin
             $ignore,
             $this->tab_width,
             $this->encoding,
-            $this->phpci->buildPath . $this->path
+            $this->phpci->buildPath.$this->path
         );
 
         $output = $this->phpci->getLastOutput();
@@ -185,13 +188,14 @@ class PhpCodeSniffer implements PHPCI\Plugin, PHPCI\ZeroConfigPlugin
 
     /**
      * Process options and produce an arguments string for PHPCS.
+     *
      * @return array
      */
     protected function getFlags()
     {
         $ignore = '';
         if (count($this->ignore)) {
-            $ignore = ' --ignore=' . implode(',', $this->ignore);
+            $ignore = ' --ignore='.implode(',', $this->ignore);
         }
 
         if (strpos($this->standard, '/') !== false) {
@@ -202,7 +206,7 @@ class PhpCodeSniffer implements PHPCI\Plugin, PHPCI\ZeroConfigPlugin
 
         $suffixes = '';
         if (count($this->suffixes)) {
-            $suffixes = ' --extensions=' . implode(',', $this->suffixes);
+            $suffixes = ' --extensions='.implode(',', $this->suffixes);
         }
 
         return array($ignore, $standard, $suffixes);
@@ -210,8 +214,11 @@ class PhpCodeSniffer implements PHPCI\Plugin, PHPCI\ZeroConfigPlugin
 
     /**
      * Process the PHPCS output report.
+     *
      * @param $output
+     *
      * @return array
+     *
      * @throws \Exception
      */
     protected function processReport($output)
@@ -233,7 +240,7 @@ class PhpCodeSniffer implements PHPCI\Plugin, PHPCI\ZeroConfigPlugin
                 $this->build->reportError(
                     $this->phpci,
                     'php_code_sniffer',
-                    'PHPCS: ' . $message['message'],
+                    'PHPCS: '.$message['message'],
                     $message['type'] == 'ERROR' ? BuildError::SEVERITY_HIGH : BuildError::SEVERITY_LOW,
                     $fileName,
                     $message['line']

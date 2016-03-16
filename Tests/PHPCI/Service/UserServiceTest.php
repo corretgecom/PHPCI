@@ -1,10 +1,11 @@
 <?php
 
 /**
- * PHPCI - Continuous Integration for PHP
+ * PHPCI - Continuous Integration for PHP.
  *
  * @copyright    Copyright 2014, Block 8 Limited.
  * @license      https://github.com/Block8/PHPCI/blob/master/LICENSE.md
+ *
  * @link         https://www.phptesting.org/
  */
 
@@ -15,18 +16,18 @@ use PHPCI\Service\UserService;
 
 /**
  * Unit tests for the ProjectService class.
+ *
  * @author Dan Cryer <dan@block8.co.uk>
  */
 class UserServiceTest extends \PHPUnit_Framework_TestCase
 {
-
     /**
-     * @var UserService $testedService
+     * @var UserService
      */
     protected $testedService;
 
     /**
-     * @var \ $mockBuildStore
+     * @var \
      */
     protected $mockUserStore;
 

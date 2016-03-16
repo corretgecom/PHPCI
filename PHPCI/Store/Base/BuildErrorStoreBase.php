@@ -1,7 +1,7 @@
 <?php
 
 /**
- * BuildError base store for table: build_error
+ * BuildError base store for table: build_error.
  */
 
 namespace PHPCI\Store\Base;
@@ -12,16 +12,16 @@ use PHPCI\Store;
 use PHPCI\Model\BuildError;
 
 /**
- * BuildError Base Store
+ * BuildError Base Store.
  */
 class BuildErrorStoreBase extends Store
 {
-    protected $tableName   = 'build_error';
-    protected $modelName   = '\PHPCI\Model\BuildError';
-    protected $primaryKey  = 'id';
+    protected $tableName = 'build_error';
+    protected $modelName = '\PHPCI\Model\BuildError';
+    protected $primaryKey = 'id';
 
     /**
-     * Get a BuildError by primary key (Id)
+     * Get a BuildError by primary key (Id).
      */
     public function getByPrimaryKey($value, $useConnection = 'read')
     {
@@ -30,12 +30,13 @@ class BuildErrorStoreBase extends Store
 
     /**
      * Get a single BuildError by Id.
+     *
      * @return null|BuildError
      */
     public function getById($value, $useConnection = 'read')
     {
         if (is_null($value)) {
-            throw new HttpException('Value passed to ' . __FUNCTION__ . ' cannot be null.');
+            throw new HttpException('Value passed to '.__FUNCTION__.' cannot be null.');
         }
 
         $query = 'SELECT * FROM `build_error` WHERE `id` = :id LIMIT 1';
@@ -48,24 +49,24 @@ class BuildErrorStoreBase extends Store
             }
         }
 
-        return null;
+        return;
     }
 
     /**
      * Get multiple BuildError by BuildId.
+     *
      * @return array
      */
     public function getByBuildId($value, $limit = 1000, $useConnection = 'read')
     {
         if (is_null($value)) {
-            throw new HttpException('Value passed to ' . __FUNCTION__ . ' cannot be null.');
+            throw new HttpException('Value passed to '.__FUNCTION__.' cannot be null.');
         }
-
 
         $query = 'SELECT * FROM `build_error` WHERE `build_id` = :build_id LIMIT :limit';
         $stmt = Database::getConnection($useConnection)->prepare($query);
         $stmt->bindValue(':build_id', $value);
-        $stmt->bindValue(':limit', (int)$limit, \PDO::PARAM_INT);
+        $stmt->bindValue(':limit', (int) $limit, \PDO::PARAM_INT);
 
         if ($stmt->execute()) {
             $res = $stmt->fetchAll(\PDO::FETCH_ASSOC);

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Build base model for table: build
+ * Build base model for table: build.
  */
 
 namespace PHPCI\Model\Base;
@@ -10,28 +10,28 @@ use PHPCI\Model;
 use b8\Store\Factory;
 
 /**
- * Build Base Model
+ * Build Base Model.
  */
 class BuildBase extends Model
 {
     /**
-    * @var array
-    */
+     * @var array
+     */
     public static $sleepable = array();
 
     /**
-    * @var string
-    */
+     * @var string
+     */
     protected $tableName = 'build';
 
     /**
-    * @var string
-    */
+     * @var string
+     */
     protected $modelName = 'Build';
 
     /**
-    * @var array
-    */
+     * @var array
+     */
     protected $data = array(
         'id' => null,
         'project_id' => null,
@@ -48,8 +48,8 @@ class BuildBase extends Model
     );
 
     /**
-    * @var array
-    */
+     * @var array
+     */
     protected $getters = array(
         // Direct property getters:
         'id' => 'getId',
@@ -70,8 +70,8 @@ class BuildBase extends Model
     );
 
     /**
-    * @var array
-    */
+     * @var array
+     */
     protected $setters = array(
         // Direct property setters:
         'id' => 'setId',
@@ -92,8 +92,8 @@ class BuildBase extends Model
     );
 
     /**
-    * @var array
-    */
+     * @var array
+     */
     public $columns = array(
         'id' => array(
             'type' => 'int',
@@ -161,8 +161,8 @@ class BuildBase extends Model
     );
 
     /**
-    * @var array
-    */
+     * @var array
+     */
     public $indexes = array(
             'PRIMARY' => array('unique' => true, 'columns' => 'id'),
             'project_id' => array('columns' => 'project_id'),
@@ -170,180 +170,181 @@ class BuildBase extends Model
     );
 
     /**
-    * @var array
-    */
+     * @var array
+     */
     public $foreignKeys = array(
             'build_ibfk_1' => array(
                 'local_col' => 'project_id',
                 'update' => 'CASCADE',
                 'delete' => 'CASCADE',
                 'table' => 'project',
-                'col' => 'id'
+                'col' => 'id',
                 ),
     );
 
     /**
-    * Get the value of Id / id.
-    *
-    * @return int
-    */
+     * Get the value of Id / id.
+     *
+     * @return int
+     */
     public function getId()
     {
-        $rtn    = $this->data['id'];
+        $rtn = $this->data['id'];
 
         return $rtn;
     }
 
     /**
-    * Get the value of ProjectId / project_id.
-    *
-    * @return int
-    */
+     * Get the value of ProjectId / project_id.
+     *
+     * @return int
+     */
     public function getProjectId()
     {
-        $rtn    = $this->data['project_id'];
+        $rtn = $this->data['project_id'];
 
         return $rtn;
     }
 
     /**
-    * Get the value of CommitId / commit_id.
-    *
-    * @return string
-    */
+     * Get the value of CommitId / commit_id.
+     *
+     * @return string
+     */
     public function getCommitId()
     {
-        $rtn    = $this->data['commit_id'];
+        $rtn = $this->data['commit_id'];
 
         return $rtn;
     }
 
     /**
-    * Get the value of Status / status.
-    *
-    * @return int
-    */
+     * Get the value of Status / status.
+     *
+     * @return int
+     */
     public function getStatus()
     {
-        $rtn    = $this->data['status'];
+        $rtn = $this->data['status'];
 
         return $rtn;
     }
 
     /**
-    * Get the value of Log / log.
-    *
-    * @return string
-    */
+     * Get the value of Log / log.
+     *
+     * @return string
+     */
     public function getLog()
     {
-        $rtn    = $this->data['log'];
+        $rtn = $this->data['log'];
 
         return $rtn;
     }
 
     /**
-    * Get the value of Branch / branch.
-    *
-    * @return string
-    */
+     * Get the value of Branch / branch.
+     *
+     * @return string
+     */
     public function getBranch()
     {
-        $rtn    = $this->data['branch'];
+        $rtn = $this->data['branch'];
 
         return $rtn;
     }
 
     /**
-    * Get the value of Created / created.
-    *
-    * @return \DateTime
-    */
+     * Get the value of Created / created.
+     *
+     * @return \DateTime
+     */
     public function getCreated()
     {
-        $rtn    = $this->data['created'];
+        $rtn = $this->data['created'];
 
         if (!empty($rtn)) {
-            $rtn    = new \DateTime($rtn);
+            $rtn = new \DateTime($rtn);
         }
-        
+
         return $rtn;
     }
 
     /**
-    * Get the value of Started / started.
-    *
-    * @return \DateTime
-    */
+     * Get the value of Started / started.
+     *
+     * @return \DateTime
+     */
     public function getStarted()
     {
-        $rtn    = $this->data['started'];
+        $rtn = $this->data['started'];
 
         if (!empty($rtn)) {
-            $rtn    = new \DateTime($rtn);
+            $rtn = new \DateTime($rtn);
         }
-        
+
         return $rtn;
     }
 
     /**
-    * Get the value of Finished / finished.
-    *
-    * @return \DateTime
-    */
+     * Get the value of Finished / finished.
+     *
+     * @return \DateTime
+     */
     public function getFinished()
     {
-        $rtn    = $this->data['finished'];
+        $rtn = $this->data['finished'];
 
         if (!empty($rtn)) {
-            $rtn    = new \DateTime($rtn);
+            $rtn = new \DateTime($rtn);
         }
-        
+
         return $rtn;
     }
 
     /**
-    * Get the value of CommitterEmail / committer_email.
-    *
-    * @return string
-    */
+     * Get the value of CommitterEmail / committer_email.
+     *
+     * @return string
+     */
     public function getCommitterEmail()
     {
-        $rtn    = $this->data['committer_email'];
+        $rtn = $this->data['committer_email'];
 
         return $rtn;
     }
 
     /**
-    * Get the value of CommitMessage / commit_message.
-    *
-    * @return string
-    */
+     * Get the value of CommitMessage / commit_message.
+     *
+     * @return string
+     */
     public function getCommitMessage()
     {
-        $rtn    = $this->data['commit_message'];
+        $rtn = $this->data['commit_message'];
 
         return $rtn;
     }
 
     /**
-    * Get the value of Extra / extra.
-    *
-    * @return string
-    */
+     * Get the value of Extra / extra.
+     *
+     * @return string
+     */
     public function getExtra()
     {
-        $rtn    = $this->data['extra'];
+        $rtn = $this->data['extra'];
 
         return $rtn;
     }
 
     /**
-    * Set the value of Id / id.
-    *
-    * Must not be null.
-    * @param $value int
-    */
+     * Set the value of Id / id.
+     *
+     * Must not be null.
+     *
+     * @param $value int
+     */
     public function setId($value)
     {
         $this->_validateNotNull('Id', $value);
@@ -359,11 +360,12 @@ class BuildBase extends Model
     }
 
     /**
-    * Set the value of ProjectId / project_id.
-    *
-    * Must not be null.
-    * @param $value int
-    */
+     * Set the value of ProjectId / project_id.
+     *
+     * Must not be null.
+     *
+     * @param $value int
+     */
     public function setProjectId($value)
     {
         $this->_validateNotNull('ProjectId', $value);
@@ -379,11 +381,12 @@ class BuildBase extends Model
     }
 
     /**
-    * Set the value of CommitId / commit_id.
-    *
-    * Must not be null.
-    * @param $value string
-    */
+     * Set the value of CommitId / commit_id.
+     *
+     * Must not be null.
+     *
+     * @param $value string
+     */
     public function setCommitId($value)
     {
         $this->_validateNotNull('CommitId', $value);
@@ -399,11 +402,12 @@ class BuildBase extends Model
     }
 
     /**
-    * Set the value of Status / status.
-    *
-    * Must not be null.
-    * @param $value int
-    */
+     * Set the value of Status / status.
+     *
+     * Must not be null.
+     *
+     * @param $value int
+     */
     public function setStatus($value)
     {
         $this->_validateNotNull('Status', $value);
@@ -419,10 +423,10 @@ class BuildBase extends Model
     }
 
     /**
-    * Set the value of Log / log.
-    *
-    * @param $value string
-    */
+     * Set the value of Log / log.
+     *
+     * @param $value string
+     */
     public function setLog($value)
     {
         $this->_validateString('Log', $value);
@@ -437,11 +441,12 @@ class BuildBase extends Model
     }
 
     /**
-    * Set the value of Branch / branch.
-    *
-    * Must not be null.
-    * @param $value string
-    */
+     * Set the value of Branch / branch.
+     *
+     * Must not be null.
+     *
+     * @param $value string
+     */
     public function setBranch($value)
     {
         $this->_validateNotNull('Branch', $value);
@@ -457,10 +462,10 @@ class BuildBase extends Model
     }
 
     /**
-    * Set the value of Created / created.
-    *
-    * @param $value \DateTime
-    */
+     * Set the value of Created / created.
+     *
+     * @param $value \DateTime
+     */
     public function setCreated($value)
     {
         $this->_validateDate('Created', $value);
@@ -475,10 +480,10 @@ class BuildBase extends Model
     }
 
     /**
-    * Set the value of Started / started.
-    *
-    * @param $value \DateTime
-    */
+     * Set the value of Started / started.
+     *
+     * @param $value \DateTime
+     */
     public function setStarted($value)
     {
         $this->_validateDate('Started', $value);
@@ -493,10 +498,10 @@ class BuildBase extends Model
     }
 
     /**
-    * Set the value of Finished / finished.
-    *
-    * @param $value \DateTime
-    */
+     * Set the value of Finished / finished.
+     *
+     * @param $value \DateTime
+     */
     public function setFinished($value)
     {
         $this->_validateDate('Finished', $value);
@@ -511,10 +516,10 @@ class BuildBase extends Model
     }
 
     /**
-    * Set the value of CommitterEmail / committer_email.
-    *
-    * @param $value string
-    */
+     * Set the value of CommitterEmail / committer_email.
+     *
+     * @param $value string
+     */
     public function setCommitterEmail($value)
     {
         $this->_validateString('CommitterEmail', $value);
@@ -529,10 +534,10 @@ class BuildBase extends Model
     }
 
     /**
-    * Set the value of CommitMessage / commit_message.
-    *
-    * @param $value string
-    */
+     * Set the value of CommitMessage / commit_message.
+     *
+     * @param $value string
+     */
     public function setCommitMessage($value)
     {
         $this->_validateString('CommitMessage', $value);
@@ -547,10 +552,10 @@ class BuildBase extends Model
     }
 
     /**
-    * Set the value of Extra / extra.
-    *
-    * @param $value string
-    */
+     * Set the value of Extra / extra.
+     *
+     * @param $value string
+     */
     public function setExtra($value)
     {
         $this->_validateString('Extra', $value);
@@ -569,6 +574,7 @@ class BuildBase extends Model
      *
      * @uses \PHPCI\Store\ProjectStore::getById()
      * @uses \PHPCI\Model\Project
+     *
      * @return \PHPCI\Model\Project
      */
     public function getProject()
@@ -576,14 +582,14 @@ class BuildBase extends Model
         $key = $this->getProjectId();
 
         if (empty($key)) {
-            return null;
+            return;
         }
 
-        $cacheKey   = 'Cache.Project.' . $key;
-        $rtn        = $this->cache->get($cacheKey, null);
+        $cacheKey = 'Cache.Project.'.$key;
+        $rtn = $this->cache->get($cacheKey, null);
 
         if (empty($rtn)) {
-            $rtn    = Factory::getStore('Project', 'PHPCI')->getById($key);
+            $rtn = Factory::getStore('Project', 'PHPCI')->getById($key);
             $this->cache->set($cacheKey, $rtn);
         }
 
@@ -591,10 +597,10 @@ class BuildBase extends Model
     }
 
     /**
-    * Set Project - Accepts an ID, an array representing a Project or a Project model.
-    *
-    * @param $value mixed
-    */
+     * Set Project - Accepts an ID, an array representing a Project or a Project model.
+     *
+     * @param $value mixed
+     */
     public function setProject($value)
     {
         // Is this an instance of Project?
@@ -612,10 +618,10 @@ class BuildBase extends Model
     }
 
     /**
-    * Set Project - Accepts a Project model.
-    * 
-    * @param $value \PHPCI\Model\Project
-    */
+     * Set Project - Accepts a Project model.
+     * 
+     * @param $value \PHPCI\Model\Project
+     */
     public function setProjectObject(\PHPCI\Model\Project $value)
     {
         return $this->setProjectId($value->getId());
@@ -626,6 +632,7 @@ class BuildBase extends Model
      *
      * @uses \PHPCI\Store\BuildErrorStore::getByBuildId()
      * @uses \PHPCI\Model\BuildError
+     *
      * @return \PHPCI\Model\BuildError[]
      */
     public function getBuildBuildErrors()
@@ -638,6 +645,7 @@ class BuildBase extends Model
      *
      * @uses \PHPCI\Store\BuildMetaStore::getByBuildId()
      * @uses \PHPCI\Model\BuildMeta
+     *
      * @return \PHPCI\Model\BuildMeta[]
      */
     public function getBuildBuildMetas()

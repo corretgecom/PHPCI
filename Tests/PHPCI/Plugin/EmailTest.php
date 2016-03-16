@@ -1,10 +1,11 @@
 <?php
 
 /**
- * PHPCI - Continuous Integration for PHP
+ * PHPCI - Continuous Integration for PHP.
  *
  * @copyright    Copyright 2013, Block 8 Limited.
  * @license      https://github.com/Block8/PHPCI/blob/master/LICENSE.md
+ *
  * @link         https://www.phptesting.org/
  */
 
@@ -15,28 +16,28 @@ use PHPCI\Model\Build;
 
 /**
  * Unit test for the PHPUnit plugin.
+ *
  * @author meadsteve
  */
 class EmailTest extends \PHPUnit_Framework_TestCase
 {
-
     /**
-     * @var EmailPlugin $testedPhpUnit
+     * @var EmailPlugin
      */
     protected $testedEmailPlugin;
 
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject $mockCiBuilder
+     * @var \PHPUnit_Framework_MockObject_MockObject
      */
     protected $mockCiBuilder;
 
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject $mockBuild
+     * @var \PHPUnit_Framework_MockObject_MockObject
      */
     protected $mockBuild;
 
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject $mockProject
+     * @var \PHPUnit_Framework_MockObject_MockObject
      */
     protected $mockProject;
 
@@ -46,12 +47,12 @@ class EmailTest extends \PHPUnit_Framework_TestCase
     public $buildStatus;
 
     /**
-     * @var array $message;
+     * @var array;
      */
     public $message;
 
     /**
-     * @var bool $mailDelivered
+     * @var bool
      */
     public $mailDelivered;
 
@@ -65,25 +66,25 @@ class EmailTest extends \PHPUnit_Framework_TestCase
             '\PHPCI\Model\Project',
             array('getTitle'),
             array(),
-            "mockProject",
+            'mockProject',
             false
         );
 
         $this->mockProject->expects($this->any())
             ->method('getTitle')
-            ->will($this->returnValue("Test-Project"));
+            ->will($this->returnValue('Test-Project'));
 
         $this->mockBuild = $this->getMock(
             '\PHPCI\Model\Build',
             array('getLog', 'getStatus', 'getProject', 'getCommitterEmail'),
             array(),
-            "mockBuild",
+            'mockBuild',
             false
         );
 
         $this->mockBuild->expects($this->any())
             ->method('getLog')
-            ->will($this->returnValue("Build Log"));
+            ->will($this->returnValue('Build Log'));
 
         $this->mockBuild->expects($this->any())
             ->method('getStatus')
@@ -104,14 +105,14 @@ class EmailTest extends \PHPUnit_Framework_TestCase
             array(
                 'getSystemConfig',
                 'getBuild',
-                'log'
+                'log',
             ),
             array(),
-            "mockBuilder_email",
+            'mockBuilder_email',
             false
         );
 
-        $this->mockCiBuilder->buildPath = "/";
+        $this->mockCiBuilder->buildPath = '/';
 
         $this->mockCiBuilder->expects($this->any())
             ->method('getSystemConfig')
@@ -120,8 +121,8 @@ class EmailTest extends \PHPUnit_Framework_TestCase
                 $this->returnValue(
                     array(
                         'email_settings' => array(
-                            'from_address' => "test-from-address@example.com"
-                        )
+                            'from_address' => 'test-from-address@example.com',
+                        ),
                     )
                 )
             );
@@ -148,7 +149,7 @@ class EmailTest extends \PHPUnit_Framework_TestCase
             array(
                 $this->mockCiBuilder,
                 $this->mockBuild,
-                $arrOptions
+                $arrOptions,
             )
         );
 
@@ -186,7 +187,7 @@ class EmailTest extends \PHPUnit_Framework_TestCase
     {
         $this->loadEmailPluginWithOptions(
             array(
-                'addresses' => array('test-receiver@example.com')
+                'addresses' => array('test-receiver@example.com'),
             ),
             Build::STATUS_SUCCESS
         );
@@ -203,7 +204,7 @@ class EmailTest extends \PHPUnit_Framework_TestCase
     {
         $this->loadEmailPluginWithOptions(
             array(
-                'default_mailto_address' => 'default-mailto-address@example.com'
+                'default_mailto_address' => 'default-mailto-address@example.com',
             ),
             Build::STATUS_SUCCESS
         );
@@ -220,7 +221,7 @@ class EmailTest extends \PHPUnit_Framework_TestCase
     {
         $this->loadEmailPluginWithOptions(
             array(
-                'addresses' => array('test-receiver@example.com', 'test-receiver2@example.com')
+                'addresses' => array('test-receiver@example.com', 'test-receiver2@example.com'),
             )
         );
 
@@ -240,8 +241,8 @@ class EmailTest extends \PHPUnit_Framework_TestCase
     {
         $this->loadEmailPluginWithOptions(
             array(
-                'committer'  => true,
-                'addresses' => array('test-receiver@example.com', 'committer@test.com')
+                'committer' => true,
+                'addresses' => array('test-receiver@example.com', 'committer@test.com'),
             )
         );
 
@@ -288,7 +289,7 @@ class EmailTest extends \PHPUnit_Framework_TestCase
     {
         $this->loadEmailPluginWithOptions(
             array(
-                'committer' => true
+                'committer' => true,
             ),
             Build::STATUS_SUCCESS
         );
@@ -305,7 +306,7 @@ class EmailTest extends \PHPUnit_Framework_TestCase
     {
         $this->loadEmailPluginWithOptions(
             array(
-                'addresses' => array('test-receiver@example.com')
+                'addresses' => array('test-receiver@example.com'),
             ),
             Build::STATUS_SUCCESS
         );
@@ -323,7 +324,7 @@ class EmailTest extends \PHPUnit_Framework_TestCase
     {
         $this->loadEmailPluginWithOptions(
             array(
-                'addresses' => array('test-receiver@example.com')
+                'addresses' => array('test-receiver@example.com'),
             ),
             Build::STATUS_FAILED
         );
@@ -341,7 +342,7 @@ class EmailTest extends \PHPUnit_Framework_TestCase
     {
         $this->loadEmailPluginWithOptions(
             array(
-                'addresses' => array('test-receiver@example.com')
+                'addresses' => array('test-receiver@example.com'),
             ),
             Build::STATUS_SUCCESS
         );
@@ -359,7 +360,7 @@ class EmailTest extends \PHPUnit_Framework_TestCase
     {
         $this->loadEmailPluginWithOptions(
             array(
-                'addresses' => array('test-receiver@example.com')
+                'addresses' => array('test-receiver@example.com'),
             ),
             Build::STATUS_FAILED
         );
@@ -377,7 +378,7 @@ class EmailTest extends \PHPUnit_Framework_TestCase
     {
         $this->loadEmailPluginWithOptions(
             array(
-                'addresses' => array('test-receiver@example.com')
+                'addresses' => array('test-receiver@example.com'),
             ),
             Build::STATUS_FAILED,
             true
@@ -395,7 +396,7 @@ class EmailTest extends \PHPUnit_Framework_TestCase
     {
         $this->loadEmailPluginWithOptions(
             array(
-                'addresses' => array('test-receiver@example.com')
+                'addresses' => array('test-receiver@example.com'),
             ),
             Build::STATUS_FAILED,
             false

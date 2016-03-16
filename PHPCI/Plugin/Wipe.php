@@ -1,9 +1,10 @@
 <?php
 /**
- * PHPCI - Continuous Integration for PHP
+ * PHPCI - Continuous Integration for PHP.
  *
  * @copyright    Copyright 2014, Block 8 Limited.
  * @license      https://github.com/Block8/PHPCI/blob/master/LICENSE.md
+ *
  * @link         https://www.phptesting.org/
  */
 
@@ -13,11 +14,10 @@ use PHPCI\Builder;
 use PHPCI\Model\Build;
 
 /**
-* Wipe Plugin - Wipes a folder
-* @author       Claus Due <claus@namelesscoder.net>
-* @package      PHPCI
-* @subpackage   Plugins
-*/
+ * Wipe Plugin - Wipes a folder.
+ *
+ * @author       Claus Due <claus@namelesscoder.net>
+ */
 class Wipe implements \PHPCI\Plugin
 {
     /**
@@ -34,21 +34,22 @@ class Wipe implements \PHPCI\Plugin
 
     /**
      * Set up the plugin, configure options, etc.
+     *
      * @param Builder $phpci
-     * @param Build $build
-     * @param array $options
+     * @param Build   $build
+     * @param array   $options
      */
     public function __construct(Builder $phpci, Build $build, array $options = array())
     {
-        $path               = $phpci->buildPath;
-        $this->phpci        = $phpci;
+        $path = $phpci->buildPath;
+        $this->phpci = $phpci;
         $this->build = $build;
-        $this->directory    = isset($options['directory']) ? $this->phpci->interpolate($options['directory']) : $path;
+        $this->directory = isset($options['directory']) ? $this->phpci->interpolate($options['directory']) : $path;
     }
 
     /**
-    * Wipes a directory's contents
-    */
+     * Wipes a directory's contents.
+     */
     public function execute()
     {
         $build = $this->phpci->buildPath;
@@ -61,8 +62,10 @@ class Wipe implements \PHPCI\Plugin
             if (IS_WIN) {
                 $cmd = 'rmdir /S /Q "%s"';
             }
+
             return $this->phpci->executeCommand($cmd, $this->directory);
         }
+
         return true;
     }
 }

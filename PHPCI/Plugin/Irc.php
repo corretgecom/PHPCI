@@ -1,9 +1,10 @@
 <?php
 /**
- * PHPCI - Continuous Integration for PHP
+ * PHPCI - Continuous Integration for PHP.
  *
  * @copyright    Copyright 2014, Block 8 Limited.
  * @license      https://github.com/Block8/PHPCI/blob/master/LICENSE.md
+ *
  * @link         https://www.phptesting.org/
  */
 
@@ -14,10 +15,9 @@ use PHPCI\Helper\Lang;
 use PHPCI\Model\Build;
 
 /**
- * IRC Plugin - Sends a notification to an IRC channel
+ * IRC Plugin - Sends a notification to an IRC channel.
+ *
  * @author       Dan Cryer <dan@block8.co.uk>
- * @package      PHPCI
- * @subpackage   Plugins
  */
 class Irc implements \PHPCI\Plugin
 {
@@ -30,7 +30,7 @@ class Irc implements \PHPCI\Plugin
     protected $nick;
 
     /**
-     * Standard Constructor
+     * Standard Constructor.
      *
      * $options['directory'] Output Directory. Default: %BUILDPATH%
      * $options['filename']  Phar Filename. Default: build.phar
@@ -49,7 +49,6 @@ class Irc implements \PHPCI\Plugin
 
         $buildSettings = $phpci->getConfig('build_settings');
 
-
         if (isset($buildSettings['irc'])) {
             $irc = $buildSettings['irc'];
 
@@ -62,6 +61,7 @@ class Irc implements \PHPCI\Plugin
 
     /**
      * Run IRC plugin.
+     *
      * @return bool
      */
     public function execute()
@@ -80,12 +80,12 @@ class Irc implements \PHPCI\Plugin
         stream_set_timeout($sock, 1);
 
         $connectCommands = array(
-            'USER ' . $this->nick . ' 0 * :' . $this->nick,
-            'NICK ' . $this->nick,
+            'USER '.$this->nick.' 0 * :'.$this->nick,
+            'NICK '.$this->nick,
         );
         $this->executeIrcCommands($sock, $connectCommands);
-        $this->executeIrcCommand($sock, 'JOIN ' . $this->room);
-        $this->executeIrcCommand($sock, 'PRIVMSG ' . $this->room . ' :' . $msg);
+        $this->executeIrcCommand($sock, 'JOIN '.$this->room);
+        $this->executeIrcCommand($sock, 'PRIVMSG '.$this->room.' :'.$msg);
 
         fclose($sock);
 
@@ -94,13 +94,14 @@ class Irc implements \PHPCI\Plugin
 
     /**
      * @param resource $socket
-     * @param array $commands
+     * @param array    $commands
+     *
      * @return bool
      */
     private function executeIrcCommands($socket, array $commands)
     {
         foreach ($commands as $command) {
-            fputs($socket, $command . "\n");
+            fputs($socket, $command."\n");
         }
 
         $pingBack = false;
@@ -114,15 +115,15 @@ class Irc implements \PHPCI\Plugin
         }
 
         if ($pingBack) {
-            $command = 'PONG :' . $pingBack . "\n";
+            $command = 'PONG :'.$pingBack."\n";
             fputs($socket, $command);
         }
     }
 
     /**
-     *
      * @param resource $socket
-     * @param string $command
+     * @param string   $command
+     *
      * @return bool
      */
     private function executeIrcCommand($socket, $command)

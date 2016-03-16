@@ -1,9 +1,10 @@
 <?php
 /**
- * PHPCI - Continuous Integration for PHP
+ * PHPCI - Continuous Integration for PHP.
  *
  * @copyright    Copyright 2014, Block 8 Limited.
  * @license      https://github.com/Block8/PHPCI/blob/master/LICENSE.md
+ *
  * @link         https://www.phptesting.org/
  */
 
@@ -13,10 +14,9 @@ use PHPCI\Model\Build;
 use PHPCI\Builder;
 
 /**
- * Remote Subversion Build Model
+ * Remote Subversion Build Model.
+ *
  * @author       Nadir Dzhilkibaev <imam.sharif@gmail.com>
- * @package      PHPCI
- * @subpackage   Core
  */
 class SubversionBuild extends Build
 {
@@ -38,7 +38,7 @@ class SubversionBuild extends Build
         if (empty($branch) || $branch == 'trunk') {
             $url .= 'trunk';
         } else {
-            $url .= 'branches/' . $branch;
+            $url .= 'branches/'.$branch;
         }
 
         return $url;
@@ -63,7 +63,7 @@ class SubversionBuild extends Build
         $depth = $builder->getConfig('clone_depth');
 
         if (!is_null($depth)) {
-            $cmd .= ' --depth ' . intval($depth) . ' ';
+            $cmd .= ' --depth '.intval($depth).' ';
         }
 
         $this->svnCommand = $cmd;
@@ -88,6 +88,7 @@ class SubversionBuild extends Build
 
         if (!$success) {
             $builder->logFailure('Failed to export remote subversion repository.');
+
             return false;
         }
 
@@ -117,12 +118,12 @@ class SubversionBuild extends Build
      */
     protected function cloneBySsh(Builder $builder, $cloneTo)
     {
-        $cmd = $this->svnCommand . ' %s "%s"';
+        $cmd = $this->svnCommand.' %s "%s"';
 
         if (!IS_WIN) {
-            $keyFile    = $this->writeSshKey($cloneTo);
+            $keyFile = $this->writeSshKey($cloneTo);
             $sshWrapper = $this->writeSshWrapper($cloneTo, $keyFile);
-            $cmd        = 'export SVN_SSH="' . $sshWrapper . '" && ' . $cmd;
+            $cmd = 'export SVN_SSH="'.$sshWrapper.'" && '.$cmd;
         }
 
         $success = $builder->executeCommand($cmd, $this->getCloneUrl(), $cloneTo);
@@ -138,13 +139,15 @@ class SubversionBuild extends Build
 
     /**
      * Create an SSH key file on disk for this build.
+     *
      * @param $cloneTo
+     *
      * @return string
      */
     protected function writeSshKey($cloneTo)
     {
-        $keyPath = dirname($cloneTo . '/temp');
-        $keyFile = $keyPath . '.key';
+        $keyPath = dirname($cloneTo.'/temp');
+        $keyFile = $keyPath.'.key';
 
         // Write the contents of this project's svn key to the file:
         file_put_contents($keyFile, $this->getProject()->getSshPrivateKey());
@@ -156,14 +159,16 @@ class SubversionBuild extends Build
 
     /**
      * Create an SSH wrapper script for Svn to use, to disable host key checking, etc.
+     *
      * @param $cloneTo
      * @param $keyFile
+     *
      * @return string
      */
     protected function writeSshWrapper($cloneTo, $keyFile)
     {
-        $path        = dirname($cloneTo . '/temp');
-        $wrapperFile = $path . '.sh';
+        $path = dirname($cloneTo.'/temp');
+        $wrapperFile = $path.'.sh';
 
         $sshFlags = '-o CheckHostIP=no -o IdentitiesOnly=yes -o StrictHostKeyChecking=no -o PasswordAuthentication=no';
 
@@ -175,7 +180,7 @@ ssh {$sshFlags} -o IdentityFile={$keyFile} $*
 OUT;
 
         file_put_contents($wrapperFile, $script);
-        shell_exec('chmod +x "' . $wrapperFile . '"');
+        shell_exec('chmod +x "'.$wrapperFile.'"');
 
         return $wrapperFile;
     }

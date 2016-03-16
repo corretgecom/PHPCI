@@ -1,8 +1,9 @@
 <?php
+
 namespace Tests\PHPCI\ProcessControl;
 
 /**
- * Some helpers to
+ * Some helpers to.
  */
 abstract class ProcessControlTest extends \PHPUnit_Framework_TestCase
 {
@@ -22,12 +23,11 @@ abstract class ProcessControlTest extends \PHPUnit_Framework_TestCase
     protected $object;
 
     /** Starts a process.
-     *
      * @return int The PID of the process.
      */
     protected function startProcess()
     {
-        $desc = array(array("pipe", "r"), array("pipe", "w"), array("pipe", "w"));
+        $desc = array(array('pipe', 'r'), array('pipe', 'w'), array('pipe', 'w'));
         $this->pipes = array();
 
         $this->process = proc_open($this->getTestCommand(), $desc, $this->pipes);
@@ -37,11 +37,11 @@ abstract class ProcessControlTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($this->isRunning());
 
         $status = proc_get_status($this->process);
+
         return $status['pid'];
     }
 
     /** End the running process.
-     *
      * @return int
      */
     protected function endProcess()
@@ -53,6 +53,7 @@ abstract class ProcessControlTest extends \PHPUnit_Framework_TestCase
         $exitCode = proc_close($this->process);
         $this->assertFalse($this->isRunning());
         $this->process = null;
+
         return $exitCode;
     }
 
@@ -65,6 +66,7 @@ abstract class ProcessControlTest extends \PHPUnit_Framework_TestCase
             return false;
         }
         $status = proc_get_status($this->process);
+
         return $status['running'];
     }
 

@@ -1,12 +1,12 @@
 <?php
 /**
- * PHPCI - Continuous Integration for PHP
+ * PHPCI - Continuous Integration for PHP.
  *
  * @copyright    Copyright 2014, Block 8 Limited.
  * @license      https://github.com/Block8/PHPCI/blob/master/LICENSE.md
+ *
  * @link         https://www.phptesting.org/
  */
-
 $strings = array(
     'language_name' => 'Polski',
     'language' => 'Język',
@@ -42,7 +42,6 @@ PHPCI',
     'login' => 'Login / Email Address',
     'password' => 'Hasło',
     'log_in' => 'Zaloguj się',
-
 
     // Top Nav
     'toggle_navigation' => 'Otwórz/zamknij nawigację',
@@ -101,7 +100,7 @@ od wybranego kodu źródłowego platformy hostingowej.',
     'gitlab' => 'GitLab',
     'remote' => 'Zdalny URL ',
     'local' => 'Lokalna Ścieżka ',
-    'hg'    => 'Mercurial',
+    'hg' => 'Mercurial',
     'svn' => 'Subversion',
 
     'where_hosted' => 'Gdzie hostowany jest Twój projekt?',
@@ -157,7 +156,6 @@ Services</a> repozytoria Bitbucket.',
     'build_x_not_found' => 'Budowanie o ID %d nie istnieje.',
     'build_n' => 'Budowanie %d',
     'rebuild_now' => 'Przebuduj Teraz',
-
 
     'committed_by_x' => 'Commitowane przez %s',
     'commit_id_x' => 'Commit: %s',
@@ -396,5 +394,5 @@ Przejrzyj powyższą listę błędów przed kontynuowaniem.',
     'build_file_missing' => 'Podany plik budowy nie istnieje.',
     'property_file_missing' => 'Podany plik właściwości nie istnieje.',
     'could_not_process_report' => 'Nie udało się przetworzyć raportu wygenerowanego przez to narzędzie.',
-    'shell_not_enabled' => 'Plugin powłoki jest nieaktywny. Aktywuj go poprzez config.yml.'
+    'shell_not_enabled' => 'Plugin powłoki jest nieaktywny. Aktywuj go poprzez config.yml.',
 );

@@ -1,23 +1,22 @@
 <?php
 /**
- * PHPCI - Continuous Integration for PHP
+ * PHPCI - Continuous Integration for PHP.
  *
  * @copyright    Copyright 2014, Block 8 Limited.
  * @license      https://github.com/Block8/PHPCI/blob/master/LICENSE.md
+ *
  * @link         https://www.phptesting.org/
  */
 
 namespace PHPCI\Plugin;
 
 use PHPCI\Builder;
-use PHPCI\Helper\Lang;
 use PHPCI\Model\Build;
 
 /**
- * Pdepend Plugin - Allows Pdepend report
+ * Pdepend Plugin - Allows Pdepend report.
+ *
  * @author       Johan van der Heide <info@japaveh.nl>
- * @package      PHPCI
- * @subpackage   Plugins
  */
 class Pdepend implements \PHPCI\Plugin
 {
@@ -50,9 +49,10 @@ class Pdepend implements \PHPCI\Plugin
 
     /**
      * Set up the plugin, configure options, etc.
+     *
      * @param Builder $phpci
-     * @param Build $build
-     * @param array $options
+     * @param Build   $build
+     * @param array   $options
      */
     public function __construct(Builder $phpci, Build $build, array $options = array())
     {
@@ -62,14 +62,14 @@ class Pdepend implements \PHPCI\Plugin
         $this->directory = isset($options['directory']) ? $options['directory'] : $phpci->buildPath;
 
         $title = $phpci->getBuildProjectTitle();
-        $this->summary  = $title . '-summary.xml';
-        $this->pyramid  = $title . '-pyramid.svg';
-        $this->chart    = $title . '-chart.svg';
-        $this->location = $this->phpci->buildPath . '..' . DIRECTORY_SEPARATOR . 'pdepend';
+        $this->summary = $title.'-summary.xml';
+        $this->pyramid = $title.'-pyramid.svg';
+        $this->chart = $title.'-chart.svg';
+        $this->location = $this->phpci->buildPath.'..'.DIRECTORY_SEPARATOR.'pdepend';
     }
 
     /**
-     * Runs Pdepend with the given criteria as arguments
+     * Runs Pdepend with the given criteria as arguments.
      */
     public function execute()
     {
@@ -82,22 +82,22 @@ class Pdepend implements \PHPCI\Plugin
 
         $pdepend = $this->phpci->findBinary('pdepend');
 
-        $cmd = $pdepend . ' --summary-xml="%s" --jdepend-chart="%s" --overview-pyramid="%s" %s "%s"';
+        $cmd = $pdepend.' --summary-xml="%s" --jdepend-chart="%s" --overview-pyramid="%s" %s "%s"';
 
         $this->removeBuildArtifacts();
 
         // If we need to ignore directories
         if (count($this->phpci->ignore)) {
-            $ignore = ' --ignore=' . implode(',', $this->phpci->ignore);
+            $ignore = ' --ignore='.implode(',', $this->phpci->ignore);
         } else {
             $ignore = '';
         }
 
         $success = $this->phpci->executeCommand(
             $cmd,
-            $this->location . DIRECTORY_SEPARATOR . $this->summary,
-            $this->location . DIRECTORY_SEPARATOR . $this->chart,
-            $this->location . DIRECTORY_SEPARATOR . $this->pyramid,
+            $this->location.DIRECTORY_SEPARATOR.$this->summary,
+            $this->location.DIRECTORY_SEPARATOR.$this->chart,
+            $this->location.DIRECTORY_SEPARATOR.$this->pyramid,
             $ignore,
             $this->directory
         );
@@ -110,9 +110,9 @@ class Pdepend implements \PHPCI\Plugin
                     "Pdepend successful. You can use %s\n, ![Chart](%s \"Pdepend Chart\")\n
                     and ![Pyramid](%s \"Pdepend Pyramid\")\n
                     for inclusion in the readme.md file",
-                    $config['url'] . '/build/pdepend/' . $this->summary,
-                    $config['url'] . '/build/pdepend/' . $this->chart,
-                    $config['url'] . '/build/pdepend/' . $this->pyramid
+                    $config['url'].'/build/pdepend/'.$this->summary,
+                    $config['url'].'/build/pdepend/'.$this->chart,
+                    $config['url'].'/build/pdepend/'.$this->pyramid
                 )
             );
         }
@@ -121,14 +121,14 @@ class Pdepend implements \PHPCI\Plugin
     }
 
     /**
-     * Remove files created from previous builds
+     * Remove files created from previous builds.
      */
     protected function removeBuildArtifacts()
     {
         //Remove the created files first
         foreach (array($this->summary, $this->chart, $this->pyramid) as $file) {
-            if (file_exists($this->location . DIRECTORY_SEPARATOR . $file)) {
-                unlink($this->location . DIRECTORY_SEPARATOR . $file);
+            if (file_exists($this->location.DIRECTORY_SEPARATOR.$file)) {
+                unlink($this->location.DIRECTORY_SEPARATOR.$file);
             }
         }
     }

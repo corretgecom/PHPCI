@@ -17,8 +17,7 @@ class ErrorsTable extends AbstractMigration
         $table->addColumn('message', 'string', array('limit' => 250));
         $table->addColumn('created_date', 'datetime');
         $table->addIndex(array('build_id', 'created_date'), array('unique' => false));
-        $table->addForeignKey('build_id', 'build', 'id', array('delete'=> 'CASCADE', 'update' => 'CASCADE'));
+        $table->addForeignKey('build_id', 'build', 'id', array('delete' => 'CASCADE', 'update' => 'CASCADE'));
         $table->save();
-
     }
 }

@@ -1,10 +1,11 @@
 <?php
 
 /**
- * PHPCI - Continuous Integration for PHP
+ * PHPCI - Continuous Integration for PHP.
  *
  * @copyright    Copyright 2015, Block 8 Limited.
  * @license      https://github.com/Block8/PHPCI/blob/master/LICENSE.md
+ *
  * @link         https://www.phptesting.org/
  */
 
@@ -40,7 +41,7 @@ class BuildLoggerTest extends \PHPUnit_Framework_TestCase
     public function testLog_CallsWrappedLogger()
     {
         $level = LogLevel::NOTICE;
-        $message = "Testing";
+        $message = 'Testing';
         $contextIn = array();
 
         $this->mockLogger->log($level, $message, Argument::type('array'))
@@ -52,16 +53,16 @@ class BuildLoggerTest extends \PHPUnit_Framework_TestCase
     public function testLog_CallsWrappedLoggerForEachMessage()
     {
         $level = LogLevel::NOTICE;
-        $message = array("One", "Two", "Three");
+        $message = array('One', 'Two', 'Three');
         $contextIn = array();
 
-        $this->mockLogger->log($level, "One", Argument::type('array'))
+        $this->mockLogger->log($level, 'One', Argument::type('array'))
                          ->shouldBeCalledTimes(1);
 
-        $this->mockLogger->log($level, "Two", Argument::type('array'))
+        $this->mockLogger->log($level, 'Two', Argument::type('array'))
                          ->shouldBeCalledTimes(1);
 
-        $this->mockLogger->log($level, "Three", Argument::type('array'))
+        $this->mockLogger->log($level, 'Three', Argument::type('array'))
                          ->shouldBeCalledTimes(1);
 
         $this->testedBuildLogger->log($message, $level, $contextIn);
@@ -70,11 +71,11 @@ class BuildLoggerTest extends \PHPUnit_Framework_TestCase
     public function testLog_AddsBuildToContext()
     {
         $level = LogLevel::NOTICE;
-        $message = "Testing";
+        $message = 'Testing';
         $contextIn = array();
 
         $expectedContext = array(
-            'build' => $this->mockBuild->reveal()
+            'build' => $this->mockBuild->reveal(),
         );
 
         $this->mockLogger->log($level, $message, $expectedContext)
@@ -85,7 +86,7 @@ class BuildLoggerTest extends \PHPUnit_Framework_TestCase
 
     public function testLogFailure_LogsAsErrorLevel()
     {
-        $message = "Testing";
+        $message = 'Testing';
         $expectedLevel = LogLevel::ERROR;
 
         $this->mockLogger->log($expectedLevel,
@@ -98,10 +99,9 @@ class BuildLoggerTest extends \PHPUnit_Framework_TestCase
 
     public function testLogFailure_AddsExceptionContext()
     {
-        $message = "Testing";
+        $message = 'Testing';
 
-        $exception = new \Exception("Expected Exception");
-
+        $exception = new \Exception('Expected Exception');
 
         $this->mockLogger->log(Argument::type('string'),
                                Argument::type('string'),
@@ -111,4 +111,3 @@ class BuildLoggerTest extends \PHPUnit_Framework_TestCase
         $this->testedBuildLogger->logFailure($message, $exception);
     }
 }
-

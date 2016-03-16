@@ -1,12 +1,12 @@
 <?php
 /**
- * PHPCI - Continuous Integration for PHP
+ * PHPCI - Continuous Integration for PHP.
  *
  * @copyright    Copyright 2014, Block 8 Limited.
  * @license      https://github.com/Block8/PHPCI/blob/master/LICENSE.md
+ *
  * @link         https://www.phptesting.org/
  */
-
 $strings = array(
     'language_name' => 'Français',
     'language' => 'Langue',
@@ -42,7 +42,6 @@ PHPCI',
     'login' => 'Login / Email Address',
     'password' => 'Mot de passe',
     'log_in' => 'Connexion',
-
 
     // Top Nav
     'toggle_navigation' => 'Afficher/cacher la navigation',
@@ -101,7 +100,7 @@ PHPCI',
     'gitlab' => 'GitLab',
     'remote' => 'URL distante',
     'local' => 'Chemin local',
-    'hg'    => 'Mercurial',
+    'hg' => 'Mercurial',
 
     'where_hosted' => 'Où est hébergé votre projet&nbsp;?',
     'choose_github' => 'Choisissez un dépôt GitHub&nbsp;:',
@@ -156,7 +155,6 @@ PHPCI',
     'build_x_not_found' => 'Le Build avec l\'ID %d n\'existe pas.',
     'build_n' => 'Build %d',
     'rebuild_now' => 'Relancer maintenant',
-
 
     'committed_by_x' => 'Committé par %s',
     'commit_id_x' => 'Commit&nbsp;: %s',
@@ -406,5 +404,5 @@ PHPCI',
     'build_file_missing' => 'Le fichier de build spécifié n\'existe pas.',
     'property_file_missing' => 'Le fichier de propriété spécifié n\'existe pas.',
     'could_not_process_report' => 'Impossible de traiter le rapport généré par cet outil.',
-    'shell_not_enabled' => 'Le plugn shell n\'est pas activé. Merci de l\'activer via le fichier config.yml.'
+    'shell_not_enabled' => 'Le plugn shell n\'est pas activé. Merci de l\'activer via le fichier config.yml.',
 );

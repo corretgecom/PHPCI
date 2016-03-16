@@ -8,15 +8,14 @@ use Symfony\Component\Yaml\Yaml;
 
 /**
  * Processes TAP format strings into usable test result data.
- * @package PHPCI\Plugin\Util
  */
 class TapParser
 {
     const TEST_COUNTS_PATTERN = '/^\d+\.\.(\d+)/';
-    const TEST_LINE_PATTERN   = '/^(ok|not ok)(?:\s+\d+)?(?:\s+\-)?\s*(.*?)(?:\s*#\s*(skip|todo)\s*(.*))?\s*$/i';
-    const TEST_YAML_START     = '/^(\s*)---/';
-    const TEST_DIAGNOSTIC     = '/^#/';
-    const TEST_COVERAGE       = '/^Generating/';
+    const TEST_LINE_PATTERN = '/^(ok|not ok)(?:\s+\d+)?(?:\s+\-)?\s*(.*?)(?:\s*#\s*(skip|todo)\s*(.*))?\s*$/i';
+    const TEST_YAML_START = '/^(\s*)---/';
+    const TEST_DIAGNOSTIC = '/^#/';
+    const TEST_COVERAGE = '/^Generating/';
 
     /**
      * @var string
@@ -34,12 +33,12 @@ class TapParser
     protected $lines;
 
     /**
-     * @var integer
+     * @var int
      */
     protected $lineNumber;
 
     /**
-     * @var integer
+     * @var int
      */
     protected $testCount;
 
@@ -50,6 +49,7 @@ class TapParser
 
     /**
      * Create a new TAP parser for a given string.
+     *
      * @param string $tapString The TAP format string to be parsed.
      */
     public function __construct($tapString)
@@ -74,7 +74,7 @@ class TapParser
 
         $line = $this->nextLine();
         if ($line === $header) {
-            throw new Exception("Duplicated TAP log, please check the configuration.");
+            throw new Exception('Duplicated TAP log, please check the configuration.');
         }
 
         while ($line !== false && ($this->testCount === false || count($this->results) < $this->testCount)) {
@@ -90,7 +90,6 @@ class TapParser
     }
 
     /** Looks for the start of the TAP log in the string.
-     *
      * @return string The TAP header line.
      *
      * @throws Exception if no TAP log is found or versions mismatch.
@@ -113,7 +112,6 @@ class TapParser
     }
 
     /** Fetch the next line.
-     *
      * @return string|false The next line or false if the end has been reached.
      */
     protected function nextLine()
@@ -121,13 +119,14 @@ class TapParser
         if ($this->lineNumber < count($this->lines)) {
             return $this->lines[$this->lineNumber++];
         }
+
         return false;
     }
 
     /**
      * @param string $line
      *
-     * @return boolean
+     * @return bool
      */
     protected function testLine($line)
     {
@@ -148,15 +147,15 @@ class TapParser
     /**
      * @param string $line
      *
-     * @return boolean
+     * @return bool
      */
     protected function yamlLine($line)
     {
         if (preg_match(self::TEST_YAML_START, $line, $matches)) {
             $diagnostic = $this->processYamlBlock($matches[1]);
-            $test       = array_pop($this->results);
+            $test = array_pop($this->results);
             if (isset($test['message'], $diagnostic['message'])) {
-                $test['message'] .= PHP_EOL . $diagnostic['message'];
+                $test['message'] .= PHP_EOL.$diagnostic['message'];
                 unset($diagnostic['message']);
             }
             $this->results[] = array_replace($test, $diagnostic);
@@ -168,7 +167,6 @@ class TapParser
     }
 
     /** Parse a single line.
-     *
      * @param string $line
      *
      * @throws Exception
@@ -209,15 +207,15 @@ class TapParser
     protected function processTestLine($result, $message, $directive, $reason)
     {
         $test = array(
-            'pass'     => true,
-            'message'  => $message,
+            'pass' => true,
+            'message' => $message,
             'severity' => 'success',
         );
 
         if ($result !== 'ok') {
             $test['pass'] = false;
             $test['severity'] = substr($message, 0, 6) === 'Error:' ? 'error' : 'fail';
-            $this->failures++;
+            ++$this->failures;
         }
 
         if ($directive) {
@@ -228,7 +226,6 @@ class TapParser
     }
 
     /** Process an indented Yaml block.
-     *
      * @param string $indent The block indentation to ignore.
      *
      * @return array The processed Yaml content.
@@ -236,7 +233,7 @@ class TapParser
     protected function processYamlBlock($indent)
     {
         $startLine = $this->lineNumber + 1;
-        $endLine   = $indent . '...';
+        $endLine = $indent.'...';
         $yamlLines = array();
 
         do {
@@ -251,14 +248,14 @@ class TapParser
             $yamlLines[] = substr($line, strlen($indent));
         } while (true);
 
-        return Yaml::parse(join("\n", $yamlLines));
+        return Yaml::parse(implode("\n", $yamlLines));
     }
 
     /** Process a TAP directive
-     *
-     * @param array $test
+     * @param array  $test
      * @param string $directive
      * @param string $reason
+     *
      * @return array
      */
     protected function processDirective($test, $directive, $reason)
@@ -277,6 +274,7 @@ class TapParser
 
     /**
      * Get the total number of failures from the current TAP file.
+     *
      * @return int
      */
     public function getTotalFailures()

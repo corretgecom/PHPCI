@@ -1,9 +1,10 @@
 <?php
 /**
- * PHPCI - Continuous Integration for PHP
+ * PHPCI - Continuous Integration for PHP.
  *
  * @copyright    Copyright 2014, Block 8 Limited.
  * @license      https://github.com/Block8/PHPCI/blob/master/LICENSE.md
+ *
  * @link         https://www.phptesting.org/
  */
 
@@ -13,8 +14,7 @@ use PHPCI\Model\Project;
 use PHPCI\Model\Build;
 
 /**
- * Class BuildStatusService
- * @package PHPCI\Service
+ * Class BuildStatusService.
  */
 class BuildStatusService
 {
@@ -42,8 +42,8 @@ class BuildStatusService
     /**
      * @param $branch
      * @param Project $project
-     * @param Build $build
-     * @param bool $isParent
+     * @param Build   $build
+     * @param bool    $isParent
      */
     public function __construct(
         $branch,
@@ -80,6 +80,7 @@ class BuildStatusService
 
     /**
      * @param bool $isParent
+     *
      * @throws \Exception
      */
     protected function loadParentBuild($isParent = true)
@@ -88,7 +89,7 @@ class BuildStatusService
             $lastFinishedBuild = $this->project->getLatestBuild($this->branch, $this->finishedStatusIds);
 
             if ($lastFinishedBuild) {
-                $this->prevService = new BuildStatusService(
+                $this->prevService = new self(
                     $this->branch,
                     $this->project,
                     $lastFinishedBuild,
@@ -110,6 +111,7 @@ class BuildStatusService
         } elseif ($this->build->getStatus() == Build::STATUS_RUNNING) {
             return 'Building';
         }
+
         return 'Unknown';
     }
 
@@ -118,7 +120,7 @@ class BuildStatusService
      */
     public function getName()
     {
-        return $this->project->getTitle() . ' / ' . $this->branch;
+        return $this->project->getTitle().' / '.$this->branch;
     }
 
     /**
@@ -129,6 +131,7 @@ class BuildStatusService
         if (in_array($this->build->getStatus(), $this->finishedStatusIds)) {
             return true;
         }
+
         return false;
     }
 
@@ -142,7 +145,8 @@ class BuildStatusService
         } elseif ($this->prevService) {
             return $this->prevService->getBuild();
         }
-        return null;
+
+        return;
     }
 
     /**
@@ -153,6 +157,7 @@ class BuildStatusService
         if ($buildInfo = $this->getFinishedBuildInfo()) {
             return $buildInfo->getId();
         }
+
         return '';
     }
 
@@ -165,11 +170,13 @@ class BuildStatusService
         if ($buildInfo = $this->getFinishedBuildInfo()) {
             return ($buildInfo->getFinished()) ? $buildInfo->getFinished()->format($dateFormat) : '';
         }
+
         return '';
     }
 
     /**
      * @param Build $build
+     *
      * @return string
      */
     public function getBuildStatus(Build $build)
@@ -180,6 +187,7 @@ class BuildStatusService
             case Build::STATUS_FAILED:
                 return 'Failure';
         }
+
         return 'Unknown';
     }
 
@@ -191,6 +199,7 @@ class BuildStatusService
         if ($build = $this->getFinishedBuildInfo()) {
             return $this->getBuildStatus($build);
         }
+
         return '';
     }
 
@@ -199,7 +208,7 @@ class BuildStatusService
      */
     public function getBuildUrl()
     {
-         return $this->url . 'build/view/' . $this->build->getId();
+        return $this->url.'build/view/'.$this->build->getId();
     }
 
     /**
@@ -210,6 +219,7 @@ class BuildStatusService
         if (!$this->build) {
             return array();
         }
+
         return array(
             'name' => $this->getName(),
             'activity' => $this->getActivity(),

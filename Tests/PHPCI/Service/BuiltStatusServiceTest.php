@@ -1,9 +1,10 @@
 <?php
 /**
- * PHPCI - Continuous Integration for PHP
+ * PHPCI - Continuous Integration for PHP.
  *
  * @copyright    Copyright 2014, Block 8 Limited.
  * @license      https://github.com/Block8/PHPCI/blob/master/LICENSE.md
+ *
  * @link         http://www.phptesting.org/
  */
 
@@ -11,14 +12,14 @@ namespace PHPCI\Service\Tests;
 
 use PHPCI\Model\Build;
 use PHPCI\Model\Project;
-use PHPCI\Service\BuildService;
 use PHPCI\Service\BuildStatusService;
 
 /**
  * Unit tests for the ProjectService class.
+ *
  * @author Dan Cryer <dan@block8.co.uk>
  */
-class BuildStatusServiceTest extends \PHPUnit_Framework_TestCase
+class BuiltStatusServiceTest extends \PHPUnit_Framework_TestCase
 {
     const BRANCH = 'master';
 
@@ -48,6 +49,7 @@ class BuildStatusServiceTest extends \PHPUnit_Framework_TestCase
     /**
      * @param $configId
      * @param bool $setProject
+     *
      * @return Build
      */
     protected function getBuild($configId, $setProject = true)
@@ -85,7 +87,7 @@ class BuildStatusServiceTest extends \PHPUnit_Framework_TestCase
                 'id' => 1000,
                 'finishDateTime' => '2014-12-25 21:12:21',
                 'previousBuild' => 3,
-            )
+            ),
         );
 
         $build = new Build();
@@ -108,11 +110,12 @@ class BuildStatusServiceTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @param null|int $prevBuildId
-     * @param bool $setProject
+     * @param bool     $setProject
+     *
      * @return Project
      */
-    protected function getProjectMock($prevBuildId = null, $setProject = true) {
-
+    protected function getProjectMock($prevBuildId = null, $setProject = true)
+    {
         $project = $this->getMock('PHPCI\Model\Project', array('getLatestBuild'));
 
         $prevBuild = ($prevBuildId) ? $this->getBuild($prevBuildId, false) : null;
@@ -132,13 +135,12 @@ class BuildStatusServiceTest extends \PHPUnit_Framework_TestCase
         }
 
         return $project;
-
     }
 
     /**
      * @dataProvider finishedProvider
      *
-     * @param int $buildConfigId
+     * @param int   $buildConfigId
      * @param array $expectedResult
      */
     public function testFinished($buildConfigId, array $expectedResult)
@@ -161,7 +163,7 @@ class BuildStatusServiceTest extends \PHPUnit_Framework_TestCase
                     'lastBuildStatus' => '',
                     'lastBuildTime' => '',
                     'webUrl' => 'http://phpci.dev/build/view/77',
-                )
+                ),
             ),
             'buildingStatusWithPrev' => array(
                 2,
@@ -172,7 +174,7 @@ class BuildStatusServiceTest extends \PHPUnit_Framework_TestCase
                     'lastBuildStatus' => 'Failure',
                     'lastBuildTime' => '2014-10-13T13:13:13+0000',
                     'webUrl' => 'http://phpci.dev/build/view/78',
-                )
+                ),
             ),
             'successStatus' => array(
                 3,
@@ -183,7 +185,7 @@ class BuildStatusServiceTest extends \PHPUnit_Framework_TestCase
                     'lastBuildStatus' => 'Success',
                     'lastBuildTime' => '2014-10-25T21:50:02+0000',
                     'webUrl' => 'http://phpci.dev/build/view/7',
-                )
+                ),
             ),
             'failureStatus' => array(
                 4,
@@ -194,7 +196,7 @@ class BuildStatusServiceTest extends \PHPUnit_Framework_TestCase
                     'lastBuildStatus' => 'Failure',
                     'lastBuildTime' => '2014-10-13T13:13:13+0000',
                     'webUrl' => 'http://phpci.dev/build/view/13',
-                )
+                ),
             ),
             'pending' => array(
                 5,
@@ -205,7 +207,7 @@ class BuildStatusServiceTest extends \PHPUnit_Framework_TestCase
                     'lastBuildStatus' => 'Success',
                     'lastBuildTime' => '2014-10-25T21:50:02+0000',
                     'webUrl' => 'http://phpci.dev/build/view/1000',
-                )
+                ),
             ),
         );
     }

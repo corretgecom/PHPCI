@@ -1,9 +1,10 @@
 <?php
 /**
- * PHPCI - Continuous Integration for PHP
+ * PHPCI - Continuous Integration for PHP.
  *
  * @copyright    Copyright 2014, Block 8 Limited.
  * @license      https://github.com/Block8/PHPCI/blob/master/LICENSE.md
+ *
  * @link         https://www.phptesting.org/
  */
 
@@ -22,7 +23,8 @@ use Psr\Log\LogLevel;
 use PHPCI\Plugin\Util\Factory as PluginFactory;
 
 /**
- * PHPCI Build Runner
+ * PHPCI Build Runner.
+ *
  * @author   Dan Cryer <dan@block8.co.uk>
  */
 class Builder implements LoggerAwareInterface
@@ -99,8 +101,9 @@ class Builder implements LoggerAwareInterface
 
     /**
      * Set up the builder.
+     *
      * @param \PHPCI\Model\Build $build
-     * @param LoggerInterface $logger
+     * @param LoggerInterface    $logger
      */
     public function __construct(Build $build, LoggerInterface $logger = null)
     {
@@ -110,7 +113,7 @@ class Builder implements LoggerAwareInterface
         $this->buildLogger = new BuildLogger($logger, $build);
 
         $pluginFactory = $this->buildPluginFactory($build);
-        $pluginFactory->addConfigFromFile(PHPCI_DIR . "/pluginconfig.php");
+        $pluginFactory->addConfigFromFile(PHPCI_DIR.'/pluginconfig.php');
         $this->pluginExecutor = new Plugin\Util\Executor($pluginFactory, $this->buildLogger);
 
         $executorClass = 'PHPCI\Helper\UnixCommandExecutor';
@@ -129,8 +132,10 @@ class Builder implements LoggerAwareInterface
     }
 
     /**
-     * Set the config array, as read from phpci.yml
+     * Set the config array, as read from phpci.yml.
+     *
      * @param array|null $config
+     *
      * @throws \Exception
      */
     public function setConfigArray($config)
@@ -144,7 +149,9 @@ class Builder implements LoggerAwareInterface
 
     /**
      * Access a variable from the phpci.yml file.
+     *
      * @param string
+     *
      * @return mixed
      */
     public function getConfig($key)
@@ -159,8 +166,10 @@ class Builder implements LoggerAwareInterface
     }
 
     /**
-     * Access a variable from the config.yml
+     * Access a variable from the config.yml.
+     *
      * @param $key
+     *
      * @return mixed
      */
     public function getSystemConfig($key)
@@ -169,7 +178,7 @@ class Builder implements LoggerAwareInterface
     }
 
     /**
-     * @return string   The title of the project being built.
+     * @return string The title of the project being built.
      */
     public function getBuildProjectTitle()
     {
@@ -235,9 +244,8 @@ class Builder implements LoggerAwareInterface
             }
         } catch (\Exception $ex) {
             $this->build->setStatus(Build::STATUS_FAILED);
-            $this->buildLogger->logFailure(Lang::get('exception') . $ex->getMessage());
+            $this->buildLogger->logFailure(Lang::get('exception').$ex->getMessage());
         }
-
 
         // Update the build in the database, ping any external services, etc.
         $this->build->sendStatusPostback();
@@ -268,6 +276,7 @@ class Builder implements LoggerAwareInterface
 
     /**
      * Specify whether exec output should be logged.
+     *
      * @param bool $enableLog
      */
     public function logExecOutput($enableLog = true)
@@ -277,8 +286,9 @@ class Builder implements LoggerAwareInterface
 
     /**
      * Find a binary required by a plugin.
+     *
      * @param string $binary
-     * @param bool $quiet
+     * @param bool   $quiet
      *
      * @return null|string
      */
@@ -289,8 +299,10 @@ class Builder implements LoggerAwareInterface
 
     /**
      * Replace every occurrence of the interpolation vars in the given string
-     * Example: "This is build %PHPCI_BUILD%" => "This is build 182"
+     * Example: "This is build %PHPCI_BUILD%" => "This is build 182".
+     *
      * @param string $input
+     *
      * @return string
      */
     public function interpolate($input)
@@ -329,13 +341,15 @@ class Builder implements LoggerAwareInterface
         }
 
         $this->buildLogger->logSuccess(Lang::get('working_copy_created', $this->buildPath));
+
         return true;
     }
 
     /**
-     * Sets a logger instance on the object
+     * Sets a logger instance on the object.
      *
      * @param LoggerInterface $logger
+     *
      * @return null
      */
     public function setLogger(LoggerInterface $logger)
@@ -345,17 +359,19 @@ class Builder implements LoggerAwareInterface
 
     /**
      * Write to the build log.
+     *
      * @param $message
      * @param string $level
-     * @param array $context
+     * @param array  $context
      */
     public function log($message, $level = LogLevel::INFO, $context = array())
     {
         $this->buildLogger->log($message, $level, $context);
     }
 
-   /**
+    /**
      * Add a success-coloured message to the log.
+     *
      * @param string
      */
     public function logSuccess($message)
@@ -365,7 +381,8 @@ class Builder implements LoggerAwareInterface
 
     /**
      * Add a failure-coloured message to the log.
-     * @param string $message
+     *
+     * @param string     $message
      * @param \Exception $exception The exception that caused the error.
      */
     public function logFailure($message, \Exception $exception = null)
@@ -376,6 +393,7 @@ class Builder implements LoggerAwareInterface
      * Returns a configured instance of the plugin factory.
      *
      * @param Build $build
+     *
      * @return PluginFactory
      */
     private function buildPluginFactory(Build $build)
@@ -411,6 +429,7 @@ class Builder implements LoggerAwareInterface
         $pluginFactory->registerResource(
             function () use ($self) {
                 $factory = new MailerFactory($self->getSystemConfig('phpci'));
+
                 return $factory->getSwiftMailerFromConfig();
             },
             null,

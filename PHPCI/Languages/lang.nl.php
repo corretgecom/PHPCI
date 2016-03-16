@@ -1,12 +1,12 @@
 <?php
 /**
- * PHPCI - Continuous Integration for PHP
+ * PHPCI - Continuous Integration for PHP.
  *
  * @copyright    Copyright 2014, Block 8 Limited.
  * @license      https://github.com/Block8/PHPCI/blob/master/LICENSE.md
+ *
  * @link         https://www.phptesting.org/
  */
-
 $strings = array(
     'language_name' => 'Nederlands',
     'language' => 'Taal',
@@ -42,7 +42,6 @@ PHPCI',
     'login' => 'Login / Email Address',
     'password' => 'Wachtwoord',
     'log_in' => 'Log in',
-
 
     // Top Nav
     'toggle_navigation' => 'Wissel Navigatie',
@@ -101,7 +100,7 @@ van je gekozen source code hosting platform',
     'gitlab' => 'GitLab',
     'remote' => 'Externe URL',
     'local' => 'Lokaal pad',
-    'hg'    => 'Mercurial',
+    'hg' => 'Mercurial',
 
     'where_hosted' => 'Waar wordt je project gehost?',
     'choose_github' => 'Selecteer een GitHub repository:',
@@ -156,7 +155,6 @@ Services</a> sectie van je Bitbucket repository toegevoegd worden.',
     'build_x_not_found' => 'Build met ID %d bestaat niet.',
     'build_n' => 'Build %d',
     'rebuild_now' => 'Rebuild nu',
-
 
     'committed_by_x' => 'Committed door %s',
     'commit_id_x' => 'Commit: %s',
@@ -395,5 +393,5 @@ Gelieve de fouten na te kijken vooraleer verder te gaan.',
     'build_file_missing' => 'Opgegeven build bestand bestaat niet.',
     'property_file_missing' => 'Opgegeven bestand bestaat niet',
     'could_not_process_report' => 'Het is niet mogelijk om het gegenereerde rapport van deze tool te verwerken.',
-    'shell_not_enabled' => 'De shell plugin is niet ingeschakeld, schakel deze a.u.b. in via het config.yml bestand.'
+    'shell_not_enabled' => 'De shell plugin is niet ingeschakeld, schakel deze a.u.b. in via het config.yml bestand.',
 );

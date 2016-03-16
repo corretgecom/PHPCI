@@ -1,9 +1,10 @@
 <?php
 /**
- * PHPCI - Continuous Integration for PHP
+ * PHPCI - Continuous Integration for PHP.
  *
  * @copyright    Copyright 2014, Block 8 Limited.
  * @license      https://github.com/Block8/PHPCI/blob/master/LICENSE.md
+ *
  * @link         https://www.phptesting.org/
  */
 
@@ -14,8 +15,7 @@ use PHPCI\Store\UserStore;
 
 /**
  * The user service handles the creation, modification and deletion of users.
- * Class UserService
- * @package PHPCI\Service
+ * Class UserService.
  */
 class UserService
 {
@@ -34,10 +34,12 @@ class UserService
 
     /**
      * Create a new user within PHPCI.
+     *
      * @param $name
      * @param $emailAddress
      * @param $password
      * @param bool $isAdmin
+     *
      * @return \PHPCI\Model\User
      */
     public function createUser($name, $emailAddress, $password, $isAdmin = false)
@@ -53,11 +55,13 @@ class UserService
 
     /**
      * Update a user.
+     *
      * @param User $user
      * @param $name
      * @param $emailAddress
      * @param null $password
      * @param null $isAdmin
+     *
      * @return \PHPCI\Model\User
      */
     public function updateUser(User $user, $name, $emailAddress, $password = null, $isAdmin = null)
@@ -78,7 +82,9 @@ class UserService
 
     /**
      * Delete a user.
+     *
      * @param User $user
+     *
      * @return bool
      */
     public function deleteUser(User $user)

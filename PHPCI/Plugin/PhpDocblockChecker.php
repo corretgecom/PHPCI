@@ -1,9 +1,10 @@
 <?php
 /**
- * PHPCI - Continuous Integration for PHP
+ * PHPCI - Continuous Integration for PHP.
  *
  * @copyright    Copyright 2014, Block 8 Limited.
  * @license      https://github.com/Block8/PHPCI/blob/master/LICENSE.md
+ *
  * @link         https://www.phptesting.org/
  */
 
@@ -14,11 +15,10 @@ use PHPCI\Builder;
 use PHPCI\Model\Build;
 
 /**
-* PHP Docblock Checker Plugin - Checks your PHP files for appropriate uses of Docblocks
-* @author       Dan Cryer <dan@block8.co.uk>
-* @package      PHPCI
-* @subpackage   Plugins
-*/
+ * PHP Docblock Checker Plugin - Checks your PHP files for appropriate uses of Docblocks.
+ *
+ * @author       Dan Cryer <dan@block8.co.uk>
+ */
 class PhpDocblockChecker implements PHPCI\Plugin, PHPCI\ZeroConfigPlugin
 {
     /**
@@ -33,7 +33,7 @@ class PhpDocblockChecker implements PHPCI\Plugin, PHPCI\ZeroConfigPlugin
 
     /**
      * @var string Based on the assumption the root may not hold the code to be
-     * tested, extends the build path.
+     *             tested, extends the build path.
      */
     protected $path;
 
@@ -47,9 +47,11 @@ class PhpDocblockChecker implements PHPCI\Plugin, PHPCI\ZeroConfigPlugin
 
     /**
      * Check if this plugin can be executed.
+     *
      * @param $stage
      * @param Builder $builder
-     * @param Build $build
+     * @param Build   $build
+     *
      * @return bool
      */
     public static function canExecute($stage, Builder $builder, Build $build)
@@ -63,9 +65,10 @@ class PhpDocblockChecker implements PHPCI\Plugin, PHPCI\ZeroConfigPlugin
 
     /**
      * Set up the plugin, configure options, etc.
+     *
      * @param Builder $phpci
-     * @param Build $build
-     * @param array $options
+     * @param Build   $build
+     * @param array   $options
      */
     public function __construct(Builder $phpci, Build $build, array $options = array())
     {
@@ -92,7 +95,7 @@ class PhpDocblockChecker implements PHPCI\Plugin, PHPCI\ZeroConfigPlugin
         }
 
         if (array_key_exists('allowed_warnings', $options)) {
-            $this->allowed_warnings = (int)$options['allowed_warnings'];
+            $this->allowed_warnings = (int) $options['allowed_warnings'];
         }
     }
 
@@ -107,7 +110,7 @@ class PhpDocblockChecker implements PHPCI\Plugin, PHPCI\ZeroConfigPlugin
         // Build ignore string:
         $ignore = '';
         if (count($this->ignore)) {
-            $ignore = ' --exclude="' . implode(',', $this->ignore) . '"';
+            $ignore = ' --exclude="'.implode(',', $this->ignore).'"';
         }
 
         // Are we skipping any checks?
@@ -121,8 +124,8 @@ class PhpDocblockChecker implements PHPCI\Plugin, PHPCI\ZeroConfigPlugin
         }
 
         // Build command string:
-        $path = $this->phpci->buildPath . $this->path;
-        $cmd = $checker . ' --json --directory="%s"%s%s';
+        $path = $this->phpci->buildPath.$this->path;
+        $cmd = $checker.' --json --directory="%s"%s%s';
 
         // Disable exec output logging, as we don't want the XML report in the log:
         $this->phpci->logExecOutput(false);
@@ -154,16 +157,17 @@ class PhpDocblockChecker implements PHPCI\Plugin, PHPCI\ZeroConfigPlugin
 
     /**
      * Report all of the errors we've encountered line-by-line.
+     *
      * @param $output
      */
     protected function reportErrors($output)
     {
         foreach ($output as $error) {
-            $message = 'Class ' . $error['class'] . ' is missing a docblock.';
+            $message = 'Class '.$error['class'].' is missing a docblock.';
             $severity = PHPCI\Model\BuildError::SEVERITY_LOW;
 
             if ($error['type'] == 'method') {
-                $message = $error['class'] . '::' . $error['method'] . ' is missing a docblock.';
+                $message = $error['class'].'::'.$error['method'].' is missing a docblock.';
                 $severity = PHPCI\Model\BuildError::SEVERITY_NORMAL;
             }
 

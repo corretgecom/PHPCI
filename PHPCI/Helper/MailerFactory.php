@@ -1,9 +1,10 @@
 <?php
 /**
- * PHPCI - Continuous Integration for PHP
+ * PHPCI - Continuous Integration for PHP.
  *
  * @copyright    Copyright 2014, Block 8 Limited.
  * @license      https://github.com/Block8/PHPCI/blob/master/LICENSE.md
+ *
  * @link         https://www.phptesting.org/
  */
 
@@ -11,7 +12,6 @@ namespace PHPCI\Helper;
 
 /**
  * Class MailerFactory helps to set up and configure a SwiftMailer object.
- * @package PHPCI\Helper
  */
 class MailerFactory
 {
@@ -22,6 +22,7 @@ class MailerFactory
 
     /**
      * Set the mailer factory configuration.
+     *
      * @param array $config
      */
     public function __construct($config = array())
@@ -30,11 +31,12 @@ class MailerFactory
             $config = array();
         }
 
-        $this->emailConfig  = isset($config['email_settings']) ? $config['email_settings'] : array();
+        $this->emailConfig = isset($config['email_settings']) ? $config['email_settings'] : array();
     }
 
     /**
-     * Returns an instance of Swift_Mailer based on the config.s
+     * Returns an instance of Swift_Mailer based on the config.s.
+     *
      * @return \Swift_Mailer
      */
     public function getSwiftMailerFromConfig()
@@ -61,27 +63,29 @@ class MailerFactory
 
     /**
      * Return a specific configuration value by key.
+     *
      * @param $configName
+     *
      * @return null|string
      */
     public function getMailConfig($configName)
     {
-        if (isset($this->emailConfig[$configName]) && $this->emailConfig[$configName] != "") {
+        if (isset($this->emailConfig[$configName]) && $this->emailConfig[$configName] != '') {
             return $this->emailConfig[$configName];
         } else {
             // Check defaults
 
             switch ($configName) {
                 case 'smtp_address':
-                    return "localhost";
+                    return 'localhost';
                 case 'default_mailto_address':
-                    return null;
+                    return;
                 case 'smtp_port':
                     return '25';
                 case 'smtp_encryption':
-                    return null;
+                    return;
                 default:
-                    return "";
+                    return '';
             }
         }
     }

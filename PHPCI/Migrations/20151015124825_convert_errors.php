@@ -51,7 +51,8 @@ class ConvertErrors extends AbstractMigration
                             $this->processTechnicalDebtMeta($meta);
                             break;
                     }
-                } catch (\Exception $ex) {}
+                } catch (\Exception $ex) {
+                }
 
                 $this->metaStore->delete($meta);
             }
@@ -125,12 +126,12 @@ class ConvertErrors extends AbstractMigration
 
                 switch ($error['type']) {
                     case 'method':
-                        $buildError->setMessage($error['class'] . '::' . $error['method'] . ' is missing a docblock.');
+                        $buildError->setMessage($error['class'].'::'.$error['method'].' is missing a docblock.');
                         $buildError->setSeverity(BuildError::SEVERITY_NORMAL);
                         break;
 
                     case 'class':
-                        $buildError->setMessage('Class ' . $error['class'] . ' is missing a docblock.');
+                        $buildError->setMessage('Class '.$error['class'].' is missing a docblock.');
                         $buildError->setSeverity(BuildError::SEVERITY_LOW);
                         break;
                 }

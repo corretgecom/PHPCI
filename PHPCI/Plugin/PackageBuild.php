@@ -1,9 +1,10 @@
 <?php
 /**
- * PHPCI - Continuous Integration for PHP
+ * PHPCI - Continuous Integration for PHP.
  *
  * @copyright    Copyright 2014, Block 8 Limited.
  * @license      https://github.com/Block8/PHPCI/blob/master/LICENSE.md
+ *
  * @link         https://www.phptesting.org/
  */
 
@@ -13,11 +14,10 @@ use PHPCI\Builder;
 use PHPCI\Model\Build;
 
 /**
-* Create a ZIP or TAR.GZ archive of the entire build.
-* @author       Dan Cryer <dan@block8.co.uk>
-* @package      PHPCI
-* @subpackage   Plugins
-*/
+ * Create a ZIP or TAR.GZ archive of the entire build.
+ *
+ * @author       Dan Cryer <dan@block8.co.uk>
+ */
 class PackageBuild implements \PHPCI\Plugin
 {
     protected $directory;
@@ -27,26 +27,27 @@ class PackageBuild implements \PHPCI\Plugin
 
     /**
      * Set up the plugin, configure options, etc.
+     *
      * @param Builder $phpci
-     * @param Build $build
-     * @param array $options
+     * @param Build   $build
+     * @param array   $options
      */
     public function __construct(Builder $phpci, Build $build, array $options = array())
     {
-        $path            = $phpci->buildPath;
-        $this->build     = $build;
-        $this->phpci     = $phpci;
+        $path = $phpci->buildPath;
+        $this->build = $build;
+        $this->phpci = $phpci;
         $this->directory = isset($options['directory']) ? $options['directory'] : $path;
-        $this->filename  = isset($options['filename']) ? $options['filename'] : 'build';
-        $this->format    = isset($options['format']) ?  $options['format'] : 'zip';
+        $this->filename = isset($options['filename']) ? $options['filename'] : 'build';
+        $this->format = isset($options['format']) ?  $options['format'] : 'zip';
     }
 
     /**
-    * Executes Composer and runs a specified command (e.g. install / update)
-    */
+     * Executes Composer and runs a specified command (e.g. install / update).
+     */
     public function execute()
     {
-        $path  = $this->phpci->buildPath;
+        $path = $this->phpci->buildPath;
         $build = $this->build;
 
         if ($this->directory == $path) {

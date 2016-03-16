@@ -1,10 +1,11 @@
 <?php
 
 /**
- * PHPCI - Continuous Integration for PHP
+ * PHPCI - Continuous Integration for PHP.
  *
  * @copyright    Copyright 2015, Block 8 Limited.
  * @license      https://github.com/Block8/PHPCI/blob/master/LICENSE.md
+ *
  * @link         https://www.phptesting.org/
  */
 
@@ -12,7 +13,6 @@ namespace Tests\PHPCI\Plugin;
 
 use PHPCI\Plugin\Phar as PharPlugin;
 use Phar as PHPPhar;
-use RuntimeException;
 
 class PharTest extends \PHPUnit_Framework_TestCase
 {
@@ -40,8 +40,9 @@ class PharTest extends \PHPUnit_Framework_TestCase
 
     protected function buildTemp()
     {
-        $directory = tempnam(APPLICATION_PATH . '/Tests/temp', 'source');
+        $directory = tempnam(APPLICATION_PATH.'/Tests/temp', 'source');
         unlink($directory);
+
         return $directory;
     }
 
@@ -49,13 +50,14 @@ class PharTest extends \PHPUnit_Framework_TestCase
     {
         $directory = $this->buildTemp();
         mkdir($directory);
-        file_put_contents($directory . '/one.php', '<?php echo "one";');
-        file_put_contents($directory . '/two.php', '<?php echo "two";');
-        mkdir($directory . '/config');
-        file_put_contents($directory . '/config/config.ini', '[config]');
-        mkdir($directory . '/views');
-        file_put_contents($directory . '/views/index.phtml', '<?php echo "hello";');
+        file_put_contents($directory.'/one.php', '<?php echo "one";');
+        file_put_contents($directory.'/two.php', '<?php echo "two";');
+        mkdir($directory.'/config');
+        file_put_contents($directory.'/config/config.ini', '[config]');
+        mkdir($directory.'/views');
+        file_put_contents($directory.'/views/index.phtml', '<?php echo "hello";');
         $this->directory = $directory;
+
         return $directory;
     }
 
@@ -73,10 +75,10 @@ class PharTest extends \PHPUnit_Framework_TestCase
                 '/one.php',
             );
             foreach ($filenames as $filename) {
-                if (is_dir($this->directory . $filename)) {
-                    rmdir($this->directory . $filename);
-                } else if (is_file($this->directory . $filename)) {
-                    unlink($this->directory . $filename);
+                if (is_dir($this->directory.$filename)) {
+                    rmdir($this->directory.$filename);
+                } elseif (is_file($this->directory.$filename)) {
+                    unlink($this->directory.$filename);
                 }
             }
             rmdir($this->directory);
@@ -141,15 +143,15 @@ class PharTest extends \PHPUnit_Framework_TestCase
         $this->checkReadonly();
 
         $plugin = $this->getPlugin();
-        $path   = $this->buildSource();
+        $path = $this->buildSource();
         $plugin->getPHPCI()->buildPath = $path;
 
         $this->assertTrue($plugin->execute());
 
-        $this->assertFileExists($path . '/build.phar');
-        PHPPhar::loadPhar($path . '/build.phar');
-        $this->assertFileEquals($path . '/one.php', 'phar://build.phar/one.php');
-        $this->assertFileEquals($path . '/two.php', 'phar://build.phar/two.php');
+        $this->assertFileExists($path.'/build.phar');
+        PHPPhar::loadPhar($path.'/build.phar');
+        $this->assertFileEquals($path.'/one.php', 'phar://build.phar/one.php');
+        $this->assertFileEquals($path.'/two.php', 'phar://build.phar/two.php');
         $this->assertFileNotExists('phar://build.phar/config/config.ini');
         $this->assertFileNotExists('phar://build.phar/views/index.phtml');
     }
@@ -159,17 +161,17 @@ class PharTest extends \PHPUnit_Framework_TestCase
         $this->checkReadonly();
 
         $plugin = $this->getPlugin(array('regexp' => '/\.(php|phtml)$/'));
-        $path   = $this->buildSource();
+        $path = $this->buildSource();
         $plugin->getPHPCI()->buildPath = $path;
 
         $this->assertTrue($plugin->execute());
 
-        $this->assertFileExists($path . '/build.phar');
-        PHPPhar::loadPhar($path . '/build.phar');
-        $this->assertFileEquals($path . '/one.php', 'phar://build.phar/one.php');
-        $this->assertFileEquals($path . '/two.php', 'phar://build.phar/two.php');
+        $this->assertFileExists($path.'/build.phar');
+        PHPPhar::loadPhar($path.'/build.phar');
+        $this->assertFileEquals($path.'/one.php', 'phar://build.phar/one.php');
+        $this->assertFileEquals($path.'/two.php', 'phar://build.phar/two.php');
         $this->assertFileNotExists('phar://build.phar/config/config.ini');
-        $this->assertFileEquals($path . '/views/index.phtml', 'phar://build.phar/views/index.phtml');
+        $this->assertFileEquals($path.'/views/index.phtml', 'phar://build.phar/views/index.phtml');
     }
 
     public function testExecuteStub()
@@ -183,15 +185,15 @@ __HALT_COMPILER(); ?>
 STUB;
 
         $path = $this->buildSource();
-        file_put_contents($path . '/stub.php', $content);
+        file_put_contents($path.'/stub.php', $content);
 
         $plugin = $this->getPlugin(array('stub' => 'stub.php'));
         $plugin->getPHPCI()->buildPath = $path;
 
         $this->assertTrue($plugin->execute());
 
-        $this->assertFileExists($path . '/build.phar');
-        $phar = new PHPPhar($path . '/build.phar');
+        $this->assertFileExists($path.'/build.phar');
+        $phar = new PHPPhar($path.'/build.phar');
         $this->assertEquals($content, trim($phar->getStub())); // + trim because PHP adds newline char
     }
 

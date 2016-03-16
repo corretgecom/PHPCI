@@ -1,9 +1,10 @@
 <?php
 /**
- * PHPCI - Continuous Integration for PHP
+ * PHPCI - Continuous Integration for PHP.
  *
  * @copyright    Copyright 2014-2015, Block 8 Limited.
  * @license      https://github.com/Block8/PHPCI/blob/master/LICENSE.md
+ *
  * @link         https://www.phptesting.org/
  */
 
@@ -12,7 +13,6 @@ namespace PHPCI\Controller;
 use b8;
 use b8\Store;
 use Exception;
-use PHPCI\BuildFactory;
 use PHPCI\Model\Project;
 use PHPCI\Service\BuildService;
 use PHPCI\Store\BuildStore;
@@ -25,8 +25,6 @@ use PHPCI\Store\ProjectStore;
  * @author       Sami Tikka <stikka@iki.fi>
  * @author       Alex Russell <alex@clevercherry.com>
  * @author       Guillaume Perréal <adirelle@gmail.com>
- * @package      PHPCI
- * @subpackage   Web
  */
 class WebhookController extends \b8\Controller
 {
@@ -56,9 +54,8 @@ class WebhookController extends \b8\Controller
     }
 
     /** Handle the action, Ensuring to return a JsonResponse.
-     *
      * @param string $action
-     * @param mixed $actionParams
+     * @param mixed  $actionParams
      *
      * @return \b8\Http\Response
      */
@@ -76,6 +73,7 @@ class WebhookController extends \b8\Controller
             $response->setResponseCode(500);
             $response->setContent(array('status' => 'failed', 'error' => $ex->getMessage()));
         }
+
         return $response;
     }
 
@@ -112,7 +110,7 @@ class WebhookController extends \b8\Controller
     }
 
     /**
-     * Called by POSTing to /webhook/git/<project_id>?branch=<branch>&commit=<commit>
+     * Called by POSTing to /webhook/git/<project_id>?branch=<branch>&commit=<commit>.
      *
      * @param string $projectId
      */
@@ -128,7 +126,7 @@ class WebhookController extends \b8\Controller
     }
 
     /**
-     * Called by Github Webhooks:
+     * Called by Github Webhooks:.
      */
     public function github($projectId)
     {
@@ -161,8 +159,8 @@ class WebhookController extends \b8\Controller
     /**
      * Handle the payload when Github sends a commit webhook.
      *
-     * @param Project $project
-     * @param array $payload
+     * @param Project                       $project
+     * @param array                         $payload
      * @param b8\Http\Response\JsonResponse $response
      *
      * @return b8\Http\Response\JsonResponse
@@ -201,6 +199,7 @@ class WebhookController extends \b8\Controller
                     $results[$commit['id']] = array('status' => 'failed', 'error' => $ex->getMessage());
                 }
             }
+
             return array('status' => $status, 'commits' => $results);
         }
 
@@ -209,6 +208,7 @@ class WebhookController extends \b8\Controller
             $branch = str_replace('refs/tags/', 'Tag: ', $payload['ref']);
             $committer = $payload['pusher']['email'];
             $message = $payload['head_commit']['message'];
+
             return $this->createBuild($project, $payload['after'], $branch, $committer, $message);
         }
 
@@ -219,7 +219,7 @@ class WebhookController extends \b8\Controller
      * Handle the payload when Github sends a Pull Request webhook.
      *
      * @param Project $project
-     * @param array $payload
+     * @param array   $payload
      */
     protected function githubPullRequest(Project $project, array $payload)
     {
@@ -232,11 +232,11 @@ class WebhookController extends \b8\Controller
         $token = \b8\Config::getInstance()->get('phpci.github.token');
 
         if (!empty($token)) {
-            $headers[] = 'Authorization: token ' . $token;
+            $headers[] = 'Authorization: token '.$token;
         }
 
-        $url    = $payload['pull_request']['commits_url'];
-        $http   = new \b8\HttpClient();
+        $url = $payload['pull_request']['commits_url'];
+        $http = new \b8\HttpClient();
         $http->setHeaders($headers);
         $response = $http->get($url);
 
@@ -281,13 +281,13 @@ class WebhookController extends \b8\Controller
     }
 
     /**
-     * Called by Gitlab Webhooks:
+     * Called by Gitlab Webhooks:.
      */
     public function gitlab($projectId)
     {
         $project = $this->fetchProject($projectId, 'gitlab');
 
-        $payloadString = file_get_contents("php://input");
+        $payloadString = file_get_contents('php://input');
         $payload = json_decode($payloadString, true);
 
         // build on merge request events
@@ -324,6 +324,7 @@ class WebhookController extends \b8\Controller
                     $results[$commit['id']] = array('status' => 'failed', 'error' => $ex->getMessage());
                 }
             }
+
             return array('status' => $status, 'commits' => $results);
         }
 
@@ -334,11 +335,11 @@ class WebhookController extends \b8\Controller
      * Wrapper for creating a new build.
      *
      * @param Project $project
-     * @param string $commitId
-     * @param string $branch
-     * @param string $committer
-     * @param string $commitMessage
-     * @param array $extra
+     * @param string  $commitId
+     * @param string  $branch
+     * @param string  $committer
+     * @param string  $commitMessage
+     * @param array   $extra
      *
      * @return array
      *
@@ -358,7 +359,7 @@ class WebhookController extends \b8\Controller
         if ($builds['count']) {
             return array(
                 'status' => 'ignored',
-                'message' => sprintf('Duplicate of build #%d', $builds['items'][0]->getId())
+                'message' => sprintf('Duplicate of build #%d', $builds['items'][0]->getId()),
             );
         }
 
@@ -371,7 +372,7 @@ class WebhookController extends \b8\Controller
     /**
      * Fetch a project and check its type.
      *
-     * @param int $projectId
+     * @param int          $projectId
      * @param array|string $expectedType
      *
      * @return Project
@@ -383,14 +384,14 @@ class WebhookController extends \b8\Controller
         $project = $this->projectStore->getById($projectId);
 
         if (empty($projectId)) {
-            throw new Exception('Project does not exist: ' . $projectId);
+            throw new Exception('Project does not exist: '.$projectId);
         }
 
         if (is_array($expectedType)
             ? !in_array($project->getType(), $expectedType)
             : $project->getType() !== $expectedType
         ) {
-            throw new Exception('Wrong project type: ' . $project->getType());
+            throw new Exception('Wrong project type: '.$project->getType());
         }
 
         return $project;

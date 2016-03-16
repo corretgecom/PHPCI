@@ -1,12 +1,12 @@
 <?php
 /**
- * PHPCI - Continuous Integration for PHP
+ * PHPCI - Continuous Integration for PHP.
  *
  * @copyright    Copyright 2014, Block 8 Limited.
  * @license      https://github.com/Block8/PHPCI/blob/master/LICENSE.md
+ *
  * @link         https://www.phptesting.org/
  */
-
 $strings = array(
     'language_name' => 'Українська',
     'language' => 'Мова',
@@ -42,7 +42,6 @@ PHPCI',
     'login' => 'Логин / Email адреса',
     'password' => 'Пароль',
     'log_in' => 'Увійти',
-
 
     // Top Nav
     'toggle_navigation' => 'Сховати/відобразити панель навігації',
@@ -100,7 +99,7 @@ PHPCI',
     'gitlab' => 'GitLab',
     'remote' => 'Віддалений URL',
     'local' => 'Локальний шлях',
-    'hg'    => 'Mercurial',
+    'hg' => 'Mercurial',
 
     'where_hosted' => 'Де зберігається ваш проект?',
     'choose_github' => 'Оберіть GitHub репозиторій:',
@@ -156,7 +155,6 @@ PHPCI',
     'build_x_not_found' => 'Збірка із ID %d не існує.',
     'build_n' => 'Збірка %d',
     'rebuild_now' => 'Перезібрати зараз',
-
 
     'committed_by_x' => 'Комміт від %s',
     'commit_id_x' => 'Комміт: %s',
@@ -395,5 +393,5 @@ PHPCI',
     'build_file_missing' => 'Вказаний файл збірки не існує.',
     'property_file_missing' => 'Вказаний файл властивості не існує.',
     'could_not_process_report' => 'Неможливо обробити звіт, згенерований цією утилітою.',
-    'shell_not_enabled' => 'Плагін shell не увімкнений. Будь ласка, увімкніть його через config.yml.'
+    'shell_not_enabled' => 'Плагін shell не увімкнений. Будь ласка, увімкніть його через config.yml.',
 );

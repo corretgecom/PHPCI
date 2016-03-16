@@ -1,9 +1,10 @@
 <?php
 /**
- * PHPCI - Continuous Integration for PHP
+ * PHPCI - Continuous Integration for PHP.
  *
  * @copyright    Copyright 2014, Block 8 Limited.
  * @license      https://github.com/Block8/PHPCI/blob/master/LICENSE.md
+ *
  * @link         https://www.phptesting.org/
  */
 
@@ -15,10 +16,9 @@ use PHPCI\Model\Build;
 
 /**
  * Campfire Plugin - Allows Campfire API actions.
- * strongly based on icecube (http://labs.mimmin.com/icecube)
+ * strongly based on icecube (http://labs.mimmin.com/icecube).
+ *
  * @author       André Cianfarani <acianfa@gmail.com>
- * @package      PHPCI
- * @subpackage   Plugins
  */
 class Campfire implements \PHPCI\Plugin
 {
@@ -31,50 +31,52 @@ class Campfire implements \PHPCI\Plugin
 
     /**
      * Set up the plugin, configure options, etc.
+     *
      * @param Builder $phpci
-     * @param Build $build
-     * @param array $options
+     * @param Build   $build
+     * @param array   $options
+     *
      * @throws \Exception
      */
     public function __construct(Builder $phpci, Build $build, array $options = array())
     {
-        $this->phpci     = $phpci;
-        $this->build     = $build;
-        $this->message   = $options['message'];
-        $this->userAgent = "PHPCI/1.0 (+http://www.phptesting.org/)";
-        $this->cookie    = "phpcicookie";
+        $this->phpci = $phpci;
+        $this->build = $build;
+        $this->message = $options['message'];
+        $this->userAgent = 'PHPCI/1.0 (+http://www.phptesting.org/)';
+        $this->cookie = 'phpcicookie';
 
         $buildSettings = $phpci->getConfig('build_settings');
 
         if (isset($buildSettings['campfire'])) {
-            $campfire        = $buildSettings['campfire'];
-            $this->url       = $campfire['url'];
+            $campfire = $buildSettings['campfire'];
+            $this->url = $campfire['url'];
             $this->authToken = $campfire['authToken'];
-            $this->roomId    = $campfire['roomId'];
+            $this->roomId = $campfire['roomId'];
         } else {
             throw new \Exception(Lang::get('no_campfire_settings'));
         }
-
     }
 
     /**
      * Run the Campfire plugin.
+     *
      * @return bool|mixed
      */
     public function execute()
     {
-        $url = PHPCI_URL . "build/view/" . $this->build->getId();
-        $message = str_replace("%buildurl%", $url, $this->message);
+        $url = PHPCI_URL.'build/view/'.$this->build->getId();
+        $message = str_replace('%buildurl%', $url, $this->message);
         $this->joinRoom($this->roomId);
         $status = $this->speak($message, $this->roomId);
         $this->leaveRoom($this->roomId);
 
         return $status;
-
     }
 
     /**
      * Join a Campfire room.
+     *
      * @param $roomId
      */
     public function joinRoom($roomId)
@@ -84,6 +86,7 @@ class Campfire implements \PHPCI\Plugin
 
     /**
      * Leave a Campfire room.
+     *
      * @param $roomId
      */
     public function leaveRoom($roomId)
@@ -93,9 +96,11 @@ class Campfire implements \PHPCI\Plugin
 
     /**
      * Send a message to a campfire room.
+     *
      * @param $message
      * @param $roomId
      * @param bool $isPaste
+     *
      * @return bool|mixed
      */
     public function speak($message, $roomId, $isPaste = false)
@@ -109,18 +114,19 @@ class Campfire implements \PHPCI\Plugin
         }
 
         return $this->getPageByPost($page, array('message' => array('type' => $type, 'body' => $message)));
-
     }
 
     /**
      * Make a request to Campfire.
+     *
      * @param $page
      * @param null $data
+     *
      * @return bool|mixed
      */
     private function getPageByPost($page, $data = null)
     {
-        $url = $this->url . $page;
+        $url = $this->url.$page;
         // The new API allows JSON, so we can pass
         // PHP data structures instead of old school POST
         $json = json_encode($data);
@@ -133,8 +139,8 @@ class Campfire implements \PHPCI\Plugin
         curl_setopt($handle, CURLOPT_USERAGENT, $this->userAgent);
         curl_setopt($handle, CURLOPT_VERBOSE, $this->verbose);
         curl_setopt($handle, CURLOPT_FOLLOWLOCATION, 1);
-        curl_setopt($handle, CURLOPT_USERPWD, $this->authToken . ':x');
-        curl_setopt($handle, CURLOPT_HTTPHEADER, array("Content-type: application/json"));
+        curl_setopt($handle, CURLOPT_USERPWD, $this->authToken.':x');
+        curl_setopt($handle, CURLOPT_HTTPHEADER, array('Content-type: application/json'));
         curl_setopt($handle, CURLOPT_COOKIEFILE, $this->cookie);
 
         curl_setopt($handle, CURLOPT_POSTFIELDS, $json);

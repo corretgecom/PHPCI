@@ -1,20 +1,19 @@
 <?php
 /**
- * PHPCI - Continuous Integration for PHP
+ * PHPCI - Continuous Integration for PHP.
  *
  * @copyright    Copyright 2014, Block 8 Limited.
  * @license      https://github.com/Block8/PHPCI/blob/master/LICENSE.md
+ *
  * @link         https://www.phptesting.org/
  */
 
 namespace PHPCI\Helper;
 
 use b8\Config;
-use PHPCI\Helper\MailerFactory;
 
 /**
  * Helper class for sending emails using PHPCI's email configuration.
- * @package PHPCI\Helper
  */
 class Email
 {
@@ -37,8 +36,10 @@ class Email
 
     /**
      * Set the email's To: header.
-     * @param string $email
+     *
+     * @param string      $email
      * @param string|null $name
+     *
      * @return $this
      */
     public function setEmailTo($email, $name = null)
@@ -50,8 +51,10 @@ class Email
 
     /**
      * Add an address to the email's CC header.
-     * @param string $email
+     *
+     * @param string      $email
      * @param string|null $name
+     *
      * @return $this
      */
     public function addCc($email, $name = null)
@@ -63,7 +66,9 @@ class Email
 
     /**
      * Set the email subject.
+     *
      * @param string $subject
+     *
      * @return $this
      */
     public function setSubject($subject)
@@ -75,7 +80,9 @@ class Email
 
     /**
      * Set the email body.
+     *
      * @param string $body
+     *
      * @return $this
      */
     public function setBody($body)
@@ -87,7 +94,9 @@ class Email
 
     /**
      * Set whether or not the email body is HTML.
+     *
      * @param bool $isHtml
+     *
      * @return $this
      */
     public function setHtml($isHtml = false)
@@ -99,6 +108,7 @@ class Email
 
     /**
      * Send the email.
+     *
      * @return bool|int
      */
     public function send()
@@ -114,6 +124,7 @@ class Email
 
     /**
      * Sends the email via the built in PHP mail() function.
+     *
      * @return bool
      */
     protected function sendViaMail()
@@ -121,17 +132,17 @@ class Email
         $headers = '';
 
         if ($this->isHtml) {
-            $headers = 'Content-Type: text/html' . PHP_EOL;
+            $headers = 'Content-Type: text/html'.PHP_EOL;
         }
 
-        $headers .= 'From: ' . $this->getFrom() . PHP_EOL;
+        $headers .= 'From: '.$this->getFrom().PHP_EOL;
 
         $emailTo = array();
         foreach ($this->emailTo as $email => $name) {
             $thisTo = $email;
 
             if (!is_null($name)) {
-                $thisTo = '"' . $name . '" <' . $thisTo . '>';
+                $thisTo = '"'.$name.'" <'.$thisTo.'>';
             }
 
             $emailTo[] = $thisTo;
@@ -144,6 +155,7 @@ class Email
 
     /**
      * Sends the email using SwiftMailer.
+     *
      * @return int
      */
     protected function sendViaSwiftMailer()
@@ -169,6 +181,7 @@ class Email
 
     /**
      * Get the from address to use for the email.
+     *
      * @return mixed|string
      */
     protected function getFrom()

@@ -1,9 +1,10 @@
 <?php
 /**
- * PHPCI - Continuous Integration for PHP
+ * PHPCI - Continuous Integration for PHP.
  *
  * @copyright    Copyright 2014, Block 8 Limited.
  * @license      https://github.com/Block8/PHPCI/blob/master/LICENSE.md
+ *
  * @link         https://www.phptesting.org/
  */
 
@@ -20,8 +21,7 @@ use PHPCI\Store\BuildStore;
 
 /**
  * The build service handles the creation, duplication and deletion of builds.
- * Class BuildService
- * @package PHPCI\Service
+ * Class BuildService.
  */
 class BuildService
 {
@@ -39,12 +39,13 @@ class BuildService
     }
 
     /**
-     * @param Project $project
+     * @param Project     $project
      * @param string|null $commitId
      * @param string|null $branch
      * @param string|null $committerEmail
      * @param string|null $commitMessage
      * @param string|null $extra
+     *
      * @return \PHPCI\Model\Build
      */
     public function createBuild(
@@ -100,6 +101,7 @@ class BuildService
 
     /**
      * @param Build $copyFrom
+     *
      * @return \PHPCI\Model\Build
      */
     public function createDuplicateBuild(Build $copyFrom)
@@ -133,17 +135,21 @@ class BuildService
 
     /**
      * Delete a given build.
+     *
      * @param Build $build
+     *
      * @return bool
      */
     public function deleteBuild(Build $build)
     {
         $build->removeBuildDirectory();
+
         return $this->buildStore->delete($build);
     }
 
     /**
-     * Takes a build and puts it into the queue to be run (if using a queue)
+     * Takes a build and puts it into the queue to be run (if using a queue).
+     *
      * @param Build $build
      */
     public function addBuildToQueue(Build $build)

@@ -1,4 +1,5 @@
 <?php
+
 namespace Tests\PHPCI\ProcessControl;
 
 use PHPCI\ProcessControl\WindowsProcessControl;
@@ -7,12 +8,12 @@ class WindowsProcessControlTest extends ProcessControlTest
 {
     protected function setUp()
     {
-        $this->object = new WindowsProcessControl;
+        $this->object = new WindowsProcessControl();
     }
 
     public function getTestCommand()
     {
-        return "pause";
+        return 'pause';
     }
 
     public function testIsAvailable()

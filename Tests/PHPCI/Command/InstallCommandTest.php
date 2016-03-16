@@ -1,10 +1,11 @@
 <?php
 
 /**
- * PHPCI - Continuous Integration for PHP
+ * PHPCI - Continuous Integration for PHP.
  *
  * @copyright    Copyright 2015, Block 8 Limited.
  * @license      https://github.com/Block8/PHPCI/blob/master/LICENSE.md
+ *
  * @link         https://www.phptesting.org/
  */
 
@@ -111,7 +112,7 @@ class InstallCommandTest extends \PHPUnit_Framework_TestCase
         );
 
         if (!is_null($exclude)) {
-          unset($config[$exclude]);
+            unset($config[$exclude]);
         }
 
         return $config;

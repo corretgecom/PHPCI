@@ -1,10 +1,11 @@
 <?php
 
 /**
- * PHPCI - Continuous Integration for PHP
+ * PHPCI - Continuous Integration for PHP.
  *
  * @copyright    Copyright 2015, Block 8 Limited.
  * @license      https://github.com/Block8/PHPCI/blob/master/LICENSE.md
+ *
  * @link         https://www.phptesting.org/
  */
 
@@ -120,14 +121,13 @@ TAP;
         $result = $parser->parse();
 
         $this->assertEquals(array(
-            array('pass' => true, 'severity' => 'success', 'message' => 'SomeTest::testAnother',),
+            array('pass' => true, 'severity' => 'success', 'message' => 'SomeTest::testAnother'),
             array('pass' => false, 'severity' => 'fail', 'message' => 'Failure: SomeTest::testAnother'),
             array('pass' => false, 'severity' => 'error', 'message' => 'Error: SomeTest::testAnother'),
         ), $result);
 
         $this->assertEquals(2, $parser->getTotalFailures());
     }
-
 
     public function testSkipped()
     {
@@ -189,9 +189,9 @@ TAP;
 
         $this->assertEquals(array(
             array(
-                'pass'     => false,
+                'pass' => false,
                 'severity' => 'fail',
-                'message'  => 'FOO' . PHP_EOL . 'BAR',
+                'message' => 'FOO'.PHP_EOL.'BAR',
             ),
         ), $result);
 
@@ -212,15 +212,15 @@ TAP;
 
         $this->assertEquals(array(
             array(
-                'pass'     => false,
+                'pass' => false,
                 'severity' => 'fail',
-                'message'  => 'Failure: testFailure::FailureErrorTest',
+                'message' => 'Failure: testFailure::FailureErrorTest',
             ),
             array(
-                'pass'     => false,
+                'pass' => false,
                 'severity' => 'error',
-                'message'  => 'Error: testError::FailureErrorTest',
-            )
+                'message' => 'Error: testError::FailureErrorTest',
+            ),
         ), $result);
 
         $this->assertEquals(2, $parser->getTotalFailures());
@@ -231,7 +231,7 @@ TAP;
      */
     public function testGarbage()
     {
-        $content = "Garbage !";
+        $content = 'Garbage !';
 
         $parser = new TapParser($content);
         $parser->parse();
@@ -298,6 +298,5 @@ TAP;
         );
 
         $this->assertEquals(0, $parser->getTotalFailures());
-
     }
 }

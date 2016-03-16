@@ -1,9 +1,10 @@
 <?php
 /**
- * PHPCI - Continuous Integration for PHP
+ * PHPCI - Continuous Integration for PHP.
  *
  * @copyright    Copyright 2014, Block 8 Limited.
  * @license      https://github.com/Block8/PHPCI/blob/master/LICENSE.md
+ *
  * @link         https://www.phptesting.org/
  */
 
@@ -13,12 +14,11 @@ use PHPCI\Builder;
 use PHPCI\Model\Build;
 
 /**
-* XMPP Notification - Send notification for successful or failure build
-* @author       Alexandre Russo <dev.github@ange7.com>
-* @package      PHPCI
-* @subpackage   Plugins
-*/
-class XMPP implements \PHPCI\Plugin
+ * XMPP Notification - Send notification for successful or failure build.
+ *
+ * @author       Alexandre Russo <dev.github@ange7.com>
+ */
+class Xmpp implements \PHPCI\Plugin
 {
     protected $directory;
     protected $phpci;
@@ -60,22 +60,21 @@ class XMPP implements \PHPCI\Plugin
     protected $date_format;
 
     /**
-     *
      * @param Builder $phpci
-     * @param Build $build
-     * @param array $options
+     * @param Build   $build
+     * @param array   $options
      */
     public function __construct(Builder $phpci, Build $build, array $options = array())
     {
         $this->phpci = $phpci;
         $this->build = $build;
 
-        $this->username    = '';
-        $this->password    = '';
-        $this->server      = '';
-        $this->alias       = '';
-        $this->recipients  = array();
-        $this->tls         = false;
+        $this->username = '';
+        $this->password = '';
+        $this->server = '';
+        $this->alias = '';
+        $this->recipients = array();
+        $this->tls = false;
         $this->date_format = '%c';
 
         /*
@@ -93,7 +92,7 @@ class XMPP implements \PHPCI\Plugin
     }
 
     /**
-     * Set options configuration for plugin
+     * Set options configuration for plugin.
      *
      * @param array $options
      */
@@ -107,7 +106,7 @@ class XMPP implements \PHPCI\Plugin
     }
 
     /**
-     * Get config format for sendxmpp config file
+     * Get config format for sendxmpp config file.
      *
      * @return string
      */
@@ -128,25 +127,25 @@ class XMPP implements \PHPCI\Plugin
     }
 
     /**
-     * Find config file for sendxmpp binary (default is .sendxmpprc)
+     * Find config file for sendxmpp binary (default is .sendxmpprc).
      */
     public function findConfigFile()
     {
-        if (file_exists($this->phpci->buildPath . DIRECTORY_SEPARATOR . '.sendxmpprc')) {
-            if (md5(file_get_contents($this->phpci->buildPath . DIRECTORY_SEPARATOR . '.sendxmpprc'))
+        if (file_exists($this->phpci->buildPath.DIRECTORY_SEPARATOR.'.sendxmpprc')) {
+            if (md5(file_get_contents($this->phpci->buildPath.DIRECTORY_SEPARATOR.'.sendxmpprc'))
                 !== md5($this->getConfigFormat())) {
-                return null;
+                return;
             }
 
             return true;
         }
 
-        return null;
+        return;
     }
 
     /**
-    * Send notification message.
-    */
+     * Send notification message.
+     */
     public function execute()
     {
         $sendxmpp = $this->phpci->findBinary('sendxmpp');
@@ -161,7 +160,7 @@ class XMPP implements \PHPCI\Plugin
         /*
          * Try to build conf file
          */
-        $config_file = $this->phpci->buildPath . DIRECTORY_SEPARATOR . '.sendxmpprc';
+        $config_file = $this->phpci->buildPath.DIRECTORY_SEPARATOR.'.sendxmpprc';
         if (is_null($this->findConfigFile())) {
             file_put_contents($config_file, $this->getConfigFormat());
             chmod($config_file, 0600);
@@ -175,7 +174,7 @@ class XMPP implements \PHPCI\Plugin
             $tls = ' -t';
         }
 
-        $message_file = $this->phpci->buildPath . DIRECTORY_SEPARATOR . uniqid('xmppmessage');
+        $message_file = $this->phpci->buildPath.DIRECTORY_SEPARATOR.uniqid('xmppmessage');
         if ($this->buildMessage($message_file) === false) {
             return false;
         }
@@ -183,31 +182,32 @@ class XMPP implements \PHPCI\Plugin
         /*
          * Send XMPP notification for all recipients
          */
-        $cmd = $sendxmpp . "%s -f %s -m %s %s";
+        $cmd = $sendxmpp.'%s -f %s -m %s %s';
         $recipients = implode(' ', $this->recipients);
 
         $success = $this->phpci->executeCommand($cmd, $tls, $config_file, $message_file, $recipients);
 
-        print $this->phpci->getLastOutput();
+        echo $this->phpci->getLastOutput();
 
         /*
          * Remove temp message file
          */
-        $this->phpci->executeCommand("rm -rf ".$message_file);
+        $this->phpci->executeCommand('rm -rf '.$message_file);
 
         return $success;
     }
 
     /**
      * @param $message_file
+     *
      * @return int
      */
     protected function buildMessage($message_file)
     {
         if ($this->build->isSuccessful()) {
-            $message = "✔ [".$this->build->getProjectTitle()."] Build #" . $this->build->getId()." successful";
+            $message = '✔ ['.$this->build->getProjectTitle().'] Build #'.$this->build->getId().' successful';
         } else {
-            $message = "✘ [".$this->build->getProjectTitle()."] Build #" . $this->build->getId()." failure";
+            $message = '✘ ['.$this->build->getProjectTitle().'] Build #'.$this->build->getId().' failure';
         }
 
         $message .= ' ('.strftime($this->date_format).')';

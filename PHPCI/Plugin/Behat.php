@@ -1,9 +1,10 @@
 <?php
 /**
- * PHPCI - Continuous Integration for PHP
+ * PHPCI - Continuous Integration for PHP.
  *
  * @copyright    Copyright 2014, Block 8 Limited.
  * @license      https://github.com/Block8/PHPCI/blob/master/LICENSE.md
+ *
  * @link         https://www.phptesting.org/
  */
 
@@ -15,10 +16,9 @@ use PHPCI\Model\Build;
 use PHPCI\Model\BuildError;
 
 /**
- * Behat BDD Plugin
+ * Behat BDD Plugin.
+ *
  * @author       Dan Cryer <dan@block8.co.uk>
- * @package      PHPCI
- * @subpackage   Plugins
  */
 class Behat implements \PHPCI\Plugin
 {
@@ -27,7 +27,7 @@ class Behat implements \PHPCI\Plugin
     protected $features;
 
     /**
-     * Standard Constructor
+     * Standard Constructor.
      *
      * $options['directory'] Output Directory. Default: %BUILDPATH%
      * $options['filename']  Phar Filename. Default: build.phar
@@ -40,8 +40,8 @@ class Behat implements \PHPCI\Plugin
      */
     public function __construct(Builder $phpci, Build $build, array $options = array())
     {
-        $this->phpci    = $phpci;
-        $this->build    = $build;
+        $this->phpci = $phpci;
+        $this->build = $build;
         $this->features = '';
 
         if (isset($options['executable'])) {
@@ -71,7 +71,7 @@ class Behat implements \PHPCI\Plugin
             return false;
         }
 
-        $success = $this->phpci->executeCommand($behat . ' %s', $this->features);
+        $success = $this->phpci->executeCommand($behat.' %s', $this->features);
         chdir($curdir);
 
         list($errorCount, $data) = $this->parseBehatOutput();
@@ -83,7 +83,7 @@ class Behat implements \PHPCI\Plugin
     }
 
     /**
-     * Parse the behat output and return details on failures
+     * Parse the behat output and return details on failures.
      *
      * @return array
      */
@@ -117,7 +117,7 @@ class Behat implements \PHPCI\Plugin
                 $lineParts = explode(':', $line);
                 $data[] = array(
                     'file' => $lineParts[0],
-                    'line' => $lineParts[1]
+                    'line' => $lineParts[1],
                 );
 
                 $this->build->reportError(

@@ -1,9 +1,10 @@
 <?php
 /**
- * PHPCI - Continuous Integration for PHP
+ * PHPCI - Continuous Integration for PHP.
  *
  * @copyright    Copyright 2014, Block 8 Limited.
  * @license      https://github.com/Block8/PHPCI/blob/master/LICENSE.md
+ *
  * @link         https://www.phptesting.org/
  */
 
@@ -24,11 +25,10 @@ use PHPCI\BuildFactory;
 use PHPCI\Model\Build;
 
 /**
-* Run console command - Runs any pending builds.
-* @author       Dan Cryer <dan@block8.co.uk>
-* @package      PHPCI
-* @subpackage   Console
-*/
+ * Run console command - Runs any pending builds.
+ *
+ * @author       Dan Cryer <dan@block8.co.uk>
+ */
 class RunCommand extends Command
 {
     /**
@@ -53,7 +53,7 @@ class RunCommand extends Command
 
     /**
      * @param \Monolog\Logger $logger
-     * @param string $name
+     * @param string          $name
      */
     public function __construct(Logger $logger, $name = null)
     {
@@ -107,7 +107,7 @@ class RunCommand extends Command
                 continue;
             }
 
-            $builds++;
+            ++$builds;
 
             try {
                 // Logging relevant to this build should be stored
@@ -124,10 +124,9 @@ class RunCommand extends Command
             } catch (\Exception $ex) {
                 $build->setStatus(Build::STATUS_FAILED);
                 $build->setFinished(new \DateTime());
-                $build->setLog($build->getLog() . PHP_EOL . PHP_EOL . $ex->getMessage());
+                $build->setLog($build->getLog().PHP_EOL.PHP_EOL.$ex->getMessage());
                 $store->save($build);
             }
-
         }
 
         $this->logger->addInfo(Lang::get('finished_processing_builds'));
@@ -137,12 +136,12 @@ class RunCommand extends Command
 
     public function setMaxBuilds($numBuilds)
     {
-        $this->maxBuilds = (int)$numBuilds;
+        $this->maxBuilds = (int) $numBuilds;
     }
 
     public function setDaemon($fromDaemon)
     {
-        $this->isFromDaemon = (bool)$fromDaemon;
+        $this->isFromDaemon = (bool) $fromDaemon;
     }
 
     protected function validateRunningBuilds()

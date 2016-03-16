@@ -1,7 +1,7 @@
 <?php
 
 /**
- * BuildError base model for table: build_error
+ * BuildError base model for table: build_error.
  */
 
 namespace PHPCI\Model\Base;
@@ -10,28 +10,28 @@ use PHPCI\Model;
 use b8\Store\Factory;
 
 /**
- * BuildError Base Model
+ * BuildError Base Model.
  */
 class BuildErrorBase extends Model
 {
     /**
-    * @var array
-    */
+     * @var array
+     */
     public static $sleepable = array();
 
     /**
-    * @var string
-    */
+     * @var string
+     */
     protected $tableName = 'build_error';
 
     /**
-    * @var string
-    */
+     * @var string
+     */
     protected $modelName = 'BuildError';
 
     /**
-    * @var array
-    */
+     * @var array
+     */
     protected $data = array(
         'id' => null,
         'build_id' => null,
@@ -45,8 +45,8 @@ class BuildErrorBase extends Model
     );
 
     /**
-    * @var array
-    */
+     * @var array
+     */
     protected $getters = array(
         // Direct property getters:
         'id' => 'getId',
@@ -64,8 +64,8 @@ class BuildErrorBase extends Model
     );
 
     /**
-    * @var array
-    */
+     * @var array
+     */
     protected $setters = array(
         // Direct property setters:
         'id' => 'setId',
@@ -83,8 +83,8 @@ class BuildErrorBase extends Model
     );
 
     /**
-    * @var array
-    */
+     * @var array
+     */
     public $columns = array(
         'id' => array(
             'type' => 'int',
@@ -138,144 +138,145 @@ class BuildErrorBase extends Model
     );
 
     /**
-    * @var array
-    */
+     * @var array
+     */
     public $indexes = array(
             'PRIMARY' => array('unique' => true, 'columns' => 'id'),
             'build_id' => array('columns' => 'build_id, created_date'),
     );
 
     /**
-    * @var array
-    */
+     * @var array
+     */
     public $foreignKeys = array(
             'build_error_ibfk_1' => array(
                 'local_col' => 'build_id',
                 'update' => 'CASCADE',
                 'delete' => 'CASCADE',
                 'table' => 'build',
-                'col' => 'id'
+                'col' => 'id',
                 ),
     );
 
     /**
-    * Get the value of Id / id.
-    *
-    * @return int
-    */
+     * Get the value of Id / id.
+     *
+     * @return int
+     */
     public function getId()
     {
-        $rtn    = $this->data['id'];
+        $rtn = $this->data['id'];
 
         return $rtn;
     }
 
     /**
-    * Get the value of BuildId / build_id.
-    *
-    * @return int
-    */
+     * Get the value of BuildId / build_id.
+     *
+     * @return int
+     */
     public function getBuildId()
     {
-        $rtn    = $this->data['build_id'];
+        $rtn = $this->data['build_id'];
 
         return $rtn;
     }
 
     /**
-    * Get the value of Plugin / plugin.
-    *
-    * @return string
-    */
+     * Get the value of Plugin / plugin.
+     *
+     * @return string
+     */
     public function getPlugin()
     {
-        $rtn    = $this->data['plugin'];
+        $rtn = $this->data['plugin'];
 
         return $rtn;
     }
 
     /**
-    * Get the value of File / file.
-    *
-    * @return string
-    */
+     * Get the value of File / file.
+     *
+     * @return string
+     */
     public function getFile()
     {
-        $rtn    = $this->data['file'];
+        $rtn = $this->data['file'];
 
         return $rtn;
     }
 
     /**
-    * Get the value of LineStart / line_start.
-    *
-    * @return int
-    */
+     * Get the value of LineStart / line_start.
+     *
+     * @return int
+     */
     public function getLineStart()
     {
-        $rtn    = $this->data['line_start'];
+        $rtn = $this->data['line_start'];
 
         return $rtn;
     }
 
     /**
-    * Get the value of LineEnd / line_end.
-    *
-    * @return int
-    */
+     * Get the value of LineEnd / line_end.
+     *
+     * @return int
+     */
     public function getLineEnd()
     {
-        $rtn    = $this->data['line_end'];
+        $rtn = $this->data['line_end'];
 
         return $rtn;
     }
 
     /**
-    * Get the value of Severity / severity.
-    *
-    * @return int
-    */
+     * Get the value of Severity / severity.
+     *
+     * @return int
+     */
     public function getSeverity()
     {
-        $rtn    = $this->data['severity'];
+        $rtn = $this->data['severity'];
 
         return $rtn;
     }
 
     /**
-    * Get the value of Message / message.
-    *
-    * @return string
-    */
+     * Get the value of Message / message.
+     *
+     * @return string
+     */
     public function getMessage()
     {
-        $rtn    = $this->data['message'];
+        $rtn = $this->data['message'];
 
         return $rtn;
     }
 
     /**
-    * Get the value of CreatedDate / created_date.
-    *
-    * @return \DateTime
-    */
+     * Get the value of CreatedDate / created_date.
+     *
+     * @return \DateTime
+     */
     public function getCreatedDate()
     {
-        $rtn    = $this->data['created_date'];
+        $rtn = $this->data['created_date'];
 
         if (!empty($rtn)) {
-            $rtn    = new \DateTime($rtn);
+            $rtn = new \DateTime($rtn);
         }
-        
+
         return $rtn;
     }
 
     /**
-    * Set the value of Id / id.
-    *
-    * Must not be null.
-    * @param $value int
-    */
+     * Set the value of Id / id.
+     *
+     * Must not be null.
+     *
+     * @param $value int
+     */
     public function setId($value)
     {
         $this->_validateNotNull('Id', $value);
@@ -291,11 +292,12 @@ class BuildErrorBase extends Model
     }
 
     /**
-    * Set the value of BuildId / build_id.
-    *
-    * Must not be null.
-    * @param $value int
-    */
+     * Set the value of BuildId / build_id.
+     *
+     * Must not be null.
+     *
+     * @param $value int
+     */
     public function setBuildId($value)
     {
         $this->_validateNotNull('BuildId', $value);
@@ -311,11 +313,12 @@ class BuildErrorBase extends Model
     }
 
     /**
-    * Set the value of Plugin / plugin.
-    *
-    * Must not be null.
-    * @param $value string
-    */
+     * Set the value of Plugin / plugin.
+     *
+     * Must not be null.
+     *
+     * @param $value string
+     */
     public function setPlugin($value)
     {
         $this->_validateNotNull('Plugin', $value);
@@ -331,10 +334,10 @@ class BuildErrorBase extends Model
     }
 
     /**
-    * Set the value of File / file.
-    *
-    * @param $value string
-    */
+     * Set the value of File / file.
+     *
+     * @param $value string
+     */
     public function setFile($value)
     {
         $this->_validateString('File', $value);
@@ -349,10 +352,10 @@ class BuildErrorBase extends Model
     }
 
     /**
-    * Set the value of LineStart / line_start.
-    *
-    * @param $value int
-    */
+     * Set the value of LineStart / line_start.
+     *
+     * @param $value int
+     */
     public function setLineStart($value)
     {
         $this->_validateInt('LineStart', $value);
@@ -367,10 +370,10 @@ class BuildErrorBase extends Model
     }
 
     /**
-    * Set the value of LineEnd / line_end.
-    *
-    * @param $value int
-    */
+     * Set the value of LineEnd / line_end.
+     *
+     * @param $value int
+     */
     public function setLineEnd($value)
     {
         $this->_validateInt('LineEnd', $value);
@@ -385,11 +388,12 @@ class BuildErrorBase extends Model
     }
 
     /**
-    * Set the value of Severity / severity.
-    *
-    * Must not be null.
-    * @param $value int
-    */
+     * Set the value of Severity / severity.
+     *
+     * Must not be null.
+     *
+     * @param $value int
+     */
     public function setSeverity($value)
     {
         $this->_validateNotNull('Severity', $value);
@@ -405,11 +409,12 @@ class BuildErrorBase extends Model
     }
 
     /**
-    * Set the value of Message / message.
-    *
-    * Must not be null.
-    * @param $value string
-    */
+     * Set the value of Message / message.
+     *
+     * Must not be null.
+     *
+     * @param $value string
+     */
     public function setMessage($value)
     {
         $this->_validateNotNull('Message', $value);
@@ -425,11 +430,12 @@ class BuildErrorBase extends Model
     }
 
     /**
-    * Set the value of CreatedDate / created_date.
-    *
-    * Must not be null.
-    * @param $value \DateTime
-    */
+     * Set the value of CreatedDate / created_date.
+     *
+     * Must not be null.
+     *
+     * @param $value \DateTime
+     */
     public function setCreatedDate($value)
     {
         $this->_validateNotNull('CreatedDate', $value);
@@ -449,6 +455,7 @@ class BuildErrorBase extends Model
      *
      * @uses \PHPCI\Store\BuildStore::getById()
      * @uses \PHPCI\Model\Build
+     *
      * @return \PHPCI\Model\Build
      */
     public function getBuild()
@@ -456,14 +463,14 @@ class BuildErrorBase extends Model
         $key = $this->getBuildId();
 
         if (empty($key)) {
-            return null;
+            return;
         }
 
-        $cacheKey   = 'Cache.Build.' . $key;
-        $rtn        = $this->cache->get($cacheKey, null);
+        $cacheKey = 'Cache.Build.'.$key;
+        $rtn = $this->cache->get($cacheKey, null);
 
         if (empty($rtn)) {
-            $rtn    = Factory::getStore('Build', 'PHPCI')->getById($key);
+            $rtn = Factory::getStore('Build', 'PHPCI')->getById($key);
             $this->cache->set($cacheKey, $rtn);
         }
 
@@ -471,10 +478,10 @@ class BuildErrorBase extends Model
     }
 
     /**
-    * Set Build - Accepts an ID, an array representing a Build or a Build model.
-    *
-    * @param $value mixed
-    */
+     * Set Build - Accepts an ID, an array representing a Build or a Build model.
+     *
+     * @param $value mixed
+     */
     public function setBuild($value)
     {
         // Is this an instance of Build?
@@ -492,10 +499,10 @@ class BuildErrorBase extends Model
     }
 
     /**
-    * Set Build - Accepts a Build model.
-    * 
-    * @param $value \PHPCI\Model\Build
-    */
+     * Set Build - Accepts a Build model.
+     * 
+     * @param $value \PHPCI\Model\Build
+     */
     public function setBuildObject(\PHPCI\Model\Build $value)
     {
         return $this->setBuildId($value->getId());

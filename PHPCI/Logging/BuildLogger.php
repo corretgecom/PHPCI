@@ -1,9 +1,10 @@
 <?php
 /**
- * PHPCI - Continuous Integration for PHP
+ * PHPCI - Continuous Integration for PHP.
  *
  * @copyright    Copyright 2014, Block 8 Limited.
  * @license      https://github.com/Block8/PHPCI/blob/master/LICENSE.md
+ *
  * @link         https://www.phptesting.org/
  */
 
@@ -15,8 +16,7 @@ use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;
 
 /**
- * Class BuildLogger
- * @package PHPCI\Logging
+ * Class BuildLogger.
  */
 class BuildLogger implements LoggerAwareInterface
 {
@@ -32,8 +32,9 @@ class BuildLogger implements LoggerAwareInterface
 
     /**
      * Set up the BuildLogger class.
+     *
      * @param LoggerInterface $logger
-     * @param Build $build
+     * @param Build           $build
      */
     public function __construct(LoggerInterface $logger, Build $build)
     {
@@ -43,9 +44,10 @@ class BuildLogger implements LoggerAwareInterface
 
     /**
      * Add an entry to the build log.
+     *
      * @param string|string[] $message
-     * @param string $level
-     * @param mixed[] $context
+     * @param string          $level
+     * @param mixed[]         $context
      */
     public function log($message, $level = LogLevel::INFO, $context = array())
     {
@@ -67,18 +69,20 @@ class BuildLogger implements LoggerAwareInterface
         }
     }
 
-   /**
+    /**
      * Add a success-coloured message to the log.
+     *
      * @param string
      */
     public function logSuccess($message)
     {
-        $this->log("\033[0;32m" . $message . "\033[0m");
+        $this->log("\033[0;32m".$message."\033[0m");
     }
 
     /**
      * Add a failure-coloured message to the log.
-     * @param string $message
+     *
+     * @param string     $message
      * @param \Exception $exception The exception that caused the error.
      */
     public function logFailure($message, \Exception $exception = null)
@@ -92,16 +96,17 @@ class BuildLogger implements LoggerAwareInterface
         }
 
         $this->log(
-            "\033[0;31m" . $message . "\033[0m",
+            "\033[0;31m".$message."\033[0m",
             LogLevel::ERROR,
             $context
         );
     }
 
     /**
-     * Sets a logger instance on the object
+     * Sets a logger instance on the object.
      *
      * @param LoggerInterface $logger
+     *
      * @return null
      */
     public function setLogger(LoggerInterface $logger)

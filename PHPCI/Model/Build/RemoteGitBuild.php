@@ -1,9 +1,10 @@
 <?php
 /**
- * PHPCI - Continuous Integration for PHP
+ * PHPCI - Continuous Integration for PHP.
  *
  * @copyright    Copyright 2014, Block 8 Limited.
  * @license      https://github.com/Block8/PHPCI/blob/master/LICENSE.md
+ *
  * @link         https://www.phptesting.org/
  */
 
@@ -13,24 +14,23 @@ use PHPCI\Model\Build;
 use PHPCI\Builder;
 
 /**
-* Remote Git Build Model
-* @author       Dan Cryer <dan@block8.co.uk>
-* @package      PHPCI
-* @subpackage   Core
-*/
+ * Remote Git Build Model.
+ *
+ * @author       Dan Cryer <dan@block8.co.uk>
+ */
 class RemoteGitBuild extends Build
 {
     /**
-    * Get the URL to be used to clone this remote repository.
-    */
+     * Get the URL to be used to clone this remote repository.
+     */
     protected function getCloneUrl()
     {
         return $this->getProject()->getReference();
     }
 
     /**
-    * Create a working copy by cloning, copying, or similar.
-    */
+     * Create a working copy by cloning, copying, or similar.
+     */
     public function createWorkingCopy(Builder $builder, $buildPath)
     {
         $key = trim($this->getProject()->getSshPrivateKey());
@@ -43,6 +43,7 @@ class RemoteGitBuild extends Build
 
         if (!$success) {
             $builder->logFailure('Failed to clone remote git repository.');
+
             return false;
         }
 
@@ -50,8 +51,8 @@ class RemoteGitBuild extends Build
     }
 
     /**
-    * Use an HTTP-based git clone.
-    */
+     * Use an HTTP-based git clone.
+     */
     protected function cloneByHttp(Builder $builder, $cloneTo)
     {
         $cmd = 'git clone --recursive ';
@@ -59,7 +60,7 @@ class RemoteGitBuild extends Build
         $depth = $builder->getConfig('clone_depth');
 
         if (!is_null($depth)) {
-            $cmd .= ' --depth ' . intval($depth) . ' ';
+            $cmd .= ' --depth '.intval($depth).' ';
         }
 
         $cmd .= ' -b %s %s "%s"';
@@ -73,8 +74,8 @@ class RemoteGitBuild extends Build
     }
 
     /**
-    * Use an SSH-based git clone.
-    */
+     * Use an SSH-based git clone.
+     */
     protected function cloneBySsh(Builder $builder, $cloneTo)
     {
         $keyFile = $this->writeSshKey($cloneTo);
@@ -89,13 +90,13 @@ class RemoteGitBuild extends Build
         $depth = $builder->getConfig('clone_depth');
 
         if (!is_null($depth)) {
-            $cmd .= ' --depth ' . intval($depth) . ' ';
+            $cmd .= ' --depth '.intval($depth).' ';
         }
 
         $cmd .= ' -b %s %s "%s"';
 
         if (!IS_WIN) {
-            $cmd = 'export GIT_SSH="'.$gitSshWrapper.'" && ' . $cmd;
+            $cmd = 'export GIT_SSH="'.$gitSshWrapper.'" && '.$cmd;
         }
 
         $success = $builder->executeCommand($cmd, $this->getBranch(), $this->getCloneUrl(), $cloneTo);
@@ -115,8 +116,10 @@ class RemoteGitBuild extends Build
 
     /**
      * Handle any post-clone tasks, like switching branches.
+     *
      * @param Builder $builder
      * @param $cloneTo
+     *
      * @return bool
      */
     protected function postCloneSetup(Builder $builder, $cloneTo)
@@ -127,12 +130,12 @@ class RemoteGitBuild extends Build
         $chdir = IS_WIN ? 'cd /d "%s"' : 'cd "%s"';
 
         if (!empty($commit) && $commit != 'Manual') {
-            $cmd = $chdir . ' && git checkout %s --quiet';
+            $cmd = $chdir.' && git checkout %s --quiet';
             $success = $builder->executeCommand($cmd, $cloneTo, $commit);
         }
 
         // Always update the commit hash with the actual HEAD hash
-        if ($builder->executeCommand($chdir . ' && git rev-parse HEAD', $cloneTo)) {
+        if ($builder->executeCommand($chdir.' && git rev-parse HEAD', $cloneTo)) {
             $this->setCommitId(trim($builder->getLastOutput()));
         }
 
@@ -141,13 +144,15 @@ class RemoteGitBuild extends Build
 
     /**
      * Create an SSH key file on disk for this build.
+     *
      * @param $cloneTo
+     *
      * @return string
      */
     protected function writeSshKey($cloneTo)
     {
-        $keyPath = dirname($cloneTo . '/temp');
-        $keyFile = $keyPath . '.key';
+        $keyPath = dirname($cloneTo.'/temp');
+        $keyFile = $keyPath.'.key';
 
         // Write the contents of this project's git key to the file:
         file_put_contents($keyFile, $this->getProject()->getSshPrivateKey());
@@ -159,14 +164,16 @@ class RemoteGitBuild extends Build
 
     /**
      * Create an SSH wrapper script for Git to use, to disable host key checking, etc.
+     *
      * @param $cloneTo
      * @param $keyFile
+     *
      * @return string
      */
     protected function writeSshWrapper($cloneTo, $keyFile)
     {
-        $path = dirname($cloneTo . '/temp');
-        $wrapperFile = $path . '.sh';
+        $path = dirname($cloneTo.'/temp');
+        $wrapperFile = $path.'.sh';
 
         $sshFlags = '-o CheckHostIP=no -o IdentitiesOnly=yes -o StrictHostKeyChecking=no -o PasswordAuthentication=no';
 

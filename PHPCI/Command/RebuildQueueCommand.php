@@ -1,15 +1,15 @@
 <?php
 /**
- * PHPCI - Continuous Integration for PHP
+ * PHPCI - Continuous Integration for PHP.
  *
  * @copyright    Copyright 2015, Block 8 Limited.
  * @license      https://github.com/Block8/PHPCI/blob/master/LICENSE.md
+ *
  * @link         https://www.phptesting.org/
  */
 
 namespace PHPCI\Command;
 
-use b8\Config;
 use b8\Store\Factory;
 use Monolog\Logger;
 use PHPCI\BuildFactory;
@@ -20,12 +20,9 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-
 /**
-* @author       Dan Cryer <dan@block8.co.uk>
-* @package      PHPCI
-* @subpackage   Console
-*/
+ * @author       Dan Cryer <dan@block8.co.uk>
+ */
 class RebuildQueueCommand extends Command
 {
     /**
@@ -40,7 +37,7 @@ class RebuildQueueCommand extends Command
 
     /**
      * @param \Monolog\Logger $logger
-     * @param string $name
+     * @param string          $name
      */
     public function __construct(Logger $logger, $name = null)
     {
@@ -78,7 +75,7 @@ class RebuildQueueCommand extends Command
             $build = array_shift($result['items']);
             $build = BuildFactory::getBuild($build);
 
-            $this->logger->addInfo('Added build #' . $build->getId() . ' to queue.');
+            $this->logger->addInfo('Added build #'.$build->getId().' to queue.');
             $buildService->addBuildToQueue($build);
         }
     }

@@ -1,12 +1,12 @@
 <?php
 /**
- * PHPCI - Continuous Integration for PHP
+ * PHPCI - Continuous Integration for PHP.
  *
  * @copyright    Copyright 2014, Block 8 Limited.
  * @license      https://github.com/Block8/PHPCI/blob/master/LICENSE.md
+ *
  * @link         https://www.phptesting.org/
  */
-
 $strings = array(
     'language_name' => 'Ελληνικά',
     'language' => 'Γλώσσα',
@@ -42,7 +42,6 @@ PHPCI',
     'login' => 'Login / Email Address',
     'password' => 'Κωδικός πρόσβασης',
     'log_in' => 'Είσοδος',
-
 
     // Top Nav
     'toggle_navigation' => 'Εναλλαγή πλοήγησης',
@@ -101,7 +100,7 @@ PHPCI',
     'gitlab' => 'GitLab',
     'remote' => 'Απομακρυσμένη διεύθυνση URL',
     'local' => 'Τοπική Διαδρομή',
-    'hg'    => 'Ευμετάβλητο',
+    'hg' => 'Ευμετάβλητο',
 
     'where_hosted' => 'Πού φιλοξενείται το έργο σας;',
     'choose_github' => 'Επιλέξτε ένα αποθετήριο GitHub:',
@@ -155,7 +154,6 @@ Services</a> του Bitbucket αποθετηρίου σας.',
     'build_x_not_found' => 'Η κατασκευή με αριθμό %d δεν υπάρχει',
     'build_n' => 'Κατασκευή %d',
     'rebuild_now' => 'Αναδόμηση τώρα',
-
 
     'committed_by_x' => 'Έγινε συνεισφορά από %s',
     'commit_id_x' => 'Συνεισφορά: %s',
@@ -395,5 +393,5 @@ Services</a> του Bitbucket αποθετηρίου σας.',
     'build_file_missing' => 'Καθορισμένο αρχείο κατασκευής δεν υπάρχει.',
     'property_file_missing' => 'Καθορισμένο αρχείο ιδιοκτησίας δεν υπάρχει.',
     'could_not_process_report' => 'Δεν ήταν δυνατή η επεξεργασία της έκθεσης που δημιουργείται από αυτό το εργαλείο.',
-    'shell_not_enabled' => 'Το πρόσθετο για το κέλυφος δεν είναι ενεργοποιημένο. Παρακαλούμε ενεργοποιήστε το μέσω του αρχείου config.yml.'
+    'shell_not_enabled' => 'Το πρόσθετο για το κέλυφος δεν είναι ενεργοποιημένο. Παρακαλούμε ενεργοποιήστε το μέσω του αρχείου config.yml.',
 );

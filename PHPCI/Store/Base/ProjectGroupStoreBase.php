@@ -1,7 +1,7 @@
 <?php
 
 /**
- * ProjectGroup base store for table: project_group
+ * ProjectGroup base store for table: project_group.
  */
 
 namespace PHPCI\Store\Base;
@@ -12,16 +12,16 @@ use PHPCI\Store;
 use PHPCI\Model\ProjectGroup;
 
 /**
- * ProjectGroup Base Store
+ * ProjectGroup Base Store.
  */
 class ProjectGroupStoreBase extends Store
 {
-    protected $tableName   = 'project_group';
-    protected $modelName   = '\PHPCI\Model\ProjectGroup';
-    protected $primaryKey  = 'id';
+    protected $tableName = 'project_group';
+    protected $modelName = '\PHPCI\Model\ProjectGroup';
+    protected $primaryKey = 'id';
 
     /**
-     * Get a ProjectGroup by primary key (Id)
+     * Get a ProjectGroup by primary key (Id).
      */
     public function getByPrimaryKey($value, $useConnection = 'read')
     {
@@ -30,12 +30,13 @@ class ProjectGroupStoreBase extends Store
 
     /**
      * Get a single ProjectGroup by Id.
+     *
      * @return null|ProjectGroup
      */
     public function getById($value, $useConnection = 'read')
     {
         if (is_null($value)) {
-            throw new HttpException('Value passed to ' . __FUNCTION__ . ' cannot be null.');
+            throw new HttpException('Value passed to '.__FUNCTION__.' cannot be null.');
         }
 
         $query = 'SELECT * FROM `project_group` WHERE `id` = :id LIMIT 1';
@@ -48,6 +49,6 @@ class ProjectGroupStoreBase extends Store
             }
         }
 
-        return null;
+        return;
     }
 }

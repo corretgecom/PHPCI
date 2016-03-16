@@ -1,9 +1,10 @@
 <?php
 /**
- * PHPCI - Continuous Integration for PHP
+ * PHPCI - Continuous Integration for PHP.
  *
  * @copyright    Copyright 2014, Block 8 Limited.
  * @license      https://github.com/Block8/PHPCI/blob/master/LICENSE.md
+ *
  * @link         https://www.phptesting.org/
  */
 
@@ -13,10 +14,9 @@ use PHPCI\Model\Build;
 use PHPCI\Builder;
 
 /**
- * Mercurial Build Model
+ * Mercurial Build Model.
+ *
  * @author       Pavel Gopanenko <pavelgopanenko@gmail.com>
- * @package      PHPCI
- * @subpackage   Core
  */
 class MercurialBuild extends Build
 {
@@ -43,6 +43,7 @@ class MercurialBuild extends Build
 
         if (!$success) {
             $builder->logFailure('Failed to clone remote git repository.');
+
             return false;
         }
 
@@ -74,13 +75,16 @@ class MercurialBuild extends Build
 
         // Remove the key file:
         unlink($keyFile);
+
         return $success;
     }
 
     /**
-     * Handle post-clone tasks (switching branch, etc.)
+     * Handle post-clone tasks (switching branch, etc.).
+     *
      * @param Builder $builder
      * @param $cloneTo
+     *
      * @return bool
      */
     protected function postCloneSetup(Builder $builder, $cloneTo)

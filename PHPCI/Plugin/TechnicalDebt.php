@@ -1,9 +1,10 @@
 <?php
 /**
- * PHPCI - Continuous Integration for PHP
+ * PHPCI - Continuous Integration for PHP.
  *
  * @copyright    Copyright 2014, Block 8 Limited.
  * @license      https://github.com/Block8/PHPCI/blob/master/LICENSE.md
+ *
  * @link         https://www.phptesting.org/
  */
 
@@ -14,12 +15,10 @@ use PHPCI\Builder;
 use PHPCI\Model\Build;
 
 /**
-* Technical Debt Plugin - Checks for existence of "TODO", "FIXME", etc.
-*
-* @author       James Inman <james@jamesinman.co.uk>
-* @package      PHPCI
-* @subpackage   Plugins
-*/
+ * Technical Debt Plugin - Checks for existence of "TODO", "FIXME", etc.
+ *
+ * @author       James Inman <james@jamesinman.co.uk>
+ */
 class TechnicalDebt implements PHPCI\Plugin, PHPCI\ZeroConfigPlugin
 {
     /**
@@ -44,7 +43,7 @@ class TechnicalDebt implements PHPCI\Plugin, PHPCI\ZeroConfigPlugin
 
     /**
      * @var string, based on the assumption the root may not hold the code to be
-     * tested, extends the base path
+     *              tested, extends the base path
      */
     protected $path;
 
@@ -63,13 +62,13 @@ class TechnicalDebt implements PHPCI\Plugin, PHPCI\ZeroConfigPlugin
      */
     protected $build;
 
-
     /**
      * Check if this plugin can be executed.
      *
      * @param $stage
      * @param Builder $builder
-     * @param Build $build
+     * @param Build   $build
+     *
      * @return bool
      */
     public static function canExecute($stage, Builder $builder, Build $build)
@@ -110,6 +109,7 @@ class TechnicalDebt implements PHPCI\Plugin, PHPCI\ZeroConfigPlugin
 
     /**
      * Handle this plugin's options.
+     *
      * @param $options
      */
     protected function setOptions($options)
@@ -122,8 +122,8 @@ class TechnicalDebt implements PHPCI\Plugin, PHPCI\ZeroConfigPlugin
     }
 
     /**
-    * Runs the plugin
-    */
+     * Runs the plugin.
+     */
     public function execute()
     {
         $success = true;
@@ -131,7 +131,7 @@ class TechnicalDebt implements PHPCI\Plugin, PHPCI\ZeroConfigPlugin
 
         $errorCount = $this->getErrorList();
 
-        $this->phpci->log("Found $errorCount instances of " . implode(', ', $this->searches));
+        $this->phpci->log("Found $errorCount instances of ".implode(', ', $this->searches));
 
         $this->build->storeMeta('technical_debt-warnings', $errorCount);
 
@@ -143,7 +143,7 @@ class TechnicalDebt implements PHPCI\Plugin, PHPCI\ZeroConfigPlugin
     }
 
     /**
-     * Gets the number and list of errors returned from the search
+     * Gets the number and list of errors returned from the search.
      *
      * @return array
      */
@@ -168,7 +168,7 @@ class TechnicalDebt implements PHPCI\Plugin, PHPCI\ZeroConfigPlugin
             }
 
             // Ignore hidden files, else .git, .sass_cache, etc. all get looped over
-            if (stripos($filePath, DIRECTORY_SEPARATOR . '.') !== false) {
+            if (stripos($filePath, DIRECTORY_SEPARATOR.'.') !== false) {
                 $skipFile = true;
             }
 
@@ -191,7 +191,7 @@ class TechnicalDebt implements PHPCI\Plugin, PHPCI\ZeroConfigPlugin
                     $lineNumber = count($lines);
                     $content = trim($allLines[$lineNumber - 1]);
 
-                    $errorCount++;
+                    ++$errorCount;
 
                     $fileName = str_replace($this->directory, '', $file);
 

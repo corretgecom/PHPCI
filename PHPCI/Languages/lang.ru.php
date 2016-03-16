@@ -1,12 +1,12 @@
 <?php
 /**
- * PHPCI - Continuous Integration for PHP
+ * PHPCI - Continuous Integration for PHP.
  *
  * @copyright    Copyright 2014, Block 8 Limited.
  * @license      https://github.com/Block8/PHPCI/blob/master/LICENSE.md
+ *
  * @link         https://www.phptesting.org/
  */
-
 $strings = array(
     'language_name' => 'Pусский',
     'language' => 'язык',
@@ -98,8 +98,8 @@ PHPCI',
     'gitlab' => 'GitLab',
     'remote' => 'Внешний URL',
     'local' => 'Локальный путь',
-    'hg'    => 'Mercurial',
-    'svn'   => 'Subversion',
+    'hg' => 'Mercurial',
+    'svn' => 'Subversion',
 
     'where_hosted' => 'Расположение проекта',
     'choose_github' => 'Выберите GitHub репозиторий:',
@@ -151,7 +151,6 @@ PHPCI',
     'build_x_not_found' => 'Сборки с ID %d не существует.',
     'build_n' => 'Сборка %d',
     'rebuild_now' => 'Пересобрать сейчас',
-
 
     'committed_by_x' => 'Отправил %s',
     'commit_id_x' => 'Коммит: %s',
@@ -297,7 +296,7 @@ PHPCI',
     'stage_complete' => 'Завершение',
     'stage_success' => 'Успешное завершение',
     'stage_failure' => 'Провал',
-    'stage_broken'  => 'Поломка',
+    'stage_broken' => 'Поломка',
     'stage_fixed' => 'Исправление',
 
     // Installer
@@ -408,5 +407,5 @@ PHPCI',
     'build_file_missing' => 'Указанного файла сборки не существует.',
     'property_file_missing' => 'Указанного файла сборки не существует.',
     'could_not_process_report' => 'Невозможно обработать отчет этой утилиты.',
-    'shell_not_enabled' => 'Плагин shell не включен. Пожалуйста, включите его в файле config.yml.'
+    'shell_not_enabled' => 'Плагин shell не включен. Пожалуйста, включите его в файле config.yml.',
 );

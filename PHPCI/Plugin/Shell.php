@@ -1,9 +1,10 @@
 <?php
 /**
- * PHPCI - Continuous Integration for PHP
+ * PHPCI - Continuous Integration for PHP.
  *
  * @copyright    Copyright 2014, Block 8 Limited.
  * @license      https://github.com/Block8/PHPCI/blob/master/LICENSE.md
+ *
  * @link         https://www.phptesting.org/
  */
 
@@ -15,9 +16,8 @@ use PHPCI\Model\Build;
 
 /**
  * Shell Plugin - Allows execute shell commands.
+ *
  * @author       Kinn Coelho Julião <kinncj@gmail.com>
- * @package      PHPCI
- * @subpackage   Plugins
  */
 class Shell implements \PHPCI\Plugin
 {
@@ -34,12 +34,12 @@ class Shell implements \PHPCI\Plugin
     protected $args;
 
     /**
-     * @var string[] $commands The commands to be executed
+     * @var string[] The commands to be executed
      */
     protected $commands = array();
 
     /**
-     * Standard Constructor
+     * Standard Constructor.
      *
      * $options['directory'] Output Directory. Default: %BUILDPATH%
      * $options['filename']  Phar Filename. Default: build.phar
@@ -57,8 +57,9 @@ class Shell implements \PHPCI\Plugin
 
         if (isset($options['command'])) {
             // Keeping this for backwards compatibility, new projects should use interpolation vars.
-            $options['command'] = str_replace("%buildpath%", $this->phpci->buildPath, $options['command']);
+            $options['command'] = str_replace('%buildpath%', $this->phpci->buildPath, $options['command']);
             $this->commands = array($options['command']);
+
             return;
         }
 

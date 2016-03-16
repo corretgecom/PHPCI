@@ -1,8 +1,10 @@
 <?php
 /**
- * PHPCI - Continuous Integration for PHP
+ * PHPCI - Continuous Integration for PHP.
+ *
  * @copyright    Copyright 2014, Block 8 Limited.
  * @license      https://github.com/Block8/PHPCI/blob/master/LICENSE.md
+ *
  * @link         https://www.phptesting.org/
  */
 
@@ -14,10 +16,9 @@ use Mremi\Flowdock\Api\Push\Push;
 use Mremi\Flowdock\Api\Push\TeamInboxMessage;
 
 /**
- * Flowdock Plugin
+ * Flowdock Plugin.
+ *
  * @author       Petr Cervenka <petr@nanosolutions.io>
- * @package      PHPCI
- * @subpackage   Plugins
  */
 class FlowdockNotify implements \PHPCI\Plugin
 {
@@ -28,9 +29,11 @@ class FlowdockNotify implements \PHPCI\Plugin
 
     /**
      * Set up the plugin, configure options, etc.
+     *
      * @param Builder $phpci
      * @param Build   $build
      * @param array   $options
+     *
      * @throws \Exception
      */
     public function __construct(Builder $phpci, Build $build, array $options = array())
@@ -47,17 +50,18 @@ class FlowdockNotify implements \PHPCI\Plugin
 
     /**
      * Run the Flowdock plugin.
+     *
      * @return bool
+     *
      * @throws \Exception
      */
     public function execute()
     {
-
         $message = $this->phpci->interpolate($this->message);
         $successfulBuild = $this->build->isSuccessful() ? 'Success' : 'Failed';
         $push = new Push($this->api_key);
         $flowMessage = TeamInboxMessage::create()
-            ->setSource("PHPCI")
+            ->setSource('PHPCI')
             ->setFromAddress($this->email)
             ->setFromName($this->build->getProject()->getTitle())
             ->setSubject($successfulBuild)
@@ -68,6 +72,7 @@ class FlowdockNotify implements \PHPCI\Plugin
         if (!$push->sendTeamInboxMessage($flowMessage, array('connect_timeout' => 5000, 'timeout' => 5000))) {
             throw new \Exception(sprintf('Flowdock Failed: %s', $flowMessage->getResponseErrors()));
         }
+
         return true;
     }
 }

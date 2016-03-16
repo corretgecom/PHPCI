@@ -1,9 +1,10 @@
 <?php
 /**
- * PHPCI - Continuous Integration for PHP
+ * PHPCI - Continuous Integration for PHP.
  *
  * @copyright    Copyright 2014, Block 8 Limited.
  * @license      https://github.com/Block8/PHPCI/blob/master/LICENSE.md
+ *
  * @link         https://www.phptesting.org/
  */
 
@@ -15,9 +16,8 @@ use PHPCI\Model\Build;
 
 /**
  * PHP Lint Plugin - Provides access to PHP lint functionality.
+ *
  * @author       Dan Cryer <dan@block8.co.uk>
- * @package      PHPCI
- * @subpackage   Plugins
  */
 class Lint implements PHPCI\Plugin
 {
@@ -28,7 +28,7 @@ class Lint implements PHPCI\Plugin
     protected $build;
 
     /**
-     * Standard Constructor
+     * Standard Constructor.
      *
      * $options['directory'] Output Directory. Default: %BUILDPATH%
      * $options['filename']  Phar Filename. Default: build.phar
@@ -60,7 +60,7 @@ class Lint implements PHPCI\Plugin
     }
 
     /**
-     * Executes parallel lint
+     * Executes parallel lint.
      */
     public function execute()
     {
@@ -82,9 +82,11 @@ class Lint implements PHPCI\Plugin
 
     /**
      * Lint an item (file or directory) by calling the appropriate method.
+     *
      * @param $php
      * @param $item
      * @param $itemPath
+     *
      * @return bool
      */
     protected function lintItem($php, $item, $itemPath)
@@ -93,7 +95,7 @@ class Lint implements PHPCI\Plugin
 
         if ($item->isFile() && $item->getExtension() == 'php' && !$this->lintFile($php, $itemPath)) {
             $success = false;
-        } elseif ($item->isDir() && $this->recursive && !$this->lintDirectory($php, $itemPath . DIRECTORY_SEPARATOR)) {
+        } elseif ($item->isDir() && $this->recursive && !$this->lintDirectory($php, $itemPath.DIRECTORY_SEPARATOR)) {
             $success = false;
         }
 
@@ -102,21 +104,23 @@ class Lint implements PHPCI\Plugin
 
     /**
      * Run php -l against a directory of files.
+     *
      * @param $php
      * @param $path
+     *
      * @return bool
      */
     protected function lintDirectory($php, $path)
     {
         $success = true;
-        $directory = new \DirectoryIterator($this->phpci->buildPath . $path);
+        $directory = new \DirectoryIterator($this->phpci->buildPath.$path);
 
         foreach ($directory as $item) {
             if ($item->isDot()) {
                 continue;
             }
 
-            $itemPath = $path . $item->getFilename();
+            $itemPath = $path.$item->getFilename();
 
             if (in_array($itemPath, $this->ignore)) {
                 continue;
@@ -132,15 +136,17 @@ class Lint implements PHPCI\Plugin
 
     /**
      * Run php -l against a specific file.
+     *
      * @param $php
      * @param $path
+     *
      * @return bool
      */
     protected function lintFile($php, $path)
     {
         $success = true;
 
-        if (!$this->phpci->executeCommand($php . ' -l "%s"', $this->phpci->buildPath . $path)) {
+        if (!$this->phpci->executeCommand($php.' -l "%s"', $this->phpci->buildPath.$path)) {
             $this->phpci->logFailure($path);
             $success = false;
         }

@@ -1,9 +1,10 @@
 <?php
 /**
- * PHPCI - Continuous Integration for PHP
+ * PHPCI - Continuous Integration for PHP.
  *
  * @copyright    Copyright 2014, Block 8 Limited.
  * @license      https://github.com/Block8/PHPCI/blob/master/LICENSE.md
+ *
  * @link         https://www.phptesting.org/
  */
 
@@ -15,14 +16,15 @@ use b8\HttpClient;
 
 /**
  * The Github Helper class provides some Github API call functionality.
- * @package PHPCI\Helper
  */
 class Github
 {
     /**
      * Make a request to the Github API.
+     *
      * @param $url
      * @param $params
+     *
      * @return mixed
      */
     public function makeRequest($url, $params)
@@ -37,8 +39,8 @@ class Github
      * Make all GitHub requests following the Link HTTP headers.
      *
      * @param string $url
-     * @param mixed $params
-     * @param array $results
+     * @param mixed  $params
+     * @param array  $results
      *
      * @return array
      */
@@ -73,7 +75,7 @@ class Github
         $token = Config::getInstance()->get('phpci.github.token');
 
         if (!$token) {
-            return null;
+            return;
         }
 
         $cache = Cache::getCache(Cache::TYPE_APC);
@@ -105,12 +107,14 @@ class Github
 
     /**
      * Create a comment on a specific file (and commit) in a Github Pull Request.
+     *
      * @param $repo
      * @param $pullId
      * @param $commitId
      * @param $file
      * @param $line
      * @param $comment
+     *
      * @return null
      */
     public function createPullRequestComment($repo, $pullId, $commitId, $file, $line, $comment)
@@ -118,10 +122,10 @@ class Github
         $token = Config::getInstance()->get('phpci.github.token');
 
         if (!$token) {
-            return null;
+            return;
         }
 
-        $url = '/repos/' . strtolower($repo) . '/pulls/' . $pullId . '/comments';
+        $url = '/repos/'.strtolower($repo).'/pulls/'.$pullId.'/comments';
 
         $params = array(
             'body' => $comment,
@@ -133,7 +137,7 @@ class Github
         $http = new HttpClient('https://api.github.com');
         $http->setHeaders(array(
             'Content-Type: application/x-www-form-urlencoded',
-            'Authorization: Basic ' . base64_encode($token . ':x-oauth-basic'),
+            'Authorization: Basic '.base64_encode($token.':x-oauth-basic'),
         ));
 
         $http->post($url, json_encode($params));
@@ -141,11 +145,13 @@ class Github
 
     /**
      * Create a comment on a Github commit.
+     *
      * @param $repo
      * @param $commitId
      * @param $file
      * @param $line
      * @param $comment
+     *
      * @return null
      */
     public function createCommitComment($repo, $commitId, $file, $line, $comment)
@@ -153,10 +159,10 @@ class Github
         $token = Config::getInstance()->get('phpci.github.token');
 
         if (!$token) {
-            return null;
+            return;
         }
 
-        $url = '/repos/' . strtolower($repo) . '/commits/' . $commitId . '/comments';
+        $url = '/repos/'.strtolower($repo).'/commits/'.$commitId.'/comments';
 
         $params = array(
             'body' => $comment,
@@ -167,7 +173,7 @@ class Github
         $http = new HttpClient('https://api.github.com');
         $http->setHeaders(array(
             'Content-Type: application/x-www-form-urlencoded',
-            'Authorization: Basic ' . base64_encode($token . ':x-oauth-basic'),
+            'Authorization: Basic '.base64_encode($token.':x-oauth-basic'),
         ));
 
         $http->post($url, json_encode($params));

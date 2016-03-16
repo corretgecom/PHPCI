@@ -1,9 +1,10 @@
 <?php
 /**
- * PHPCI - Continuous Integration for PHP
+ * PHPCI - Continuous Integration for PHP.
  *
  * @copyright    Copyright 2014, Block 8 Limited.
  * @license      https://github.com/Block8/PHPCI/blob/master/LICENSE.md
+ *
  * @link         https://www.phptesting.org/
  */
 
@@ -14,11 +15,10 @@ use PHPCI\Helper\Email;
 use PHPCI\Helper\Lang;
 
 /**
-* Session Controller - Handles user login / logout.
-* @author       Dan Cryer <dan@block8.co.uk>
-* @package      PHPCI
-* @subpackage   Web
-*/
+ * Session Controller - Handles user login / logout.
+ *
+ * @author       Dan Cryer <dan@block8.co.uk>
+ */
 class SessionController extends \PHPCI\Controller
 {
     /**
@@ -32,12 +32,12 @@ class SessionController extends \PHPCI\Controller
     public function init()
     {
         $this->response->disableLayout();
-        $this->userStore       = b8\Store\Factory::getStore('User');
+        $this->userStore = b8\Store\Factory::getStore('User');
     }
 
     /**
-    * Handles user login (form and processing)
-    */
+     * Handles user login (form and processing).
+     */
     public function login()
     {
         $isLoginFailure = false;
@@ -53,9 +53,10 @@ class SessionController extends \PHPCI\Controller
 
                 if ($user && password_verify($this->getParam('password', ''), $user->getHash())) {
                     session_regenerate_id(true);
-                    $_SESSION['phpci_user_id']    = $user->getId();
+                    $_SESSION['phpci_user_id'] = $user->getId();
                     $response = new b8\Http\Response\RedirectResponse();
                     $response->setHeader('Location', $this->getLoginRedirect());
+
                     return $response;
                 } else {
                     $isLoginFailure = true;
@@ -99,8 +100,8 @@ class SessionController extends \PHPCI\Controller
     }
 
     /**
-    * Handles user logout.
-    */
+     * Handles user logout.
+     */
     public function logout()
     {
         unset($_SESSION['phpci_user']);
@@ -110,11 +111,13 @@ class SessionController extends \PHPCI\Controller
 
         $response = new b8\Http\Response\RedirectResponse();
         $response->setHeader('Location', PHPCI_URL);
+
         return $response;
     }
 
     /**
      * Allows the user to request a password reset email.
+     *
      * @return string
      */
     public function forgotPassword()
@@ -125,10 +128,11 @@ class SessionController extends \PHPCI\Controller
 
             if (empty($user)) {
                 $this->view->error = Lang::get('reset_no_user_exists');
+
                 return $this->view->render();
             }
 
-            $key = md5(date('Y-m-d') . $user->getHash());
+            $key = md5(date('Y-m-d').$user->getHash());
             $url = PHPCI_URL;
 
             $message = Lang::get('reset_email_body', $user->getName(), $url, $user->getId(), $key);
@@ -147,17 +151,20 @@ class SessionController extends \PHPCI\Controller
 
     /**
      * Allows the user to change their password after a password reset email.
+     *
      * @param $userId
      * @param $key
+     *
      * @return string
      */
     public function resetPassword($userId, $key)
     {
         $user = $this->userStore->getById($userId);
-        $userKey = md5(date('Y-m-d') . $user->getHash());
+        $userKey = md5(date('Y-m-d').$user->getHash());
 
         if (empty($user) || $key != $userKey) {
             $this->view->error = Lang::get('reset_invalid');
+
             return $this->view->render();
         }
 
@@ -170,6 +177,7 @@ class SessionController extends \PHPCI\Controller
 
             $response = new b8\Http\Response\RedirectResponse();
             $response->setHeader('Location', PHPCI_URL);
+
             return $response;
         }
 
@@ -181,6 +189,7 @@ class SessionController extends \PHPCI\Controller
 
     /**
      * Get the URL the user was trying to go to prior to being asked to log in.
+     *
      * @return string
      */
     protected function getLoginRedirect()
@@ -196,7 +205,6 @@ class SessionController extends \PHPCI\Controller
     }
 
     /** Generate a random token.
-     *
      * @return string
      */
     protected function generateToken()
@@ -205,9 +213,9 @@ class SessionController extends \PHPCI\Controller
             return bin2hex(openssl_random_pseudo_bytes(16));
         }
 
-        return sprintf("%04x", mt_rand(0, 0xFFFF))
-            . sprintf("%04x", mt_rand(0, 0xFFFF))
-            . sprintf("%04x", mt_rand(0, 0xFFFF))
-            . sprintf("%04x", mt_rand(0, 0xFFFF));
+        return sprintf('%04x', mt_rand(0, 0xFFFF))
+            .sprintf('%04x', mt_rand(0, 0xFFFF))
+            .sprintf('%04x', mt_rand(0, 0xFFFF))
+            .sprintf('%04x', mt_rand(0, 0xFFFF));
     }
 }

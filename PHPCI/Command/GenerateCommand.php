@@ -1,9 +1,10 @@
 <?php
 /**
- * PHPCI - Continuous Integration for PHP
+ * PHPCI - Continuous Integration for PHP.
  *
  * @copyright    Copyright 2014, Block 8 Limited.
  * @license      https://github.com/Block8/PHPCI/blob/master/LICENSE.md
+ *
  * @link         https://www.phptesting.org/
  */
 
@@ -16,11 +17,10 @@ use b8\Database;
 use b8\Database\CodeGenerator;
 
 /**
-* Generate console command - Reads the database and generates models and stores.
-* @author       Dan Cryer <dan@block8.co.uk>
-* @package      PHPCI
-* @subpackage   Console
-*/
+ * Generate console command - Reads the database and generates models and stores.
+ *
+ * @author       Dan Cryer <dan@block8.co.uk>
+ */
 class GenerateCommand extends Command
 {
     protected function configure()
@@ -31,8 +31,8 @@ class GenerateCommand extends Command
     }
 
     /**
-    * Generates Model and Store classes by reading database meta data.
-    */
+     * Generates Model and Store classes by reading database meta data.
+     */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $gen = new CodeGenerator(

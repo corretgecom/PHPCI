@@ -1,9 +1,10 @@
 <?php
 /**
- * PHPCI - Continuous Integration for PHP
+ * PHPCI - Continuous Integration for PHP.
  *
  * @copyright    Copyright 2014, Block 8 Limited.
  * @license      https://github.com/Block8/PHPCI/blob/master/LICENSE.md
+ *
  * @link         https://www.phptesting.org/
  */
 
@@ -17,12 +18,9 @@ use PHPCI\Model\Build;
  * Phing Plugin - Provides access to Phing functionality.
  *
  * @author       Pavel Pavlov <ppavlov@alera.ru>
- * @package      PHPCI
- * @subpackage   Plugins
  */
 class Phing implements \PHPCI\Plugin
 {
-
     private $directory;
     private $buildFile = 'build.xml';
     private $targets = array('build');
@@ -34,9 +32,10 @@ class Phing implements \PHPCI\Plugin
 
     /**
      * Set up the plugin, configure options, etc.
+     *
      * @param Builder $phpci
-     * @param Build $build
-     * @param array $options
+     * @param Build   $build
+     * @param array   $options
      */
     public function __construct(Builder $phpci, Build $build, array $options = array())
     {
@@ -47,7 +46,7 @@ class Phing implements \PHPCI\Plugin
          * Set working directory
          */
         if (isset($options['directory'])) {
-            $directory = $phpci->buildPath . DIRECTORY_SEPARATOR . $options['directory'];
+            $directory = $phpci->buildPath.DIRECTORY_SEPARATOR.$options['directory'];
         } else {
             $directory = $phpci->buildPath;
         }
@@ -75,16 +74,16 @@ class Phing implements \PHPCI\Plugin
     }
 
     /**
-     * Executes Phing and runs a specified targets
+     * Executes Phing and runs a specified targets.
      */
     public function execute()
     {
         $phingExecutable = $this->phpci->findBinary('phing');
 
-        $cmd[] = $phingExecutable . ' -f ' . $this->getBuildFilePath();
+        $cmd[] = $phingExecutable.' -f '.$this->getBuildFilePath();
 
         if ($this->getPropertyFile()) {
-            $cmd[] = '-propertyfile ' . $this->getPropertyFile();
+            $cmd[] = '-propertyfile '.$this->getPropertyFile();
         }
 
         $cmd[] = $this->propertiesToString();
@@ -142,6 +141,7 @@ class Phing implements \PHPCI\Plugin
 
     /**
      * Converts an array of targets into a string.
+     *
      * @return string
      */
     private function targetsToString()
@@ -175,11 +175,12 @@ class Phing implements \PHPCI\Plugin
      * @param mixed $buildFile
      *
      * @return $this
+     *
      * @throws \Exception
      */
     public function setBuildFile($buildFile)
     {
-        if (!file_exists($this->getDirectory() . $buildFile)) {
+        if (!file_exists($this->getDirectory().$buildFile)) {
             throw new \Exception(Lang::get('build_file_missing'));
         }
 
@@ -188,11 +189,12 @@ class Phing implements \PHPCI\Plugin
 
     /**
      * Get phing build file path.
+     *
      * @return string
      */
     public function getBuildFilePath()
     {
-        return $this->getDirectory() . $this->buildFile;
+        return $this->getDirectory().$this->buildFile;
     }
 
     /**
@@ -208,7 +210,7 @@ class Phing implements \PHPCI\Plugin
      */
     public function propertiesToString()
     {
-        /**
+        /*
          * fix the problem when execute phing out of the build dir
          * @ticket 748
          */
@@ -219,7 +221,7 @@ class Phing implements \PHPCI\Plugin
         $propertiesString = array();
 
         foreach ($this->properties as $name => $value) {
-            $propertiesString[] = '-D' . $name . '="' . $value . '"';
+            $propertiesString[] = '-D'.$name.'="'.$value.'"';
         }
 
         return implode(' ', $propertiesString);
@@ -251,11 +253,12 @@ class Phing implements \PHPCI\Plugin
      * @param string $propertyFile
      *
      * @return $this
+     *
      * @throws \Exception
      */
     public function setPropertyFile($propertyFile)
     {
-        if (!file_exists($this->getDirectory() . DIRECTORY_SEPARATOR . $propertyFile)) {
+        if (!file_exists($this->getDirectory().DIRECTORY_SEPARATOR.$propertyFile)) {
             throw new \Exception(Lang::get('property_file_missing'));
         }
 

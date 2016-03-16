@@ -1,9 +1,10 @@
 <?php
 /**
- * PHPCI - Continuous Integration for PHP
+ * PHPCI - Continuous Integration for PHP.
  *
  * @copyright    Copyright 2014, Block 8 Limited.
  * @license      https://github.com/Block8/PHPCI/blob/master/LICENSE.md
+ *
  * @link         https://www.phptesting.org/
  */
 
@@ -16,11 +17,10 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
-* Daemon that loops and call the run-command.
-* @author       Gabriel Baker <gabriel.baker@autonomicpilot.co.uk>
-* @package      PHPCI
-* @subpackage   Console
-*/
+ * Daemon that loops and call the run-command.
+ *
+ * @author       Gabriel Baker <gabriel.baker@autonomicpilot.co.uk>
+ */
 class DaemoniseCommand extends Command
 {
     /**
@@ -34,7 +34,7 @@ class DaemoniseCommand extends Command
     protected $output;
 
     /**
-     * @var boolean
+     * @var bool
      */
     protected $run;
 
@@ -45,7 +45,7 @@ class DaemoniseCommand extends Command
 
     /**
      * @param \Monolog\Logger $logger
-     * @param string $name
+     * @param string          $name
      */
     public function __construct(Logger $logger, $name = null)
     {
@@ -61,8 +61,8 @@ class DaemoniseCommand extends Command
     }
 
     /**
-    * Loops through running.
-    */
+     * Loops through running.
+     */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $cmd = "echo %s > '%s/daemon/daemon.pid'";
@@ -70,39 +70,39 @@ class DaemoniseCommand extends Command
         exec($command);
 
         $this->output = $output;
-        $this->run   = true;
+        $this->run = true;
         $this->sleep = 0;
-        $runner      = new RunCommand($this->logger);
+        $runner = new RunCommand($this->logger);
         $runner->setMaxBuilds(1);
         $runner->setDaemon(true);
 
         $emptyInput = new ArgvInput(array());
 
         while ($this->run) {
-
             $buildCount = 0;
 
             try {
                 $buildCount = $runner->run($emptyInput, $output);
             } catch (\Exception $e) {
-                $output->writeln('<error>Exception: ' . $e->getMessage() . '</error>');
-                $output->writeln('<error>Line: ' . $e->getLine() . ' - File: ' . $e->getFile() . '</error>');
+                $output->writeln('<error>Exception: '.$e->getMessage().'</error>');
+                $output->writeln('<error>Line: '.$e->getLine().' - File: '.$e->getFile().'</error>');
             }
 
             if (0 == $buildCount && $this->sleep < 15) {
-                $this->sleep++;
+                ++$this->sleep;
             } elseif (1 < $this->sleep) {
-                $this->sleep--;
+                --$this->sleep;
             }
-            echo '.'.(0 === $buildCount?'':'build');
+            echo '.'.(0 === $buildCount ? '' : 'build');
             sleep($this->sleep);
         }
     }
 
     /**
-    * Called when log entries are made in Builder / the plugins.
-    * @see \PHPCI\Builder::log()
-    */
+     * Called when log entries are made in Builder / the plugins.
+     *
+     * @see \PHPCI\Builder::log()
+     */
     public function logCallback($log)
     {
         $this->output->writeln($log);

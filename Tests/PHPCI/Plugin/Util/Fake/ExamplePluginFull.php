@@ -1,10 +1,11 @@
 <?php
 
 /**
- * PHPCI - Continuous Integration for PHP
+ * PHPCI - Continuous Integration for PHP.
  *
  * @copyright    Copyright 2015, Block 8 Limited.
  * @license      https://github.com/Block8/PHPCI/blob/master/LICENSE.md
+ *
  * @link         https://www.phptesting.org/
  */
 
@@ -14,7 +15,8 @@ use PHPCI\Builder;
 use PHPCI\Model\Build;
 use PHPCI\Plugin;
 
-class ExamplePluginFull implements Plugin {
+class ExamplePluginFull implements Plugin
+{
     /**
      * @var array
      */
@@ -24,13 +26,11 @@ class ExamplePluginFull implements Plugin {
         Builder $phpci,
         Build $build,
         array $options = array()
-    )
-    {
+    ) {
         $this->Options = $options;
     }
 
     public function execute()
     {
-
     }
 }

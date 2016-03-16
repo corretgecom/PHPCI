@@ -1,9 +1,10 @@
 <?php
 /**
- * PHPCI - Continuous Integration for PHP
+ * PHPCI - Continuous Integration for PHP.
  *
  * @copyright    Copyright 2014, Block 8 Limited.
  * @license      https://github.com/Block8/PHPCI/blob/master/LICENSE.md
+ *
  * @link         https://www.phptesting.org/
  */
 
@@ -11,7 +12,6 @@ namespace PHPCI\Command;
 
 use Exception;
 use PDO;
-
 use b8\Config;
 use b8\Store\Factory;
 use PHPCI\Helper\Lang;
@@ -24,9 +24,8 @@ use PHPCI\Service\UserService;
 
 /**
  * Install console command - Installs PHPCI.
+ *
  * @author       Dan Cryer <dan@block8.co.uk>
- * @package      PHPCI
- * @subpackage   Console
  */
 class InstallCommand extends Command
 {
@@ -34,8 +33,8 @@ class InstallCommand extends Command
 
     protected function configure()
     {
-        $defaultPath = PHPCI_DIR . 'PHPCI/config.yml';
-        
+        $defaultPath = PHPCI_DIR.'PHPCI/config.yml';
+
         $this
             ->setName('phpci:install')
             ->addOption('url', null, InputOption::VALUE_OPTIONAL, Lang::get('installation_url'))
@@ -106,7 +105,8 @@ class InstallCommand extends Command
     /**
      * Check PHP version, required modules and for disabled functions.
      *
-     * @param  OutputInterface $output
+     * @param OutputInterface $output
+     *
      * @throws \Exception
      */
     protected function checkRequirements(OutputInterface $output)
@@ -160,15 +160,16 @@ class InstallCommand extends Command
     /**
      * Load information for admin user form CLI options or ask info to user.
      *
-     * @param InputInterface $input
+     * @param InputInterface  $input
      * @param OutputInterface $output
+     *
      * @return array
      */
     protected function getAdminInformation(InputInterface $input, OutputInterface $output)
     {
         $admin = array();
 
-        /**
+        /*
          * @var \Symfony\Component\Console\Helper\DialogHelper
          */
         $dialog = $this->getHelperSet()->get('dialog');
@@ -204,15 +205,16 @@ class InstallCommand extends Command
     /**
      * Load configuration for PHPCI form CLI options or ask info to user.
      *
-     * @param InputInterface $input
+     * @param InputInterface  $input
      * @param OutputInterface $output
+     *
      * @return array
      */
     protected function getPhpciConfigInformation(InputInterface $input, OutputInterface $output)
     {
         $phpci = array();
 
-        /**
+        /*
          * @var \Symfony\Component\Console\Helper\DialogHelper
          */
         $dialog = $this->getHelperSet()->get('dialog');
@@ -240,15 +242,17 @@ class InstallCommand extends Command
 
     /**
      * If the user wants to use a queue, get the necessary details.
-     * @param InputInterface $input
+     *
+     * @param InputInterface  $input
      * @param OutputInterface $output
-     * @param DialogHelper $dialog
+     * @param DialogHelper    $dialog
+     *
      * @return array
      */
     protected function getQueueInformation(InputInterface $input, OutputInterface $output, DialogHelper $dialog)
     {
         if ($input->getOption('queue-disabled')) {
-            return null;
+            return;
         }
 
         $rtn = [];
@@ -267,15 +271,16 @@ class InstallCommand extends Command
     /**
      * Load configuration for DB form CLI options or ask info to user.
      *
-     * @param InputInterface $input
+     * @param InputInterface  $input
      * @param OutputInterface $output
+     *
      * @return array
      */
     protected function getDatabaseInformation(InputInterface $input, OutputInterface $output)
     {
         $db = array();
 
-        /**
+        /*
          * @var \Symfony\Component\Console\Helper\DialogHelper
          */
         $dialog = $this->getHelperSet()->get('dialog');
@@ -307,8 +312,10 @@ class InstallCommand extends Command
 
     /**
      * Try and connect to MySQL using the details provided.
-     * @param  array           $db
-     * @param  OutputInterface $output
+     *
+     * @param array           $db
+     * @param OutputInterface $output
+     *
      * @return bool
      */
     protected function verifyDatabaseDetails(array $db, OutputInterface $output)
@@ -329,10 +336,9 @@ class InstallCommand extends Command
             unset($pdo);
 
             return true;
-
         } catch (Exception $ex) {
             $output->writeln('<error>'.Lang::get('could_not_connect').'</error>');
-            $output->writeln('<error>' . $ex->getMessage() . '</error>');
+            $output->writeln('<error>'.$ex->getMessage().'</error>');
         }
 
         return false;
@@ -340,6 +346,7 @@ class InstallCommand extends Command
 
     /**
      * Write the PHPCI config.yml file.
+     *
      * @param array $config
      */
     protected function writeConfigFile(array $config)
@@ -354,9 +361,9 @@ class InstallCommand extends Command
     {
         $output->write(Lang::get('setting_up_db'));
 
-        $phinxBinary = escapeshellarg(PHPCI_DIR . 'vendor/bin/phinx');
-        $phinxScript = escapeshellarg(PHPCI_DIR . 'phinx.php');
-        shell_exec($phinxBinary . ' migrate -c ' . $phinxScript);
+        $phinxBinary = escapeshellarg(PHPCI_DIR.'vendor/bin/phinx');
+        $phinxScript = escapeshellarg(PHPCI_DIR.'phinx.php');
+        shell_exec($phinxBinary.' migrate -c '.$phinxScript);
 
         $output->writeln('<info>'.Lang::get('ok').'</info>');
     }
@@ -364,7 +371,7 @@ class InstallCommand extends Command
     /**
      * Create admin user using information loaded before.
      *
-     * @param array $admin
+     * @param array           $admin
      * @param OutputInterface $output
      */
     protected function createAdminUser($admin, $output)
@@ -379,7 +386,7 @@ class InstallCommand extends Command
             $output->writeln('<info>'.Lang::get('user_created').'</info>');
         } catch (\Exception $ex) {
             $output->writeln('<error>'.Lang::get('failed_to_create').'</error>');
-            $output->writeln('<error>' . $ex->getMessage() . '</error>');
+            $output->writeln('<error>'.$ex->getMessage().'</error>');
         }
     }
 
@@ -394,6 +401,7 @@ class InstallCommand extends Command
 
     /**
      * @param OutputInterface $output
+     *
      * @return bool
      */
     protected function verifyNotInstalled(OutputInterface $output)
@@ -404,6 +412,7 @@ class InstallCommand extends Command
             if (!empty($content)) {
                 $output->writeln('<error>'.Lang::get('config_exists').'</error>');
                 $output->writeln('<error>'.Lang::get('update_instead').'</error>');
+
                 return false;
             }
         }

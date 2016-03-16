@@ -5,10 +5,9 @@ namespace PHPCI\Plugin\Util\TestResultParsers;
 use PHPCI\Builder;
 
 /**
- * Class Codeception
+ * Class Codeception.
  *
  * @author  Adam Cooper <adam@networkpie.co.uk>
- * @package PHPCI\Plugin\Util\TestResultParsers
  */
 class Codeception implements ParserInterface
 {
@@ -55,7 +54,7 @@ class Codeception implements ParserInterface
                     'name' => (string) $testcase['name'],
                     'feature' => (string) $testcase['feature'],
                     'assertions' => (int) $testcase['assertions'],
-                    'time' => (float) $testcase['time']
+                    'time' => (float) $testcase['time'],
                 );
 
                 if (isset($testcase['class'])) {
@@ -92,7 +91,7 @@ class Codeception implements ParserInterface
     }
 
     /**
-     * The time take to complete all tests
+     * The time take to complete all tests.
      *
      * @return mixed
      */
@@ -102,7 +101,7 @@ class Codeception implements ParserInterface
     }
 
     /**
-     * A count of the test failures
+     * A count of the test failures.
      *
      * @return mixed
      */

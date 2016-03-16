@@ -1,9 +1,10 @@
 <?php
 /**
-* PHPCI - Continuous Integration for PHP
+* PHPCI - Continuous Integration for PHP.
 *
 * @copyright    Copyright 2014, Block 8 Limited.
 * @license      https://github.com/Block8/PHPCI/blob/master/LICENSE.md
+*
 * @link         https://www.phptesting.org/
 */
 
@@ -16,9 +17,10 @@ use b8\Http\Response\RedirectResponse;
 use b8\View;
 
 /**
-* PHPCI Front Controller
-* @author   Dan Cryer <dan@block8.co.uk>
-*/
+ * PHPCI Front Controller.
+ *
+ * @author   Dan Cryer <dan@block8.co.uk>
+ */
 class Application extends b8\Application
 {
     /**
@@ -31,7 +33,7 @@ class Application extends b8\Application
      */
     public function init()
     {
-        $request =& $this->request;
+        $request = &$this->request;
         $route = '/:controller/:action';
         $opts = array('controller' => 'Home', 'action' => 'index');
 
@@ -42,6 +44,7 @@ class Application extends b8\Application
 
                 if ($user) {
                     $_SESSION['phpci_user'] = $user;
+
                     return true;
                 }
 
@@ -107,7 +110,7 @@ class Application extends b8\Application
         if ($this->response->hasLayout() && $this->controller->layout) {
             $this->setLayoutVariables($this->controller->layout);
 
-            $this->controller->layout->content  = $this->response->getContent();
+            $this->controller->layout->content = $this->response->getContent();
             $this->response->setContent($this->controller->layout->render());
         }
 
@@ -116,7 +119,9 @@ class Application extends b8\Application
 
     /**
      * Loads a particular controller, and injects our layout view into it.
+     *
      * @param $class
+     *
      * @return mixed
      */
     protected function loadController($class)
@@ -131,6 +136,7 @@ class Application extends b8\Application
 
     /**
      * Injects variables into the layout before rendering it.
+     *
      * @param View $layout
      */
     protected function setLayoutVariables(View &$layout)
@@ -150,21 +156,23 @@ class Application extends b8\Application
     }
 
     /**
-     * Check whether we should skip auth (because it is disabled)
+     * Check whether we should skip auth (because it is disabled).
+     *
      * @return bool
      */
     protected function shouldSkipAuth()
     {
         $config = b8\Config::getInstance();
-        $state = (bool)$config->get('phpci.authentication_settings.state', false);
-        $userId    = $config->get('phpci.authentication_settings.user_id', 0);
+        $state = (bool) $config->get('phpci.authentication_settings.state', false);
+        $userId = $config->get('phpci.authentication_settings.user_id', 0);
 
-        if (false !== $state && 0 != (int)$userId) {
+        if (false !== $state && 0 != (int) $userId) {
             $user = b8\Store\Factory::getStore('User')
                 ->getByPrimaryKey($userId);
 
             if ($user) {
                 $_SESSION['phpci_user'] = $user;
+
                 return true;
             }
         }

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Build base store for table: build
+ * Build base store for table: build.
  */
 
 namespace PHPCI\Store\Base;
@@ -12,16 +12,16 @@ use PHPCI\Store;
 use PHPCI\Model\Build;
 
 /**
- * Build Base Store
+ * Build Base Store.
  */
 class BuildStoreBase extends Store
 {
-    protected $tableName   = 'build';
-    protected $modelName   = '\PHPCI\Model\Build';
-    protected $primaryKey  = 'id';
+    protected $tableName = 'build';
+    protected $modelName = '\PHPCI\Model\Build';
+    protected $primaryKey = 'id';
 
     /**
-     * Get a Build by primary key (Id)
+     * Get a Build by primary key (Id).
      */
     public function getByPrimaryKey($value, $useConnection = 'read')
     {
@@ -30,12 +30,13 @@ class BuildStoreBase extends Store
 
     /**
      * Get a single Build by Id.
+     *
      * @return null|Build
      */
     public function getById($value, $useConnection = 'read')
     {
         if (is_null($value)) {
-            throw new HttpException('Value passed to ' . __FUNCTION__ . ' cannot be null.');
+            throw new HttpException('Value passed to '.__FUNCTION__.' cannot be null.');
         }
 
         $query = 'SELECT * FROM `build` WHERE `id` = :id LIMIT 1';
@@ -48,24 +49,24 @@ class BuildStoreBase extends Store
             }
         }
 
-        return null;
+        return;
     }
 
     /**
      * Get multiple Build by ProjectId.
+     *
      * @return array
      */
     public function getByProjectId($value, $limit = 1000, $useConnection = 'read')
     {
         if (is_null($value)) {
-            throw new HttpException('Value passed to ' . __FUNCTION__ . ' cannot be null.');
+            throw new HttpException('Value passed to '.__FUNCTION__.' cannot be null.');
         }
-
 
         $query = 'SELECT * FROM `build` WHERE `project_id` = :project_id LIMIT :limit';
         $stmt = Database::getConnection($useConnection)->prepare($query);
         $stmt->bindValue(':project_id', $value);
-        $stmt->bindValue(':limit', (int)$limit, \PDO::PARAM_INT);
+        $stmt->bindValue(':limit', (int) $limit, \PDO::PARAM_INT);
 
         if ($stmt->execute()) {
             $res = $stmt->fetchAll(\PDO::FETCH_ASSOC);
@@ -85,19 +86,19 @@ class BuildStoreBase extends Store
 
     /**
      * Get multiple Build by Status.
+     *
      * @return array
      */
     public function getByStatus($value, $limit = 1000, $useConnection = 'read')
     {
         if (is_null($value)) {
-            throw new HttpException('Value passed to ' . __FUNCTION__ . ' cannot be null.');
+            throw new HttpException('Value passed to '.__FUNCTION__.' cannot be null.');
         }
-
 
         $query = 'SELECT * FROM `build` WHERE `status` = :status LIMIT :limit';
         $stmt = Database::getConnection($useConnection)->prepare($query);
         $stmt->bindValue(':status', $value);
-        $stmt->bindValue(':limit', (int)$limit, \PDO::PARAM_INT);
+        $stmt->bindValue(':limit', (int) $limit, \PDO::PARAM_INT);
 
         if ($stmt->execute()) {
             $res = $stmt->fetchAll(\PDO::FETCH_ASSOC);

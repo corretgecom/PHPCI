@@ -1,10 +1,11 @@
 <?php
 
 /**
- * PHPCI - Continuous Integration for PHP
+ * PHPCI - Continuous Integration for PHP.
  *
  * @copyright    Copyright 2015, Block 8 Limited.
  * @license      https://github.com/Block8/PHPCI/blob/master/LICENSE.md
+ *
  * @link         https://www.phptesting.org/
  */
 
@@ -27,8 +28,8 @@ class BuildInterpolatorTest extends \PHPUnit_Framework_TestCase
 
     public function testInterpolate_LeavesStringsUnchangedByDefault()
     {
-        $string = "Hello World";
-        $expectedOutput = "Hello World";
+        $string = 'Hello World';
+        $expectedOutput = 'Hello World';
 
         $actualOutput = $this->testedInterpolator->interpolate($string);
 
@@ -39,13 +40,13 @@ class BuildInterpolatorTest extends \PHPUnit_Framework_TestCase
     {
         $build = $this->prophesize('PHPCI\\Model\\Build')->reveal();
 
-        $string = "Hello World";
-        $expectedOutput = "Hello World";
+        $string = 'Hello World';
+        $expectedOutput = 'Hello World';
 
         $this->testedInterpolator->setupInterpolationVars(
             $build,
-            "/buildpath/",
-            "phpci.com"
+            '/buildpath/',
+            'phpci.com'
         );
 
         $actualOutput = $this->testedInterpolator->interpolate($string);
@@ -53,4 +54,3 @@ class BuildInterpolatorTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expectedOutput, $actualOutput);
     }
 }
-

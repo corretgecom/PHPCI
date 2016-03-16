@@ -1,24 +1,23 @@
 <?php
 /**
- * PHPCI - Continuous Integration for PHP
+ * PHPCI - Continuous Integration for PHP.
  *
  * @copyright    Copyright 2014, Block 8 Limited.
  * @license      https://github.com/Block8/PHPCI/blob/master/LICENSE.md
+ *
  * @link         https://www.phptesting.org/
  */
 
 namespace PHPCI\Plugin;
 
 use PHPCI\Builder;
-use PHPCI\Helper\Lang;
 use PHPCI\Model\Build;
 
 /**
-* Php Parallel Lint Plugin - Provides access to PHP lint functionality.
-* @author       Vaclav Makes <vaclav@makes.cz>
-* @package      PHPCI
-* @subpackage   Plugins
-*/
+ * Php Parallel Lint Plugin - Provides access to PHP lint functionality.
+ *
+ * @author       Vaclav Makes <vaclav@makes.cz>
+ */
 class PhpParallelLint implements \PHPCI\Plugin
 {
     /**
@@ -42,7 +41,7 @@ class PhpParallelLint implements \PHPCI\Plugin
     protected $ignore;
 
     /**
-     * Standard Constructor
+     * Standard Constructor.
      *
      * $options['directory'] Output Directory. Default: %BUILDPATH%
      * $options['filename']  Phar Filename. Default: build.phar
@@ -70,15 +69,15 @@ class PhpParallelLint implements \PHPCI\Plugin
     }
 
     /**
-    * Executes parallel lint
-    */
+     * Executes parallel lint.
+     */
     public function execute()
     {
         list($ignore) = $this->getFlags();
 
         $phplint = $this->phpci->findBinary('parallel-lint');
 
-        $cmd = $phplint . ' %s "%s"';
+        $cmd = $phplint.' %s "%s"';
         $success = $this->phpci->executeCommand(
             $cmd,
             $ignore,
@@ -97,13 +96,14 @@ class PhpParallelLint implements \PHPCI\Plugin
 
     /**
      * Produce an argument string for PHP Parallel Lint.
+     *
      * @return array
      */
     protected function getFlags()
     {
         $ignoreFlags = array();
         foreach ($this->ignore as $ignoreDir) {
-            $ignoreFlags[] = '--exclude "' . $this->phpci->buildPath . $ignoreDir . '"';
+            $ignoreFlags[] = '--exclude "'.$this->phpci->buildPath.$ignoreDir.'"';
         }
         $ignore = implode(' ', $ignoreFlags);
 

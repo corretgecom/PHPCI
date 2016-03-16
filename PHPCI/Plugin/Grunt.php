@@ -1,9 +1,10 @@
 <?php
 /**
- * PHPCI - Continuous Integration for PHP
+ * PHPCI - Continuous Integration for PHP.
  *
  * @copyright    Copyright 2014, Block 8 Limited.
  * @license      https://github.com/Block8/PHPCI/blob/master/LICENSE.md
+ *
  * @link         https://www.phptesting.org/
  */
 
@@ -13,11 +14,10 @@ use PHPCI\Builder;
 use PHPCI\Model\Build;
 
 /**
-* Grunt Plugin - Provides access to grunt functionality.
-* @author       Tobias Tom <t.tom@succont.de>
-* @package      PHPCI
-* @subpackage   Plugins
-*/
+ * Grunt Plugin - Provides access to grunt functionality.
+ *
+ * @author       Tobias Tom <t.tom@succont.de>
+ */
 class Grunt implements \PHPCI\Plugin
 {
     protected $directory;
@@ -29,7 +29,7 @@ class Grunt implements \PHPCI\Plugin
     protected $gruntfile;
 
     /**
-     * Standard Constructor
+     * Standard Constructor.
      *
      * $options['directory'] Output Directory. Default: %BUILDPATH%
      * $options['filename']  Phar Filename. Default: build.phar
@@ -52,7 +52,7 @@ class Grunt implements \PHPCI\Plugin
 
         // Handle options:
         if (isset($options['directory'])) {
-            $this->directory = $path . DIRECTORY_SEPARATOR . $options['directory'];
+            $this->directory = $path.DIRECTORY_SEPARATOR.$options['directory'];
         }
 
         if (isset($options['task'])) {
@@ -69,8 +69,8 @@ class Grunt implements \PHPCI\Plugin
     }
 
     /**
-    * Executes grunt and runs a specified command (e.g. install / update)
-    */
+     * Executes grunt and runs a specified command (e.g. install / update).
+     */
     public function execute()
     {
         // if npm does not work, we cannot use grunt, so we return false
@@ -83,9 +83,9 @@ class Grunt implements \PHPCI\Plugin
         }
 
         // build the grunt command
-        $cmd = 'cd %s && ' . $this->grunt;
+        $cmd = 'cd %s && '.$this->grunt;
         if (IS_WIN) {
-            $cmd = 'cd /d %s && ' . $this->grunt;
+            $cmd = 'cd /d %s && '.$this->grunt;
         }
         $cmd .= ' --no-color';
         $cmd .= ' --gruntfile %s';

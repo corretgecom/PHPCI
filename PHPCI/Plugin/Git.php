@@ -1,9 +1,10 @@
 <?php
 /**
- * PHPCI - Continuous Integration for PHP
+ * PHPCI - Continuous Integration for PHP.
  *
  * @copyright    Copyright 2014, Block 8 Limited.
  * @license      https://github.com/Block8/PHPCI/blob/master/LICENSE.md
+ *
  * @link         https://www.phptesting.org/
  */
 
@@ -15,9 +16,8 @@ use PHPCI\Model\Build;
 
 /**
  * Git plugin.
+ *
  * @author       Dan Cryer <dan@block8.co.uk>
- * @package      PHPCI
- * @subpackage   Plugins
  */
 class Git implements \PHPCI\Plugin
 {
@@ -27,9 +27,10 @@ class Git implements \PHPCI\Plugin
 
     /**
      * Set up the plugin, configure options, etc.
+     *
      * @param Builder $phpci
-     * @param Build $build
-     * @param array $options
+     * @param Build   $build
+     * @param array   $options
      */
     public function __construct(Builder $phpci, Build $build, array $options = array())
     {
@@ -40,6 +41,7 @@ class Git implements \PHPCI\Plugin
 
     /**
      * Run the Git plugin.
+     *
      * @return bool
      */
     public function execute()
@@ -70,8 +72,10 @@ class Git implements \PHPCI\Plugin
 
     /**
      * Determine which action to run, and run it.
+     *
      * @param $action
      * @param array $options
+     *
      * @return bool
      */
     protected function runAction($action, array $options = array())
@@ -90,13 +94,14 @@ class Git implements \PHPCI\Plugin
                 return $this->runPushAction($options);
         }
 
-
         return false;
     }
 
     /**
      * Handle a merge action.
+     *
      * @param $options
+     *
      * @return bool
      */
     protected function runMergeAction($options)
@@ -104,13 +109,16 @@ class Git implements \PHPCI\Plugin
         if (array_key_exists('branch', $options)) {
             $cmd = 'cd "%s" && git checkout %s && git merge "%s"';
             $path = $this->phpci->buildPath;
+
             return $this->phpci->executeCommand($cmd, $path, $options['branch'], $this->build->getBranch());
         }
     }
 
     /**
      * Handle a tag action.
+     *
      * @param $options
+     *
      * @return bool
      */
     protected function runTagAction($options)
@@ -127,12 +135,15 @@ class Git implements \PHPCI\Plugin
         }
 
         $cmd = 'git tag %s -m "%s"';
+
         return $this->phpci->executeCommand($cmd, $tagName, $message);
     }
 
     /**
      * Handle a pull action.
+     *
      * @param $options
+     *
      * @return bool
      */
     protected function runPullAction($options)
@@ -153,7 +164,9 @@ class Git implements \PHPCI\Plugin
 
     /**
      * Handle a push action.
+     *
      * @param $options
+     *
      * @return bool
      */
     protected function runPushAction($options)

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * BuildError model for table: build_error
+ * BuildError model for table: build_error.
  */
 
 namespace PHPCI\Model;
@@ -9,7 +9,8 @@ namespace PHPCI\Model;
 use PHPCI\Model\Base\BuildErrorBase;
 
 /**
- * BuildError Model
+ * BuildError Model.
+ *
  * @uses PHPCI\Model\Base\BuildErrorBase
  */
 class BuildError extends BuildErrorBase
@@ -21,6 +22,7 @@ class BuildError extends BuildErrorBase
 
     /**
      * Get the language string key for this error's severity level.
+     *
      * @return string
      */
     public function getSeverityString()
@@ -42,6 +44,7 @@ class BuildError extends BuildErrorBase
 
     /**
      * Get the class to apply to HTML elements representing this error.
+     *
      * @return string
      */
     public function getSeverityClass()

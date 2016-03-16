@@ -1,7 +1,7 @@
 <?php
 
 /**
- * ProjectGroup model for table: project_group
+ * ProjectGroup model for table: project_group.
  */
 
 namespace PHPCI\Model;
@@ -9,7 +9,8 @@ namespace PHPCI\Model;
 use PHPCI\Model\Base\ProjectGroupBase;
 
 /**
- * ProjectGroup Model
+ * ProjectGroup Model.
+ *
  * @uses PHPCI\Model\Base\ProjectGroupBase
  */
 class ProjectGroup extends ProjectGroupBase

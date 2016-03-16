@@ -1,9 +1,10 @@
 <?php
 /**
- * PHPCI - Continuous Integration for PHP
+ * PHPCI - Continuous Integration for PHP.
  *
  * @copyright    Copyright 2014, Block 8 Limited.
  * @license      https://github.com/Block8/PHPCI/blob/master/LICENSE.md
+ *
  * @link         https://www.phptesting.org/
  */
 
@@ -19,10 +20,9 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * Create build command - creates a build for a project
+ * Create build command - creates a build for a project.
+ *
  * @author       Jérémy DECOOL (@jdecool)
- * @package      PHPCI
- * @subpackage   Console
  */
 class CreateBuildCommand extends Command
 {
@@ -48,7 +48,7 @@ class CreateBuildCommand extends Command
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     protected function configure()
     {
@@ -61,7 +61,7 @@ class CreateBuildCommand extends Command
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function execute(InputInterface $input, OutputInterface $output)
     {
@@ -71,7 +71,7 @@ class CreateBuildCommand extends Command
 
         $project = $this->projectStore->getById($projectId);
         if (empty($project)) {
-            throw new \InvalidArgumentException('Project does not exist: ' . $projectId);
+            throw new \InvalidArgumentException('Project does not exist: '.$projectId);
         }
 
         try {

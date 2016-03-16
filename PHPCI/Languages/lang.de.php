@@ -1,12 +1,12 @@
 <?php
 /**
- * PHPCI - Continuous Integration for PHP
+ * PHPCI - Continuous Integration for PHP.
  *
  * @copyright    Copyright 2014, Block 8 Limited.
  * @license      https://github.com/Block8/PHPCI/blob/master/LICENSE.md
+ *
  * @link         https://www.phptesting.org/
  */
-
 $strings = array(
     'language_name' => 'Deutsch',
     'language' => 'Sprache',
@@ -42,7 +42,6 @@ PHPCI',
     'login' => 'Login / Emailadresse',
     'password' => 'Passwort',
     'log_in' => 'Einloggen',
-
 
     // Top Nav
     'toggle_navigation' => 'Navigation umschalten',
@@ -101,8 +100,8 @@ generiert. Um es zu verwenden, fügen Sie einfach den folgenden Public Key im Ab
     'gitlab' => 'GitLab',
     'remote' => 'Externe URL',
     'local' => 'Lokaler Pfad',
-    'hg'    => 'Mercurial',
-    'svn'   => 'Subversion',
+    'hg' => 'Mercurial',
+    'svn' => 'Subversion',
 
     'where_hosted' => 'Wo wird Ihr Projekt gehostet?',
     'choose_github' => 'Wählen Sie ein GitHub Repository:',
@@ -157,7 +156,6 @@ generiert. Um es zu verwenden, fügen Sie einfach den folgenden Public Key im Ab
     'build_x_not_found' => 'Build mit ID %d existiert nicht.',
     'build_n' => 'Build %d',
     'rebuild_now' => 'Build neu starten',
-
 
     'committed_by_x' => 'Committed von %s',
     'commit_id_x' => 'Commit: %s',
@@ -305,7 +303,7 @@ generiert. Um es zu verwenden, fügen Sie einfach den folgenden Public Key im Ab
     'stage_complete' => 'Vollständig',
     'stage_success' => 'Erfolg',
     'stage_failure' => 'Fehlschlag',
-    'stage_broken'  => 'Defekt',
+    'stage_broken' => 'Defekt',
     'stage_fixed' => 'Behoben',
 
     // Installer

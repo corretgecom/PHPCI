@@ -1,10 +1,11 @@
 <?php
 
 /**
- * PHPCI - Continuous Integration for PHP
+ * PHPCI - Continuous Integration for PHP.
  *
  * @copyright    Copyright 2015, Block 8 Limited.
  * @license      https://github.com/Block8/PHPCI/blob/master/LICENSE.md
+ *
  * @link         https://www.phptesting.org/
  */
 
@@ -12,8 +13,8 @@ namespace Tests\PHPCI\Plugin\Util;
 
 use PHPCI\Plugin\Util\Factory;
 
-class FactoryTest extends \PHPUnit_Framework_TestCase {
-
+class FactoryTest extends \PHPUnit_Framework_TestCase
+{
     /**
      * @var \PHPCI\Plugin\Util\Factory
      */
@@ -30,7 +31,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase {
         // Setup a resource that can be returned and asserted against
         $this->expectedResource = new \stdClass();
         $resourceLink = $this->expectedResource;
-        $this->resourceLoader = function() use (&$resourceLink) {
+        $this->resourceLoader = function () use (&$resourceLink) {
             return $resourceLink;
         };
     }
@@ -39,7 +40,6 @@ class FactoryTest extends \PHPUnit_Framework_TestCase {
     {
         // Nothing to do.
     }
-
 
     public function testRegisterResourceThrowsExceptionWithoutTypeAndName()
     {
@@ -50,7 +50,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase {
     public function testRegisterResourceThrowsExceptionIfLoaderIsntFunction()
     {
         $this->setExpectedException('InvalidArgumentException', '$loader is expected to be a function');
-        $this->testedFactory->registerResource(array("dummy"), "TestName", "TestClass");
+        $this->testedFactory->registerResource(array('dummy'), 'TestName', 'TestClass');
     }
 
     public function testBuildPluginWorksWithConstructorlessPlugins()
@@ -63,7 +63,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase {
     public function testBuildPluginFailsForNonPluginClasses()
     {
         $this->setExpectedException('InvalidArgumentException', 'Requested class must implement \PHPCI\Plugin');
-        $plugin = $this->testedFactory->buildPlugin("stdClass");
+        $plugin = $this->testedFactory->buildPlugin('stdClass');
     }
 
     public function testBuildPluginWorksWithSingleOptionalArgConstructor()
@@ -90,7 +90,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase {
 
         $this->testedFactory->registerResource(
             $this->resourceLoader,
-            "requiredArgument"
+            'requiredArgument'
         );
 
         /** @var ExamplePluginWithSingleRequiredArg $plugin */
@@ -106,7 +106,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase {
         $this->testedFactory->registerResource(
             $this->resourceLoader,
             null,
-            "stdClass"
+            'stdClass'
         );
 
         /** @var ExamplePluginWithSingleTypedRequiredArg $plugin */
@@ -132,7 +132,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase {
         $pluginClass = $this->getFakePluginClassName('ExamplePluginFull');
 
         $expectedArgs = array(
-            'thing' => "stuff"
+            'thing' => 'stuff',
         );
 
         $this->registerBuildAndBuilder();
@@ -150,7 +150,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase {
     public function testAddConfigFromFile_ReturnsTrueForValidFile()
     {
         $result = $this->testedFactory->addConfigFromFile(
-            realpath(__DIR__ . "/ExamplePluginConfig.php")
+            realpath(__DIR__.'/ExamplePluginConfig.php')
         );
 
         $this->assertTrue($result);
@@ -159,7 +159,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase {
     public function testAddConfigFromFile_RegistersResources()
     {
         $this->testedFactory->addConfigFromFile(
-            realpath(__DIR__ . "/ExamplePluginConfig.php")
+            realpath(__DIR__.'/ExamplePluginConfig.php')
         );
 
         $pluginClass = $this->getFakePluginClassName('ExamplePluginWithSingleRequiredArg');
@@ -167,7 +167,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase {
 
         // The Example config file defines an array as the resource.
         $this->assertEquals(
-            array("bar" => "Hello"),
+            array('bar' => 'Hello'),
             $plugin->RequiredArgument
         );
     }
@@ -213,7 +213,6 @@ class FactoryTest extends \PHPUnit_Framework_TestCase {
     {
         $pluginNamespace = '\\Tests\\PHPCI\\Plugin\\Util\\Fake\\';
 
-        return $pluginNamespace . $pluginName;
+        return $pluginNamespace.$pluginName;
     }
 }
-

@@ -1,10 +1,11 @@
 <?php
 
 /**
- * PHPCI - Continuous Integration for PHP
+ * PHPCI - Continuous Integration for PHP.
  *
  * @copyright    Copyright 2014, Block 8 Limited.
  * @license      https://github.com/Block8/PHPCI/blob/master/LICENSE.md
+ *
  * @link         https://www.phptesting.org/
  */
 
@@ -21,13 +22,11 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * Daemon that loops and call the run-command.
+ *
  * @author       Gabriel Baker <gabriel.baker@autonomicpilot.co.uk>
- * @package      PHPCI
- * @subpackage   Console
  */
 class DaemonCommand extends Command
 {
-
     /**
      * @var Logger
      */
@@ -98,7 +97,7 @@ class DaemonCommand extends Command
                 $this->statusDaemon($output);
                 break;
             default:
-                $this->output->writeln("<error>Not a valid choice, please use start, stop or status</error>");
+                $this->output->writeln('<error>Not a valid choice, please use start, stop or status</error>');
                 break;
         }
     }
@@ -107,65 +106,71 @@ class DaemonCommand extends Command
     {
         $pid = $this->getRunningPid();
         if ($pid) {
-            $this->logger->notice("Daemon already started", array('pid' => $pid));
-            return "alreadystarted";
+            $this->logger->notice('Daemon already started', array('pid' => $pid));
+
+            return 'alreadystarted';
         }
 
-        $this->logger->info("Trying to start the daemon");
+        $this->logger->info('Trying to start the daemon');
 
-        $cmd = "nohup %s/daemonise phpci:daemonise > %s 2>&1 &";
+        $cmd = 'nohup %s/daemonise phpci:daemonise > %s 2>&1 &';
         $command = sprintf($cmd, PHPCI_DIR, $this->logFilePath);
         $output = $exitCode = null;
         exec($command, $output, $exitCode);
 
         if ($exitCode !== 0) {
-            $this->logger->error(sprintf("daemonise exited with status %d", $exitCode));
-            return "notstarted";
+            $this->logger->error(sprintf('daemonise exited with status %d', $exitCode));
+
+            return 'notstarted';
         }
 
-        for ($i = 0; !($pid = $this->getRunningPid()) && $i < 5; $i++) {
+        for ($i = 0; !($pid = $this->getRunningPid()) && $i < 5; ++$i) {
             sleep(1);
         }
 
         if (!$pid) {
-            $this->logger->error("Could not start the daemon");
-            return "notstarted";
+            $this->logger->error('Could not start the daemon');
+
+            return 'notstarted';
         }
 
-        $this->logger->notice("Daemon started", array('pid' => $pid));
-        return "started";
+        $this->logger->notice('Daemon started', array('pid' => $pid));
+
+        return 'started';
     }
 
     protected function stopDaemon()
     {
         $pid = $this->getRunningPid();
         if (!$pid) {
-            $this->logger->notice("Cannot stop the daemon as it is not started");
-            return "notstarted";
+            $this->logger->notice('Cannot stop the daemon as it is not started');
+
+            return 'notstarted';
         }
 
-        $this->logger->info("Trying to terminate the daemon", array('pid' => $pid));
+        $this->logger->info('Trying to terminate the daemon', array('pid' => $pid));
         $this->processControl->kill($pid);
 
-        for ($i = 0; ($pid = $this->getRunningPid()) && $i < 5; $i++) {
+        for ($i = 0; ($pid = $this->getRunningPid()) && $i < 5; ++$i) {
             sleep(1);
         }
 
         if ($pid) {
-            $this->logger->warning("The daemon is resiting, trying to kill it", array('pid' => $pid));
+            $this->logger->warning('The daemon is resiting, trying to kill it', array('pid' => $pid));
             $this->processControl->kill($pid, true);
 
-            for ($i = 0; ($pid = $this->getRunningPid()) && $i < 5; $i++) {
+            for ($i = 0; ($pid = $this->getRunningPid()) && $i < 5; ++$i) {
                 sleep(1);
             }
         }
 
         if (!$pid) {
-            $this->logger->notice("Daemon stopped");
-            return "stopped";
+            $this->logger->notice('Daemon stopped');
+
+            return 'stopped';
         }
 
-        $this->logger->error("Could not stop the daemon");
+        $this->logger->error('Could not stop the daemon');
     }
 
     protected function statusDaemon(OutputInterface $output)
@@ -173,15 +178,16 @@ class DaemonCommand extends Command
         $pid = $this->getRunningPid();
         if ($pid) {
             $output->writeln(sprintf('The daemon is running, PID: %d', $pid));
-            return "running";
+
+            return 'running';
         }
 
         $output->writeln('The daemon is not running');
-        return "notrunning";
+
+        return 'notrunning';
     }
 
     /** Check if there is a running daemon
-     *
      * @return int|null
      */
     protected function getRunningPid()
@@ -192,7 +198,7 @@ class DaemonCommand extends Command
 
         $pid = intval(trim(file_get_contents($this->pidFilePath)));
 
-        if($this->processControl->isRunning($pid, true)) {
+        if ($this->processControl->isRunning($pid, true)) {
             return $pid;
         }
 

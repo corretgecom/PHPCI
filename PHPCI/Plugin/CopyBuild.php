@@ -1,9 +1,10 @@
 <?php
 /**
- * PHPCI - Continuous Integration for PHP
+ * PHPCI - Continuous Integration for PHP.
  *
  * @copyright    Copyright 2014, Block 8 Limited.
  * @license      https://github.com/Block8/PHPCI/blob/master/LICENSE.md
+ *
  * @link         https://www.phptesting.org/
  */
 
@@ -14,11 +15,10 @@ use PHPCI\Model\Build;
 use PHPCI\Helper\Lang;
 
 /**
-* Copy Build Plugin - Copies the entire build to another directory.
-* @author       Dan Cryer <dan@block8.co.uk>
-* @package      PHPCI
-* @subpackage   Plugins
-*/
+ * Copy Build Plugin - Copies the entire build to another directory.
+ *
+ * @author       Dan Cryer <dan@block8.co.uk>
+ */
 class CopyBuild implements \PHPCI\Plugin
 {
     protected $directory;
@@ -29,23 +29,24 @@ class CopyBuild implements \PHPCI\Plugin
 
     /**
      * Set up the plugin, configure options, etc.
+     *
      * @param Builder $phpci
-     * @param Build $build
-     * @param array $options
+     * @param Build   $build
+     * @param array   $options
      */
     public function __construct(Builder $phpci, Build $build, array $options = array())
     {
-        $path            = $phpci->buildPath;
-        $this->phpci     = $phpci;
-        $this->build     = $build;
+        $path = $phpci->buildPath;
+        $this->phpci = $phpci;
+        $this->build = $build;
         $this->directory = isset($options['directory']) ? $options['directory'] : $path;
-        $this->wipe      = isset($options['wipe']) ?  (bool)$options['wipe'] : false;
-        $this->ignore    = isset($options['respect_ignore']) ?  (bool)$options['respect_ignore'] : false;
+        $this->wipe = isset($options['wipe']) ?  (bool) $options['wipe'] : false;
+        $this->ignore = isset($options['respect_ignore']) ?  (bool) $options['respect_ignore'] : false;
     }
 
     /**
-    * Copies files from the root of the build directory into the target folder
-    */
+     * Copies files from the root of the build directory into the target folder.
+     */
     public function execute()
     {
         $build = $this->phpci->buildPath;
@@ -70,6 +71,7 @@ class CopyBuild implements \PHPCI\Plugin
 
     /**
      * Wipe the destination directory if it already exists.
+     *
      * @throws \Exception
      */
     protected function wipeExistingDirectory()

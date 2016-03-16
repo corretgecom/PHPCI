@@ -1,7 +1,7 @@
 <?php
 
 /**
- * ProjectGroup base model for table: project_group
+ * ProjectGroup base model for table: project_group.
  */
 
 namespace PHPCI\Model\Base;
@@ -10,36 +10,36 @@ use PHPCI\Model;
 use b8\Store\Factory;
 
 /**
- * ProjectGroup Base Model
+ * ProjectGroup Base Model.
  */
 class ProjectGroupBase extends Model
 {
     /**
-    * @var array
-    */
+     * @var array
+     */
     public static $sleepable = array();
 
     /**
-    * @var string
-    */
+     * @var string
+     */
     protected $tableName = 'project_group';
 
     /**
-    * @var string
-    */
+     * @var string
+     */
     protected $modelName = 'ProjectGroup';
 
     /**
-    * @var array
-    */
+     * @var array
+     */
     protected $data = array(
         'id' => null,
         'title' => null,
     );
 
     /**
-    * @var array
-    */
+     * @var array
+     */
     protected $getters = array(
         // Direct property getters:
         'id' => 'getId',
@@ -49,8 +49,8 @@ class ProjectGroupBase extends Model
     );
 
     /**
-    * @var array
-    */
+     * @var array
+     */
     protected $setters = array(
         // Direct property setters:
         'id' => 'setId',
@@ -60,8 +60,8 @@ class ProjectGroupBase extends Model
     );
 
     /**
-    * @var array
-    */
+     * @var array
+     */
     public $columns = array(
         'id' => array(
             'type' => 'int',
@@ -78,48 +78,49 @@ class ProjectGroupBase extends Model
     );
 
     /**
-    * @var array
-    */
+     * @var array
+     */
     public $indexes = array(
             'PRIMARY' => array('unique' => true, 'columns' => 'id'),
     );
 
     /**
-    * @var array
-    */
+     * @var array
+     */
     public $foreignKeys = array(
     );
 
     /**
-    * Get the value of Id / id.
-    *
-    * @return int
-    */
+     * Get the value of Id / id.
+     *
+     * @return int
+     */
     public function getId()
     {
-        $rtn    = $this->data['id'];
+        $rtn = $this->data['id'];
 
         return $rtn;
     }
 
     /**
-    * Get the value of Title / title.
-    *
-    * @return string
-    */
+     * Get the value of Title / title.
+     *
+     * @return string
+     */
     public function getTitle()
     {
-        $rtn    = $this->data['title'];
+        $rtn = $this->data['title'];
 
         return $rtn;
     }
 
     /**
-    * Set the value of Id / id.
-    *
-    * Must not be null.
-    * @param $value int
-    */
+     * Set the value of Id / id.
+     *
+     * Must not be null.
+     *
+     * @param $value int
+     */
     public function setId($value)
     {
         $this->_validateNotNull('Id', $value);
@@ -135,11 +136,12 @@ class ProjectGroupBase extends Model
     }
 
     /**
-    * Set the value of Title / title.
-    *
-    * Must not be null.
-    * @param $value string
-    */
+     * Set the value of Title / title.
+     *
+     * Must not be null.
+     *
+     * @param $value string
+     */
     public function setTitle($value)
     {
         $this->_validateNotNull('Title', $value);
@@ -159,6 +161,7 @@ class ProjectGroupBase extends Model
      *
      * @uses \PHPCI\Store\ProjectStore::getByGroupId()
      * @uses \PHPCI\Model\Project
+     *
      * @return \PHPCI\Model\Project[]
      */
     public function getGroupProjects()

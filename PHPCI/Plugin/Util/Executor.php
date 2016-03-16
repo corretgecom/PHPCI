@@ -11,7 +11,6 @@ use PHPCI\Store\BuildStore;
 
 /**
  * Plugin Executor - Runs the configured plugins for a given build stage.
- * @package PHPCI\Plugin\Util
  */
 class Executor
 {
@@ -31,7 +30,7 @@ class Executor
     protected $store;
 
     /**
-     * @param Factory $pluginFactory
+     * @param Factory     $pluginFactory
      * @param BuildLogger $logger
      */
     public function __construct(Factory $pluginFactory, BuildLogger $logger, BuildStore $store = null)
@@ -43,8 +42,10 @@ class Executor
 
     /**
      * Execute a the appropriate set of plugins for a given build stage.
-     * @param array $config PHPCI configuration
+     *
+     * @param array  $config PHPCI configuration
      * @param string $stage
+     *
      * @return bool
      */
     public function executePlugins(&$config, $stage)
@@ -70,9 +71,11 @@ class Executor
 
     /**
      * Check the config for any plugins specific to the branch we're currently building.
+     *
      * @param $config
      * @param $stage
      * @param $pluginsToExecute
+     *
      * @return array
      */
     protected function getBranchSpecificPlugins(&$config, $stage, $pluginsToExecute)
@@ -82,12 +85,12 @@ class Executor
         $branch = $build->getBranch();
 
         // If we don't have any branch-specific plugins:
-        if (!isset($config['branch-' . $branch][$stage]) || !is_array($config['branch-' . $branch][$stage])) {
+        if (!isset($config['branch-'.$branch][$stage]) || !is_array($config['branch-'.$branch][$stage])) {
             return $pluginsToExecute;
         }
 
         // If we have branch-specific plugins to execute, add them to the list to be executed:
-        $branchConfig = $config['branch-' . $branch];
+        $branchConfig = $config['branch-'.$branch];
         $plugins = $branchConfig[$stage];
 
         $runOption = 'after';
@@ -123,9 +126,12 @@ class Executor
 
     /**
      * Execute the list of plugins found for a given testing stage.
+     *
      * @param $plugins
      * @param $stage
+     *
      * @return bool
+     *
      * @throws \Exception
      */
     protected function doExecutePlugins(&$plugins, $stage)
@@ -150,7 +156,7 @@ class Executor
                 if ($stage === 'setup') {
                     // If we're in the "setup" stage, execution should not continue after
                     // a plugin has failed:
-                    throw new Exception('Plugin failed: ' . $plugin);
+                    throw new Exception('Plugin failed: '.$plugin);
                 } elseif ($stage === 'test') {
                     // If we're in the "test" stage and the plugin is not allowed to fail,
                     // then mark the build as failed:
@@ -175,22 +181,25 @@ class Executor
         if (strpos($plugin, '\\') === false) {
             $class = str_replace('_', ' ', $plugin);
             $class = ucwords($class);
-            $class = 'PHPCI\\Plugin\\' . str_replace(' ', '', $class);
+            $class = 'PHPCI\\Plugin\\'.str_replace(' ', '', $class);
         } else {
             $class = $plugin;
         }
 
         if (!class_exists($class)) {
             $this->logger->logFailure(Lang::get('plugin_missing', $plugin));
+
             return false;
         }
 
         try {
             // Build and run it
             $obj = $this->pluginFactory->buildPlugin($class, $options);
+
             return $obj->execute();
         } catch (\Exception $ex) {
-            $this->logger->logFailure(Lang::get('exception') . $ex->getMessage(), $ex);
+            $this->logger->logFailure(Lang::get('exception').$ex->getMessage(), $ex);
+
             return false;
         }
     }
@@ -198,9 +207,9 @@ class Executor
     /**
      * Change the status of a plugin for a given stage.
      *
-     * @param string $stage The builder stage.
+     * @param string $stage  The builder stage.
      * @param string $plugin The plugin name.
-     * @param int $status The new status.
+     * @param int    $status The new status.
      */
     protected function setPluginStatus($stage, $plugin, $status)
     {
@@ -230,6 +239,7 @@ class Executor
     {
         $build = $this->pluginFactory->getResourceFor('PHPCI\Model\Build');
         $metas = $this->store->getMeta('plugin-summary', $build->getProjectId(), $build->getId());
+
         return isset($metas[0]['meta_value']) ? $metas[0]['meta_value'] : array();
     }
 

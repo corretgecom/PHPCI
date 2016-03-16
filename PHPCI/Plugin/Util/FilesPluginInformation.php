@@ -5,12 +5,10 @@ namespace PHPCI\Plugin\Util;
 use PHPCI\Plugin;
 
 /**
- * Class FilesPluginInformation
- * @package PHPCI\Plugin\Util
+ * Class FilesPluginInformation.
  */
 class FilesPluginInformation implements InstalledPluginInformation
 {
-
     /**
      * A collection of all the file path information for
      * the installed plugins.
@@ -29,6 +27,7 @@ class FilesPluginInformation implements InstalledPluginInformation
 
     /**
      * @param $dirPath
+     *
      * @return FilesPluginInformation
      */
     public static function newFromDir($dirPath)
@@ -48,7 +47,8 @@ class FilesPluginInformation implements InstalledPluginInformation
      * Returns an array of objects. Each one represents an available plugin
      * and will have the following properties:
      *      name  - The friendly name of the plugin (may be an empty string)
-     *      class - The class of the plugin (will include namespace)
+     *      class - The class of the plugin (will include namespace).
+     *
      * @return \stdClass[]
      */
     public function getInstalledPlugins()
@@ -93,6 +93,7 @@ class FilesPluginInformation implements InstalledPluginInformation
 
     /**
      * Add a plugin to the list from a given file.
+     *
      * @param \SplFileInfo $fileInfo
      */
     protected function addPluginFromFile(\SplFileInfo $fileInfo)
@@ -100,11 +101,11 @@ class FilesPluginInformation implements InstalledPluginInformation
         $class = $this->getFullClassFromFile($fileInfo);
 
         if (!is_null($class)) {
-            $newPlugin         = new \stdClass();
-            $newPlugin->class  = $class;
-            $newPlugin->source = "core";
-            $parts             = explode('\\', $newPlugin->class);
-            $newPlugin->name   = end($parts);
+            $newPlugin = new \stdClass();
+            $newPlugin->class = $class;
+            $newPlugin->source = 'core';
+            $parts = explode('\\', $newPlugin->class);
+            $newPlugin->name = end($parts);
 
             $this->pluginInfo[] = $newPlugin;
         }
@@ -112,7 +113,9 @@ class FilesPluginInformation implements InstalledPluginInformation
 
     /**
      * Determine plugin class name for a given file.
+     *
      * @param \SplFileInfo $fileInfo
+     *
      * @return null|string
      */
     protected function getFullClassFromFile(\SplFileInfo $fileInfo)
@@ -129,9 +132,9 @@ class FilesPluginInformation implements InstalledPluginInformation
             preg_match('#namespace +([A-Za-z\\\\]+);#i', $contents, $matches);
             $namespace = $matches[1];
 
-            return $namespace . '\\' . $className;
+            return $namespace.'\\'.$className;
         } else {
-            return null;
+            return;
         }
     }
 }

@@ -1,9 +1,10 @@
 <?php
 /**
- * PHPCI - Continuous Integration for PHP
+ * PHPCI - Continuous Integration for PHP.
  *
  * @copyright    Copyright 2014, Block 8 Limited.
  * @license      https://github.com/Block8/PHPCI/blob/master/LICENSE.md
+ *
  * @link         https://www.phptesting.org/
  */
 
@@ -14,17 +15,18 @@ use PHPCI\Model\Build;
 use PHPCI\Store\Base\BuildStoreBase;
 
 /**
-* Build Store
-* @author       Dan Cryer <dan@block8.co.uk>
-* @package      PHPCI
-* @subpackage   Core
-*/
+ * Build Store.
+ *
+ * @author       Dan Cryer <dan@block8.co.uk>
+ */
 class BuildStore extends BuildStoreBase
 {
     /**
      * Return an array of the latest builds for a given project.
+     *
      * @param null $projectId
-     * @param int $limit
+     * @param int  $limit
+     *
      * @return array
      */
     public function getLatestBuilds($projectId = null, $limit = 5)
@@ -59,8 +61,10 @@ class BuildStore extends BuildStoreBase
 
     /**
      * Return the latest build for a specific project, of a specific build status.
+     *
      * @param null $projectId
-     * @param int $status
+     * @param int  $status
+     *
      * @return array|Build
      */
     public function getLastBuildByStatus($projectId = null, $status = Build::STATUS_SUCCESS)
@@ -81,8 +85,10 @@ class BuildStore extends BuildStoreBase
 
     /**
      * Return an array of builds for a given project and commit ID.
+     *
      * @param $projectId
      * @param $commitId
+     *
      * @return array
      */
     public function getByProjectAndCommit($projectId, $commitId)
@@ -108,10 +114,12 @@ class BuildStore extends BuildStoreBase
     }
 
     /**
-     * Returns all registered branches for project
+     * Returns all registered branches for project.
      *
      * @param $projectId
+     *
      * @return array
+     *
      * @throws \Exception
      */
     public function getBuildBranches($projectId)
@@ -122,6 +130,7 @@ class BuildStore extends BuildStoreBase
 
         if ($stmt->execute()) {
             $res = $stmt->fetchAll(\PDO::FETCH_COLUMN);
+
             return $res;
         } else {
             return array();
@@ -130,11 +139,13 @@ class BuildStore extends BuildStoreBase
 
     /**
      * Return build metadata by key, project and optionally build id.
+     *
      * @param $key
      * @param $projectId
      * @param null $buildId
      * @param null $branch
-     * @param int $numResults
+     * @param int  $numResults
+     *
      * @return array|null
      */
     public function getMeta($key, $projectId, $buildId = null, $branch = null, $numResults = 1)
@@ -162,9 +173,9 @@ class BuildStore extends BuildStoreBase
 
         $stmt = Database::getConnection('read')->prepare($query);
         $stmt->bindValue(':key', $key, \PDO::PARAM_STR);
-        $stmt->bindValue(':projectId', (int)$projectId, \PDO::PARAM_INT);
-        $stmt->bindValue(':buildId', (int)$buildId, \PDO::PARAM_INT);
-        $stmt->bindValue(':numResults', (int)$numResults, \PDO::PARAM_INT);
+        $stmt->bindValue(':projectId', (int) $projectId, \PDO::PARAM_INT);
+        $stmt->bindValue(':buildId', (int) $buildId, \PDO::PARAM_INT);
+        $stmt->bindValue(':numResults', (int) $numResults, \PDO::PARAM_INT);
         if (!is_null($branch)) {
             $stmt->bindValue(':branch', $branch, \PDO::PARAM_STR);
         }
@@ -175,26 +186,28 @@ class BuildStore extends BuildStoreBase
             $rtn = array_reverse($rtn);
             $rtn = array_map(function ($item) {
                 $item['meta_value'] = json_decode($item['meta_value'], true);
+
                 return $item;
             }, $rtn);
 
             if (!count($rtn)) {
-                return null;
+                return;
             } else {
                 return $rtn;
             }
-
         } else {
-            return null;
+            return;
         }
     }
 
     /**
      * Set a metadata value for a given project and build ID.
+     *
      * @param $projectId
      * @param $buildId
      * @param $key
      * @param $value
+     *
      * @return bool
      */
     public function setMeta($projectId, $buildId, $key, $value)
@@ -204,8 +217,8 @@ class BuildStore extends BuildStoreBase
 
         $stmt = Database::getConnection('read')->prepare($query);
         $stmt->bindValue(':key', $key, \PDO::PARAM_STR);
-        $stmt->bindValue(':projectId', (int)$projectId, \PDO::PARAM_INT);
-        $stmt->bindValue(':buildId', (int)$buildId, \PDO::PARAM_INT);
+        $stmt->bindValue(':projectId', (int) $projectId, \PDO::PARAM_INT);
+        $stmt->bindValue(':buildId', (int) $buildId, \PDO::PARAM_INT);
         $stmt->bindValue(':value', $value, \PDO::PARAM_STR);
 
         if ($stmt->execute()) {

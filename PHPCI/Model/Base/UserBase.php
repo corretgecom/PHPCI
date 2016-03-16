@@ -1,37 +1,36 @@
 <?php
 
 /**
- * User base model for table: user
+ * User base model for table: user.
  */
 
 namespace PHPCI\Model\Base;
 
 use PHPCI\Model;
-use b8\Store\Factory;
 
 /**
- * User Base Model
+ * User Base Model.
  */
 class UserBase extends Model
 {
     /**
-    * @var array
-    */
+     * @var array
+     */
     public static $sleepable = array();
 
     /**
-    * @var string
-    */
+     * @var string
+     */
     protected $tableName = 'user';
 
     /**
-    * @var string
-    */
+     * @var string
+     */
     protected $modelName = 'User';
 
     /**
-    * @var array
-    */
+     * @var array
+     */
     protected $data = array(
         'id' => null,
         'email' => null,
@@ -41,8 +40,8 @@ class UserBase extends Model
     );
 
     /**
-    * @var array
-    */
+     * @var array
+     */
     protected $getters = array(
         // Direct property getters:
         'id' => 'getId',
@@ -55,8 +54,8 @@ class UserBase extends Model
     );
 
     /**
-    * @var array
-    */
+     * @var array
+     */
     protected $setters = array(
         // Direct property setters:
         'id' => 'setId',
@@ -69,8 +68,8 @@ class UserBase extends Model
     );
 
     /**
-    * @var array
-    */
+     * @var array
+     */
     public $columns = array(
         'id' => array(
             'type' => 'int',
@@ -101,8 +100,8 @@ class UserBase extends Model
     );
 
     /**
-    * @var array
-    */
+     * @var array
+     */
     public $indexes = array(
             'PRIMARY' => array('unique' => true, 'columns' => 'id'),
             'idx_email' => array('unique' => true, 'columns' => 'email'),
@@ -111,77 +110,78 @@ class UserBase extends Model
     );
 
     /**
-    * @var array
-    */
+     * @var array
+     */
     public $foreignKeys = array(
     );
 
     /**
-    * Get the value of Id / id.
-    *
-    * @return int
-    */
+     * Get the value of Id / id.
+     *
+     * @return int
+     */
     public function getId()
     {
-        $rtn    = $this->data['id'];
+        $rtn = $this->data['id'];
 
         return $rtn;
     }
 
     /**
-    * Get the value of Email / email.
-    *
-    * @return string
-    */
+     * Get the value of Email / email.
+     *
+     * @return string
+     */
     public function getEmail()
     {
-        $rtn    = $this->data['email'];
+        $rtn = $this->data['email'];
 
         return $rtn;
     }
 
     /**
-    * Get the value of Hash / hash.
-    *
-    * @return string
-    */
+     * Get the value of Hash / hash.
+     *
+     * @return string
+     */
     public function getHash()
     {
-        $rtn    = $this->data['hash'];
+        $rtn = $this->data['hash'];
 
         return $rtn;
     }
 
     /**
-    * Get the value of IsAdmin / is_admin.
-    *
-    * @return int
-    */
+     * Get the value of IsAdmin / is_admin.
+     *
+     * @return int
+     */
     public function getIsAdmin()
     {
-        $rtn    = $this->data['is_admin'];
+        $rtn = $this->data['is_admin'];
 
         return $rtn;
     }
 
     /**
-    * Get the value of Name / name.
-    *
-    * @return string
-    */
+     * Get the value of Name / name.
+     *
+     * @return string
+     */
     public function getName()
     {
-        $rtn    = $this->data['name'];
+        $rtn = $this->data['name'];
 
         return $rtn;
     }
 
     /**
-    * Set the value of Id / id.
-    *
-    * Must not be null.
-    * @param $value int
-    */
+     * Set the value of Id / id.
+     *
+     * Must not be null.
+     *
+     * @param $value int
+     */
     public function setId($value)
     {
         $this->_validateNotNull('Id', $value);
@@ -197,11 +197,12 @@ class UserBase extends Model
     }
 
     /**
-    * Set the value of Email / email.
-    *
-    * Must not be null.
-    * @param $value string
-    */
+     * Set the value of Email / email.
+     *
+     * Must not be null.
+     *
+     * @param $value string
+     */
     public function setEmail($value)
     {
         $this->_validateNotNull('Email', $value);
@@ -217,11 +218,12 @@ class UserBase extends Model
     }
 
     /**
-    * Set the value of Hash / hash.
-    *
-    * Must not be null.
-    * @param $value string
-    */
+     * Set the value of Hash / hash.
+     *
+     * Must not be null.
+     *
+     * @param $value string
+     */
     public function setHash($value)
     {
         $this->_validateNotNull('Hash', $value);
@@ -237,11 +239,12 @@ class UserBase extends Model
     }
 
     /**
-    * Set the value of IsAdmin / is_admin.
-    *
-    * Must not be null.
-    * @param $value int
-    */
+     * Set the value of IsAdmin / is_admin.
+     *
+     * Must not be null.
+     *
+     * @param $value int
+     */
     public function setIsAdmin($value)
     {
         $this->_validateNotNull('IsAdmin', $value);
@@ -257,11 +260,12 @@ class UserBase extends Model
     }
 
     /**
-    * Set the value of Name / name.
-    *
-    * Must not be null.
-    * @param $value string
-    */
+     * Set the value of Name / name.
+     *
+     * Must not be null.
+     *
+     * @param $value string
+     */
     public function setName($value)
     {
         $this->_validateNotNull('Name', $value);

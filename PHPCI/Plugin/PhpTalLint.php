@@ -1,9 +1,10 @@
 <?php
 /**
- * PHPCI - Continuous Integration for PHP
+ * PHPCI - Continuous Integration for PHP.
  *
  * @copyright    Copyright 2014, Block 8 Limited.
  * @license      https://github.com/Block8/PHPCI/blob/master/LICENSE.md
+ *
  * @link         https://www.phptesting.org/
  */
 
@@ -15,9 +16,8 @@ use PHPCI\Model\Build;
 
 /**
  * PHPTAL Lint Plugin - Provides access to PHPTAL lint functionality.
+ *
  * @author       Stephen Ball <phpci@stephen.rebelinblue.com>
- * @package      PHPCI
- * @subpackage   Plugins
  */
 class PhpTalLint implements PHPCI\Plugin
 {
@@ -57,7 +57,7 @@ class PhpTalLint implements PHPCI\Plugin
     protected $failedPaths = array();
 
     /**
-     * Standard Constructor
+     * Standard Constructor.
      *
      * @param Builder $phpci
      * @param Build   $build
@@ -79,7 +79,7 @@ class PhpTalLint implements PHPCI\Plugin
         }
 
         if (isset($options['suffixes'])) {
-            $this->suffixes = (array)$options['suffixes'];
+            $this->suffixes = (array) $options['suffixes'];
         }
 
         $this->setOptions($options);
@@ -87,6 +87,7 @@ class PhpTalLint implements PHPCI\Plugin
 
     /**
      * Handle this plugin's options.
+     *
      * @param $options
      */
     protected function setOptions($options)
@@ -99,7 +100,7 @@ class PhpTalLint implements PHPCI\Plugin
     }
 
     /**
-     * Executes phptal lint
+     * Executes phptal lint.
      */
     public function execute()
     {
@@ -118,9 +119,9 @@ class PhpTalLint implements PHPCI\Plugin
 
         foreach ($this->failedPaths as $path) {
             if ($path['type'] == 'error') {
-                $errors++;
+                ++$errors;
             } else {
-                $warnings++;
+                ++$warnings;
             }
         }
 
@@ -143,8 +144,10 @@ class PhpTalLint implements PHPCI\Plugin
 
     /**
      * Lint an item (file or directory) by calling the appropriate method.
+     *
      * @param $item
      * @param $itemPath
+     *
      * @return bool
      */
     protected function lintItem($item, $itemPath)
@@ -155,7 +158,7 @@ class PhpTalLint implements PHPCI\Plugin
             if (!$this->lintFile($itemPath)) {
                 $success = false;
             }
-        } elseif ($item->isDir() && $this->recursive && !$this->lintDirectory($itemPath . DIRECTORY_SEPARATOR)) {
+        } elseif ($item->isDir() && $this->recursive && !$this->lintDirectory($itemPath.DIRECTORY_SEPARATOR)) {
             $success = false;
         }
 
@@ -164,20 +167,22 @@ class PhpTalLint implements PHPCI\Plugin
 
     /**
      * Run phptal lint against a directory of files.
+     *
      * @param $path
+     *
      * @return bool
      */
     protected function lintDirectory($path)
     {
         $success = true;
-        $directory = new \DirectoryIterator($this->phpci->buildPath . $path);
+        $directory = new \DirectoryIterator($this->phpci->buildPath.$path);
 
         foreach ($directory as $item) {
             if ($item->isDot()) {
                 continue;
             }
 
-            $itemPath = $path . $item->getFilename();
+            $itemPath = $path.$item->getFilename();
 
             if (in_array($itemPath, $this->ignore)) {
                 continue;
@@ -193,7 +198,9 @@ class PhpTalLint implements PHPCI\Plugin
 
     /**
      * Run phptal lint against a specific file.
+     *
      * @param $path
+     *
      * @return bool
      */
     protected function lintFile($path)
@@ -202,12 +209,12 @@ class PhpTalLint implements PHPCI\Plugin
 
         list($suffixes, $tales) = $this->getFlags();
 
-        $lint  = dirname(__FILE__) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR;
-        $lint .= 'vendor' . DIRECTORY_SEPARATOR . 'phptal' . DIRECTORY_SEPARATOR . 'phptal' . DIRECTORY_SEPARATOR;
-        $lint .= 'tools' . DIRECTORY_SEPARATOR . 'phptal_lint.php';
-        $cmd = '/usr/bin/env php ' . $lint . ' %s %s "%s"';
+        $lint = dirname(__FILE__).DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR;
+        $lint .= 'vendor'.DIRECTORY_SEPARATOR.'phptal'.DIRECTORY_SEPARATOR.'phptal'.DIRECTORY_SEPARATOR;
+        $lint .= 'tools'.DIRECTORY_SEPARATOR.'phptal_lint.php';
+        $cmd = '/usr/bin/env php '.$lint.' %s %s "%s"';
 
-        $this->phpci->executeCommand($cmd, $suffixes, $tales, $this->phpci->buildPath . $path);
+        $this->phpci->executeCommand($cmd, $suffixes, $tales, $this->phpci->buildPath.$path);
 
         $output = $this->phpci->getLastOutput();
 
@@ -223,7 +230,7 @@ class PhpTalLint implements PHPCI\Plugin
                 $name = basename($path);
 
                 $row = str_replace('(use -i to include your custom modifier functions)', '', $row);
-                $message = str_replace($name . ': ', '', $row);
+                $message = str_replace($name.': ', '', $row);
 
                 $parts = explode(' (line ', $message);
 
@@ -234,7 +241,7 @@ class PhpTalLint implements PHPCI\Plugin
                     'file' => $path,
                     'line' => $line,
                     'type' => $matches[2],
-                    'message' => $message
+                    'message' => $message,
                 );
             }
 
@@ -246,18 +253,19 @@ class PhpTalLint implements PHPCI\Plugin
 
     /**
      * Process options and produce an arguments string for PHPTAL Lint.
+     *
      * @return array
      */
     protected function getFlags()
     {
         $tales = '';
         if (!empty($this->tales)) {
-            $tales = ' -i ' . $this->phpci->buildPath . $this->tales;
+            $tales = ' -i '.$this->phpci->buildPath.$this->tales;
         }
 
         $suffixes = '';
         if (count($this->suffixes)) {
-            $suffixes = ' -e ' . implode(',', $this->suffixes);
+            $suffixes = ' -e '.implode(',', $this->suffixes);
         }
 
         return array($suffixes, $tales);

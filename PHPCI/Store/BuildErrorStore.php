@@ -1,7 +1,7 @@
 <?php
 
 /**
- * BuildError store for table: build_error
+ * BuildError store for table: build_error.
  */
 
 namespace PHPCI\Store;
@@ -11,15 +11,18 @@ use PHPCI\Model\BuildError;
 use PHPCI\Store\Base\BuildErrorStoreBase;
 
 /**
- * BuildError Store
+ * BuildError Store.
+ *
  * @uses PHPCI\Store\Base\BuildErrorStoreBase
  */
 class BuildErrorStore extends BuildErrorStoreBase
 {
     /**
      * Get a list of errors for a given build, since a given time.
+     *
      * @param $buildId
      * @param string $since date string
+     *
      * @return array
      */
     public function getErrorsForBuild($buildId, $since = null)

@@ -1,8 +1,10 @@
 <?php
 /**
- * PHPCI - Continuous Integration for PHP
+ * PHPCI - Continuous Integration for PHP.
+ *
  * @copyright    Copyright 2014, Block 8 Limited.
  * @license      https://github.com/Block8/PHPCI/blob/master/LICENSE.md
+ *
  * @link         https://www.phptesting.org/
  */
 
@@ -12,10 +14,9 @@ use PHPCI\Builder;
 use PHPCI\Model\Build;
 
 /**
- * Slack Plugin
+ * Slack Plugin.
+ *
  * @author       Stephen Ball <phpci@stephen.rebelinblue.com>
- * @package      PHPCI
- * @subpackage   Plugins
  */
 class SlackNotify implements \PHPCI\Plugin
 {
@@ -28,9 +29,11 @@ class SlackNotify implements \PHPCI\Plugin
 
     /**
      * Set up the plugin, configure options, etc.
+     *
      * @param Builder $phpci
-     * @param Build $build
-     * @param array $options
+     * @param Build   $build
+     * @param array   $options
+     *
      * @throws \Exception
      */
     public function __construct(Builder $phpci, Build $build, array $options = array())
@@ -77,6 +80,7 @@ class SlackNotify implements \PHPCI\Plugin
 
     /**
      * Run the Slack plugin.
+     *
      * @return bool
      */
     public function execute()
@@ -114,15 +118,15 @@ class SlackNotify implements \PHPCI\Plugin
             // Build up the attachment data
             $attachment = new \Maknz\Slack\Attachment(array(
                 'fallback' => $body,
-                'pretext'  => $body,
-                'color'    => $color,
-                'fields'   => array(
+                'pretext' => $body,
+                'color' => $color,
+                'fields' => array(
                     new \Maknz\Slack\AttachmentField(array(
                         'title' => 'Status',
                         'value' => $status,
-                        'short' => false
-                    ))
-                )
+                        'short' => false,
+                    )),
+                ),
             ));
 
             $message->attach($attachment);

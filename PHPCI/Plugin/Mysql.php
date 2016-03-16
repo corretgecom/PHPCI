@@ -1,9 +1,10 @@
 <?php
 /**
- * PHPCI - Continuous Integration for PHP
+ * PHPCI - Continuous Integration for PHP.
  *
  * @copyright    Copyright 2014, Block 8 Limited.
  * @license      https://github.com/Block8/PHPCI/blob/master/LICENSE.md
+ *
  * @link         https://www.phptesting.org/
  */
 
@@ -15,12 +16,11 @@ use PHPCI\Helper\Lang;
 use PHPCI\Model\Build;
 
 /**
-* MySQL Plugin - Provides access to a MySQL database.
-* @author       Dan Cryer <dan@block8.co.uk>
-* @author       Steve Kamerman <stevekamerman@gmail.com>
-* @package      PHPCI
-* @subpackage   Plugins
-*/
+ * MySQL Plugin - Provides access to a MySQL database.
+ *
+ * @author       Dan Cryer <dan@block8.co.uk>
+ * @author       Steve Kamerman <stevekamerman@gmail.com>
+ */
 class Mysql implements \PHPCI\Plugin
 {
     /**
@@ -67,7 +67,7 @@ class Mysql implements \PHPCI\Plugin
 
         $config = \b8\Database::getConnection('write')->getDetails();
 
-        $this->host =(defined('PHPCI_DB_HOST')) ? PHPCI_DB_HOST : null;
+        $this->host = (defined('PHPCI_DB_HOST')) ? PHPCI_DB_HOST : null;
         $this->user = $config['user'];
         $this->pass = $config['pass'];
 
@@ -91,14 +91,15 @@ class Mysql implements \PHPCI\Plugin
     }
 
     /**
-    * Connects to MySQL and runs a specified set of queries.
-    * @return boolean
-    */
+     * Connects to MySQL and runs a specified set of queries.
+     *
+     * @return bool
+     */
     public function execute()
     {
         try {
             $opts = array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION);
-            $pdo  = new PDO('mysql:host=' . $this->host, $this->user, $this->pass, $opts);
+            $pdo = new PDO('mysql:host='.$this->host, $this->user, $this->pass, $opts);
 
             foreach ($this->queries as $query) {
                 if (!is_array($query)) {
@@ -113,14 +114,18 @@ class Mysql implements \PHPCI\Plugin
             }
         } catch (\Exception $ex) {
             $this->phpci->logFailure($ex->getMessage());
+
             return false;
         }
+
         return true;
     }
 
     /**
      * @param string $query
-     * @return boolean
+     *
+     * @return bool
+     *
      * @throws \Exception
      */
     protected function executeFile($query)
@@ -129,7 +134,7 @@ class Mysql implements \PHPCI\Plugin
             throw new \Exception(Lang::get('import_file_key'));
         }
 
-        $import_file = $this->phpci->buildPath . $this->phpci->interpolate($query['file']);
+        $import_file = $this->phpci->buildPath.$this->phpci->interpolate($query['file']);
         if (!is_readable($import_file)) {
             throw new \Exception(Lang::get('cannot_open_import', $import_file));
         }
@@ -145,9 +150,11 @@ class Mysql implements \PHPCI\Plugin
     }
 
     /**
-     * Builds the MySQL import command required to import/execute the specified file
+     * Builds the MySQL import command required to import/execute the specified file.
+     *
      * @param string $import_file Path to file, relative to the build root
-     * @param string $database If specified, this database is selected before execution
+     * @param string $database    If specified, this database is selected before execution
+     *
      * @return string
      */
     protected function getImportCommand($import_file, $database = null)
@@ -169,8 +176,9 @@ class Mysql implements \PHPCI\Plugin
             ':host' => escapeshellarg($this->host),
             ':user' => escapeshellarg($this->user),
             ':pass' => escapeshellarg($this->pass),
-            ':database' => ($database === null)? '': escapeshellarg($database),
+            ':database' => ($database === null) ? '' : escapeshellarg($database),
         );
+
         return strtr('cat :import_file :decomp_cmd | mysql -h:host -u:user -p:pass :database', $args);
     }
 }

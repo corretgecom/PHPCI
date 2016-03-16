@@ -1,12 +1,12 @@
 <?php
 /**
- * PHPCI - Continuous Integration for PHP
+ * PHPCI - Continuous Integration for PHP.
  *
  * @copyright    Copyright 2014, Block 8 Limited.
  * @license      https://github.com/Block8/PHPCI/blob/master/LICENSE.md
+ *
  * @link         https://www.phptesting.org/
  */
-
 $strings = array(
 
     'language_name' => 'Italiano',
@@ -100,7 +100,7 @@ PHPCI',
     'gitlab' => 'GitLab',
     'remote' => 'URL Remoto',
     'local' => 'Percorso Locale',
-    'hg'    => 'Mercurial',
+    'hg' => 'Mercurial',
 
     'where_hosted' => 'Dove è archiviato il tuo progetto?',
     'choose_github' => 'Scegli il repository di GitHub:',
@@ -158,7 +158,6 @@ PHPCI',
     'build_x_not_found' => 'La build con ID %d non esite.',
     'build_n' => 'Build %d',
     'rebuild_now' => 'Esegui nuovamente la build ora',
-
 
     'committed_by_x' => 'Inviato da %s',
     'commit_id_x' => 'Commit: %s',
@@ -397,5 +396,5 @@ PHPCI',
     'build_file_missing' => 'Il file di build specificato non esiste.',
     'property_file_missing' => 'Il file di proprietà specificato non esiste.',
     'could_not_process_report' => 'Non è possibile processare il report generato da questo tool.',
-    'shell_not_enabled' => 'Il plugin shell non è attivato. Per favore attivalo tramite config.yml.'
+    'shell_not_enabled' => 'Il plugin shell non è attivato. Per favore attivalo tramite config.yml.',
 );

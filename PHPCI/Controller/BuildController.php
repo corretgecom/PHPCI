@@ -1,9 +1,10 @@
 <?php
 /**
- * PHPCI - Continuous Integration for PHP
+ * PHPCI - Continuous Integration for PHP.
  *
  * @copyright    Copyright 2014, Block 8 Limited.
  * @license      https://github.com/Block8/PHPCI/blob/master/LICENSE.md
+ *
  * @link         https://www.phptesting.org/
  */
 
@@ -20,11 +21,10 @@ use PHPCI\Model\Project;
 use PHPCI\Service\BuildService;
 
 /**
-* Build Controller - Allows users to run and view builds.
-* @author       Dan Cryer <dan@block8.co.uk>
-* @package      PHPCI
-* @subpackage   Web
-*/
+ * Build Controller - Allows users to run and view builds.
+ *
+ * @author       Dan Cryer <dan@block8.co.uk>
+ */
 class BuildController extends \PHPCI\Controller
 {
     /**
@@ -47,8 +47,8 @@ class BuildController extends \PHPCI\Controller
     }
 
     /**
-    * View a specific build.
-    */
+     * View a specific build.
+     */
     public function view($buildId)
     {
         try {
@@ -61,9 +61,9 @@ class BuildController extends \PHPCI\Controller
             throw new NotFoundException(Lang::get('build_x_not_found', $buildId));
         }
 
-        $this->view->plugins  = $this->getUiPlugins();
-        $this->view->build    = $build;
-        $this->view->data     = $this->getBuildData($build);
+        $this->view->plugins = $this->getUiPlugins();
+        $this->view->build = $build;
+        $this->view->data = $this->getBuildData($build);
 
         $this->layout->title = Lang::get('build_n', $buildId);
         $this->layout->subtitle = $build->getProjectTitle();
@@ -87,10 +87,10 @@ class BuildController extends \PHPCI\Controller
         }
 
         $rebuild = Lang::get('rebuild_now');
-        $rebuildLink = PHPCI_URL . 'build/rebuild/' . $build->getId();
+        $rebuildLink = PHPCI_URL.'build/rebuild/'.$build->getId();
 
         $delete = Lang::get('delete_build');
-        $deleteLink = PHPCI_URL . 'build/delete/' . $build->getId();
+        $deleteLink = PHPCI_URL.'build/delete/'.$build->getId();
 
         $actions = "<a class=\"btn btn-default\" href=\"{$rebuildLink}\">{$rebuild}</a> ";
 
@@ -103,12 +103,13 @@ class BuildController extends \PHPCI\Controller
 
     /**
      * Returns an array of the JS plugins to include.
+     *
      * @return array
      */
     protected function getUiPlugins()
     {
         $rtn = array();
-        $path = APPLICATION_PATH . 'public/assets/js/build-plugins/';
+        $path = APPLICATION_PATH.'public/assets/js/build-plugins/';
         $dir = opendir($path);
 
         while ($item = readdir($dir)) {
@@ -123,8 +124,8 @@ class BuildController extends \PHPCI\Controller
     }
 
     /**
-    * AJAX call to get build data:
-    */
+     * AJAX call to get build data:.
+     */
     public function data($buildId)
     {
         $response = new JsonResponse();
@@ -133,19 +134,21 @@ class BuildController extends \PHPCI\Controller
         if (!$build) {
             $response->setResponseCode(404);
             $response->setContent(array());
+
             return $response;
         }
 
         $response->setContent($this->getBuildData($build));
+
         return $response;
     }
 
     /**
-     * AJAX call to get build meta:
+     * AJAX call to get build meta:.
      */
     public function meta($buildId)
     {
-        $build  = BuildFactory::getBuildById($buildId);
+        $build = BuildFactory::getBuildById($buildId);
         $key = $this->getParam('key', null);
         $numBuilds = $this->getParam('num_builds', 1);
         $data = null;
@@ -156,21 +159,22 @@ class BuildController extends \PHPCI\Controller
 
         $response = new JsonResponse();
         $response->setContent($data);
+
         return $response;
     }
 
     /**
-    * Get build data from database and json encode it:
-    */
+     * Get build data from database and json encode it:.
+     */
     protected function getBuildData(Build $build)
     {
-        $data               = array();
-        $data['status']     = (int)$build->getStatus();
-        $data['log']        = $this->cleanLog($build->getLog());
-        $data['created']    = !is_null($build->getCreated()) ? $build->getCreated()->format('Y-m-d H:i:s') : null;
-        $data['started']    = !is_null($build->getStarted()) ? $build->getStarted()->format('Y-m-d H:i:s') : null;
-        $data['finished']   = !is_null($build->getFinished()) ? $build->getFinished()->format('Y-m-d H:i:s') : null;
-        $data['duration']   = $build->getDuration();
+        $data = array();
+        $data['status'] = (int) $build->getStatus();
+        $data['log'] = $this->cleanLog($build->getLog());
+        $data['created'] = !is_null($build->getCreated()) ? $build->getCreated()->format('Y-m-d H:i:s') : null;
+        $data['started'] = !is_null($build->getStarted()) ? $build->getStarted()->format('Y-m-d H:i:s') : null;
+        $data['finished'] = !is_null($build->getFinished()) ? $build->getFinished()->format('Y-m-d H:i:s') : null;
+        $data['duration'] = $build->getDuration();
 
         /** @var \PHPCI\Store\BuildErrorStore $errorStore */
         $errorStore = b8\Store\Factory::getStore('BuildError');
@@ -180,7 +184,7 @@ class BuildController extends \PHPCI\Controller
         $errorView->build = $build;
         $errorView->errors = $errors;
 
-        $data['errors']     = count($errors);
+        $data['errors'] = count($errors);
         $data['error_html'] = $errorView->render();
         $data['since'] = (new \DateTime())->format('Y-m-d H:i:s');
 
@@ -188,11 +192,11 @@ class BuildController extends \PHPCI\Controller
     }
 
     /**
-    * Create a build using an existing build as a template:
-    */
+     * Create a build using an existing build as a template:.
+     */
     public function rebuild($buildId)
     {
-        $copy   = BuildFactory::getBuildById($buildId);
+        $copy = BuildFactory::getBuildById($buildId);
 
         if (empty($copy)) {
             throw new NotFoundException(Lang::get('build_x_not_found', $buildId));
@@ -201,13 +205,14 @@ class BuildController extends \PHPCI\Controller
         $build = $this->buildService->createDuplicateBuild($copy);
 
         $response = new b8\Http\Response\RedirectResponse();
-        $response->setHeader('Location', PHPCI_URL.'build/view/' . $build->getId());
+        $response->setHeader('Location', PHPCI_URL.'build/view/'.$build->getId());
+
         return $response;
     }
 
     /**
-    * Delete a build.
-    */
+     * Delete a build.
+     */
     public function delete($buildId)
     {
         $this->requireAdmin();
@@ -221,13 +226,14 @@ class BuildController extends \PHPCI\Controller
         $this->buildService->deleteBuild($build);
 
         $response = new b8\Http\Response\RedirectResponse();
-        $response->setHeader('Location', PHPCI_URL.'project/view/' . $build->getProjectId());
+        $response->setHeader('Location', PHPCI_URL.'project/view/'.$build->getProjectId());
+
         return $response;
     }
 
     /**
-    * Parse log for unix colours and replace with HTML.
-    */
+     * Parse log for unix colours and replace with HTML.
+     */
     protected function cleanLog($log)
     {
         return AnsiConverter::convert($log);
@@ -245,12 +251,15 @@ class BuildController extends \PHPCI\Controller
 
         $response = new JsonResponse();
         $response->setContent($rtn);
+
         return $response;
     }
 
     /**
      * Formats a list of builds into rows suitable for the dropdowns in the PHPCI header bar.
+     *
      * @param $builds
+     *
      * @return array
      */
     protected function formatBuilds($builds)
@@ -270,6 +279,7 @@ class BuildController extends \PHPCI\Controller
         }
 
         ksort($rtn['items']);
+
         return $rtn;
     }
 }

@@ -1,9 +1,10 @@
 <?php
 /**
- * PHPCI - Continuous Integration for PHP
+ * PHPCI - Continuous Integration for PHP.
  *
  * @copyright    Copyright 2014, Block 8 Limited.
  * @license      https://github.com/Block8/PHPCI/blob/master/LICENSE.md
+ *
  * @link         https://www.phptesting.org/
  */
 
@@ -18,9 +19,8 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * Generate console command - Reads the database and generates models and stores.
+ *
  * @author       Dan Cryer <dan@block8.co.uk>
- * @package      PHPCI
- * @subpackage   Console
  */
 class UpdateCommand extends Command
 {
@@ -53,7 +53,7 @@ class UpdateCommand extends Command
 
         $output->write(Lang::get('updating_phpci'));
 
-        shell_exec(PHPCI_DIR . 'vendor/bin/phinx migrate -c "' . PHPCI_DIR . 'phinx.php"');
+        shell_exec(PHPCI_DIR.'vendor/bin/phinx migrate -c "'.PHPCI_DIR.'phinx.php"');
 
         $output->writeln('<info>'.Lang::get('ok').'</info>');
     }

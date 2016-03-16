@@ -1,9 +1,10 @@
 <?php
 /**
- * PHPCI - Continuous Integration for PHP
+ * PHPCI - Continuous Integration for PHP.
  *
  * @copyright    Copyright 2014, Block 8 Limited.
  * @license      https://github.com/Block8/PHPCI/blob/master/LICENSE.md
+ *
  * @link         https://www.phptesting.org/
  */
 
@@ -12,8 +13,7 @@ namespace PHPCI\Logging;
 use Psr\Log\LoggerInterface;
 
 /**
- * Base Log Handler
- * @package PHPCI\Logging
+ * Base Log Handler.
  */
 class Handler
 {
@@ -21,15 +21,15 @@ class Handler
      * @var array
      */
     protected $levels = array(
-        E_WARNING           => 'Warning',
-        E_NOTICE            => 'Notice',
-        E_USER_ERROR        => 'User Error',
-        E_USER_WARNING      => 'User Warning',
-        E_USER_NOTICE       => 'User Notice',
-        E_STRICT            => 'Runtime Notice',
+        E_WARNING => 'Warning',
+        E_NOTICE => 'Notice',
+        E_USER_ERROR => 'User Error',
+        E_USER_WARNING => 'User Warning',
+        E_USER_NOTICE => 'User Notice',
+        E_STRICT => 'Runtime Notice',
         E_RECOVERABLE_ERROR => 'Catchable Fatal Error',
-        E_DEPRECATED        => 'Deprecated',
-        E_USER_DEPRECATED   => 'User Deprecated',
+        E_DEPRECATED => 'Deprecated',
+        E_USER_DEPRECATED => 'User Deprecated',
     );
 
     /**
@@ -47,6 +47,7 @@ class Handler
 
     /**
      * Register a new log handler.
+     *
      * @param LoggerInterface $logger
      */
     public static function register(LoggerInterface $logger = null)
@@ -60,10 +61,10 @@ class Handler
     }
 
     /**
-     * @param integer $level
-     * @param string  $message
-     * @param string  $file
-     * @param integer $line
+     * @param int    $level
+     * @param string $message
+     * @param string $file
+     * @param int    $line
      *
      * @throws \ErrorException
      */
@@ -134,6 +135,7 @@ class Handler
 
     /**
      * Write to the build log.
+     *
      * @param \Exception $exception
      */
     protected function log(\Exception $exception)

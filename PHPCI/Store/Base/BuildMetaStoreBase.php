@@ -1,7 +1,7 @@
 <?php
 
 /**
- * BuildMeta base store for table: build_meta
+ * BuildMeta base store for table: build_meta.
  */
 
 namespace PHPCI\Store\Base;
@@ -12,16 +12,16 @@ use PHPCI\Store;
 use PHPCI\Model\BuildMeta;
 
 /**
- * BuildMeta Base Store
+ * BuildMeta Base Store.
  */
 class BuildMetaStoreBase extends Store
 {
-    protected $tableName   = 'build_meta';
-    protected $modelName   = '\PHPCI\Model\BuildMeta';
-    protected $primaryKey  = 'id';
+    protected $tableName = 'build_meta';
+    protected $modelName = '\PHPCI\Model\BuildMeta';
+    protected $primaryKey = 'id';
 
     /**
-     * Get a BuildMeta by primary key (Id)
+     * Get a BuildMeta by primary key (Id).
      */
     public function getByPrimaryKey($value, $useConnection = 'read')
     {
@@ -30,12 +30,13 @@ class BuildMetaStoreBase extends Store
 
     /**
      * Get a single BuildMeta by Id.
+     *
      * @return null|BuildMeta
      */
     public function getById($value, $useConnection = 'read')
     {
         if (is_null($value)) {
-            throw new HttpException('Value passed to ' . __FUNCTION__ . ' cannot be null.');
+            throw new HttpException('Value passed to '.__FUNCTION__.' cannot be null.');
         }
 
         $query = 'SELECT * FROM `build_meta` WHERE `id` = :id LIMIT 1';
@@ -48,24 +49,24 @@ class BuildMetaStoreBase extends Store
             }
         }
 
-        return null;
+        return;
     }
 
     /**
      * Get multiple BuildMeta by ProjectId.
+     *
      * @return array
      */
     public function getByProjectId($value, $limit = 1000, $useConnection = 'read')
     {
         if (is_null($value)) {
-            throw new HttpException('Value passed to ' . __FUNCTION__ . ' cannot be null.');
+            throw new HttpException('Value passed to '.__FUNCTION__.' cannot be null.');
         }
-
 
         $query = 'SELECT * FROM `build_meta` WHERE `project_id` = :project_id LIMIT :limit';
         $stmt = Database::getConnection($useConnection)->prepare($query);
         $stmt->bindValue(':project_id', $value);
-        $stmt->bindValue(':limit', (int)$limit, \PDO::PARAM_INT);
+        $stmt->bindValue(':limit', (int) $limit, \PDO::PARAM_INT);
 
         if ($stmt->execute()) {
             $res = $stmt->fetchAll(\PDO::FETCH_ASSOC);
@@ -85,19 +86,19 @@ class BuildMetaStoreBase extends Store
 
     /**
      * Get multiple BuildMeta by BuildId.
+     *
      * @return array
      */
     public function getByBuildId($value, $limit = 1000, $useConnection = 'read')
     {
         if (is_null($value)) {
-            throw new HttpException('Value passed to ' . __FUNCTION__ . ' cannot be null.');
+            throw new HttpException('Value passed to '.__FUNCTION__.' cannot be null.');
         }
-
 
         $query = 'SELECT * FROM `build_meta` WHERE `build_id` = :build_id LIMIT :limit';
         $stmt = Database::getConnection($useConnection)->prepare($query);
         $stmt->bindValue(':build_id', $value);
-        $stmt->bindValue(':limit', (int)$limit, \PDO::PARAM_INT);
+        $stmt->bindValue(':limit', (int) $limit, \PDO::PARAM_INT);
 
         if ($stmt->execute()) {
             $res = $stmt->fetchAll(\PDO::FETCH_ASSOC);

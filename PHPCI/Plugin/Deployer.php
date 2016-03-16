@@ -1,9 +1,10 @@
 <?php
 /**
- * PHPCI - Continuous Integration for PHP
+ * PHPCI - Continuous Integration for PHP.
  *
  * @copyright    Copyright 2015, Block 8 Limited.
  * @license      https://github.com/Block8/PHPCI/blob/master/LICENSE.md
+ *
  * @link         https://www.phptesting.org/
  */
 
@@ -14,11 +15,10 @@ use PHPCI\Builder;
 use PHPCI\Model\Build;
 
 /**
-* Integrates PHPCI with Deployer: https://github.com/rebelinblue/deployer
-* @author       Dan Cryer <dan@block8.co.uk>
-* @package      PHPCI
-* @subpackage   Plugins
-*/
+ * Integrates PHPCI with Deployer: https://github.com/rebelinblue/deployer.
+ *
+ * @author       Dan Cryer <dan@block8.co.uk>
+ */
 class Deployer implements \PHPCI\Plugin
 {
     protected $webhookUrl;
@@ -27,9 +27,10 @@ class Deployer implements \PHPCI\Plugin
 
     /**
      * Set up the plugin, configure options, etc.
+     *
      * @param Builder $phpci
-     * @param Build $build
-     * @param array $options
+     * @param Build   $build
+     * @param array   $options
      */
     public function __construct(Builder $phpci, Build $build, array $options = array())
     {
@@ -44,17 +45,18 @@ class Deployer implements \PHPCI\Plugin
         if (isset($options['reason'])) {
             $this->reason = $options['reason'];
         }
-        
+
         $this->updateOnly = isset($options['update_only']) ? (bool) $options['update_only'] : true;
     }
 
     /**
-    * Copies files from the root of the build directory into the target folder
-    */
+     * Copies files from the root of the build directory into the target folder.
+     */
     public function execute()
     {
         if (empty($this->webhookUrl)) {
             $this->phpci->logFailure('You must specify a webhook URL.');
+
             return false;
         }
 
@@ -65,7 +67,7 @@ class Deployer implements \PHPCI\Plugin
             'source' => 'PHPCI',
             'url' => $this->phpci->interpolate('%BUILD_URI%'),
             'branch' => $this->phpci->interpolate('%BRANCH%'),
-            'update_only' => $this->updateOnly
+            'update_only' => $this->updateOnly,
         ));
 
         return $response['success'];

@@ -1,4 +1,5 @@
 <?php
+
 namespace Tests\PHPCI\ProcessControl;
 
 use PHPCI\ProcessControl\UnixProcessControl;
@@ -12,7 +13,7 @@ class UnixProcessControlTest extends ProcessControlTest
 
     public function getTestCommand()
     {
-        return "read SOMETHING";
+        return 'read SOMETHING';
     }
 
     public function testIsAvailable()

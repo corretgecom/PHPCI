@@ -1,9 +1,10 @@
 <?php
 /**
- * PHPCI - Continuous Integration for PHP
+ * PHPCI - Continuous Integration for PHP.
  *
  * @copyright    Copyright 2014, Block 8 Limited.
  * @license      https://github.com/Block8/PHPCI/blob/master/LICENSE.md
+ *
  * @link         https://www.phptesting.org/
  */
 
@@ -16,14 +17,13 @@ use b8\Http\Response;
 use b8\View;
 
 /**
- * PHPCI Base Controller
- * @package PHPCI
+ * PHPCI Base Controller.
  */
 class Controller extends \b8\Controller
 {
     /**
-    * @var \b8\View
-    */
+     * @var \b8\View
+     */
     protected $controllerView;
 
     /**
@@ -45,8 +45,8 @@ class Controller extends \b8\Controller
     }
 
     /**
-     * @param Config $config
-     * @param Request $request
+     * @param Config   $config
+     * @param Request  $request
      * @param Response $response
      */
     public function __construct(Config $config, Request $request, Response $response)
@@ -72,19 +72,22 @@ class Controller extends \b8\Controller
 
     /**
      * Set the view that this controller action should use.
+     *
      * @param $action
      */
     protected function setView($action)
     {
-        if (View::exists($this->className . '/' . $action)) {
-            $this->view = new View($this->className . '/' . $action);
+        if (View::exists($this->className.'/'.$action)) {
+            $this->view = new View($this->className.'/'.$action);
         }
     }
 
     /**
      * Handle the incoming request.
+     *
      * @param $action
      * @param $actionParams
+     *
      * @return \b8\b8\Http\Response|Response
      */
     public function handleAction($action, $actionParams)
@@ -109,6 +112,7 @@ class Controller extends \b8\Controller
 
     /**
      * Require that the currently logged in user is an administrator.
+     *
      * @throws ForbiddenException
      */
     protected function requireAdmin()
@@ -120,6 +124,7 @@ class Controller extends \b8\Controller
 
     /**
      * Check if the currently logged in user is an administrator.
+     *
      * @return bool
      */
     protected function currentUserIsAdmin()

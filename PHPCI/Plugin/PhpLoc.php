@@ -1,9 +1,10 @@
 <?php
 /**
- * PHPCI - Continuous Integration for PHP
+ * PHPCI - Continuous Integration for PHP.
  *
  * @copyright    Copyright 2014, Block 8 Limited.
  * @license      https://github.com/Block8/PHPCI/blob/master/LICENSE.md
+ *
  * @link         https://www.phptesting.org/
  */
 
@@ -15,9 +16,8 @@ use PHPCI\Model\Build;
 
 /**
  * PHP Loc - Allows PHP Copy / Lines of Code testing.
+ *
  * @author       Johan van der Heide <info@japaveh.nl>
- * @package      PHPCI
- * @subpackage   Plugins
  */
 class PhpLoc implements PHPCI\Plugin, PHPCI\ZeroConfigPlugin
 {
@@ -32,9 +32,11 @@ class PhpLoc implements PHPCI\Plugin, PHPCI\ZeroConfigPlugin
 
     /**
      * Check if this plugin can be executed.
+     *
      * @param $stage
      * @param Builder $builder
-     * @param Build $build
+     * @param Build   $build
+     *
      * @return bool
      */
     public static function canExecute($stage, Builder $builder, Build $build)
@@ -48,14 +50,15 @@ class PhpLoc implements PHPCI\Plugin, PHPCI\ZeroConfigPlugin
 
     /**
      * Set up the plugin, configure options, etc.
+     *
      * @param Builder $phpci
-     * @param Build $build
-     * @param array $options
+     * @param Build   $build
+     * @param array   $options
      */
     public function __construct(Builder $phpci, Build $build, array $options = array())
     {
-        $this->phpci     = $phpci;
-        $this->build     = $build;
+        $this->phpci = $phpci;
+        $this->build = $build;
         $this->directory = $phpci->buildPath;
 
         if (isset($options['directory'])) {
@@ -72,7 +75,7 @@ class PhpLoc implements PHPCI\Plugin, PHPCI\ZeroConfigPlugin
 
         if (count($this->phpci->ignore)) {
             $map = function ($item) {
-                return ' --exclude ' . rtrim($item, DIRECTORY_SEPARATOR);
+                return ' --exclude '.rtrim($item, DIRECTORY_SEPARATOR);
             };
 
             $ignore = array_map($map, $this->phpci->ignore);
@@ -81,13 +84,13 @@ class PhpLoc implements PHPCI\Plugin, PHPCI\ZeroConfigPlugin
 
         $phploc = $this->phpci->findBinary('phploc');
 
-        $success = $this->phpci->executeCommand($phploc . ' %s "%s"', $ignore, $this->directory);
-        $output  = $this->phpci->getLastOutput();
+        $success = $this->phpci->executeCommand($phploc.' %s "%s"', $ignore, $this->directory);
+        $output = $this->phpci->getLastOutput();
 
         if (preg_match_all('/\((LOC|CLOC|NCLOC|LLOC)\)\s+([0-9]+)/', $output, $matches)) {
             $data = array();
             foreach ($matches[1] as $k => $v) {
-                $data[$v] = (int)$matches[2][$k];
+                $data[$v] = (int) $matches[2][$k];
             }
 
             $this->build->storeMeta('phploc', $data);

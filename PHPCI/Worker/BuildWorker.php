@@ -14,13 +14,13 @@ use PHPCI\Logging\BuildDBLogHandler;
 use PHPCI\Model\Build;
 
 /**
- * Class BuildWorker
- * @package PHPCI\Worker
+ * Class BuildWorker.
  */
 class BuildWorker
 {
     /**
      * If this variable changes to false, the worker will stop after the current build.
+     *
      * @var bool
      */
     protected $run = true;
@@ -28,24 +28,28 @@ class BuildWorker
     /**
      * The maximum number of jobs this worker should run before exiting.
      * Use -1 for no limit.
+     *
      * @var int
      */
     protected $maxJobs = -1;
 
     /**
      * The logger for builds to use.
+     *
      * @var \Monolog\Logger
      */
     protected $logger;
 
     /**
-     * beanstalkd host
+     * beanstalkd host.
+     *
      * @var string
      */
     protected $host;
 
     /**
-     * beanstalkd queue to watch
+     * beanstalkd queue to watch.
+     *
      * @var string
      */
     protected $queue;
@@ -123,7 +127,7 @@ class BuildWorker
             try {
                 $build = BuildFactory::getBuildById($jobData['build_id']);
             } catch (\Exception $ex) {
-                $this->logger->addWarning('Build #' . $jobData['build_id'] . ' does not exist in the database.');
+                $this->logger->addWarning('Build #'.$jobData['build_id'].' does not exist in the database.');
                 $this->pheanstalk->delete($job);
             }
 
@@ -147,7 +151,7 @@ class BuildWorker
             } catch (\Exception $ex) {
                 $build->setStatus(Build::STATUS_FAILED);
                 $build->setFinished(new \DateTime());
-                $build->setLog($build->getLog() . PHP_EOL . PHP_EOL . $ex->getMessage());
+                $build->setLog($build->getLog().PHP_EOL.PHP_EOL.$ex->getMessage());
                 $buildStore->save($build);
                 $build->sendStatusPostback();
             }
@@ -178,7 +182,7 @@ class BuildWorker
     protected function checkJobLimit()
     {
         // Make sure we don't run more than maxJobs jobs on this worker:
-        $this->totalJobs++;
+        ++$this->totalJobs;
 
         if ($this->maxJobs != -1 && $this->maxJobs <= $this->totalJobs) {
             $this->stopWorker();
@@ -187,8 +191,10 @@ class BuildWorker
 
     /**
      * Checks that the job received is actually from PHPCI, and has a valid type.
+     *
      * @param Job $job
      * @param $jobData
+     *
      * @return bool
      */
     protected function verifyJob(Job $job, $jobData)
@@ -196,12 +202,14 @@ class BuildWorker
         if (empty($jobData) || !is_array($jobData)) {
             // Probably not from PHPCI.
             $this->pheanstalk->delete($job);
+
             return false;
         }
 
         if (!array_key_exists('type', $jobData) || $jobData['type'] !== 'phpci.build') {
             // Probably not from PHPCI.
             $this->pheanstalk->delete($job);
+
             return false;
         }
 

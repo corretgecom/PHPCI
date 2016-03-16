@@ -1,9 +1,10 @@
 <?php
 /**
- * PHPCI - Continuous Integration for PHP
+ * PHPCI - Continuous Integration for PHP.
  *
  * @copyright    Copyright 2014, Block 8 Limited.
  * @license      https://github.com/Block8/PHPCI/blob/master/LICENSE.md
+ *
  * @link         https://www.phptesting.org/
  */
 
@@ -18,11 +19,10 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
-* Re-runs the last run build.
-* @author       Dan Cryer <dan@block8.co.uk>
-* @package      PHPCI
-* @subpackage   Console
-*/
+ * Re-runs the last run build.
+ *
+ * @author       Dan Cryer <dan@block8.co.uk>
+ */
 class RebuildCommand extends Command
 {
     /**
@@ -36,7 +36,7 @@ class RebuildCommand extends Command
     protected $output;
 
     /**
-     * @var boolean
+     * @var bool
      */
     protected $run;
 
@@ -47,7 +47,7 @@ class RebuildCommand extends Command
 
     /**
      * @param \Monolog\Logger $logger
-     * @param string $name
+     * @param string          $name
      */
     public function __construct(Logger $logger, $name = null)
     {
@@ -63,8 +63,8 @@ class RebuildCommand extends Command
     }
 
     /**
-    * Loops through running.
-    */
+     * Loops through running.
+     */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $runner = new RunCommand($this->logger);
@@ -83,9 +83,10 @@ class RebuildCommand extends Command
     }
 
     /**
-    * Called when log entries are made in Builder / the plugins.
-    * @see \PHPCI\Builder::log()
-    */
+     * Called when log entries are made in Builder / the plugins.
+     *
+     * @see \PHPCI\Builder::log()
+     */
     public function logCallback($log)
     {
         $this->output->writeln($log);

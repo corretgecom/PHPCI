@@ -1,10 +1,11 @@
 <?php
 
 /**
- * PHPCI - Continuous Integration for PHP
+ * PHPCI - Continuous Integration for PHP.
  *
  * @copyright    Copyright 2015, Block 8 Limited.
  * @license      https://github.com/Block8/PHPCI/blob/master/LICENSE.md
+ *
  * @link         https://www.phptesting.org/
  */
 
@@ -22,20 +23,21 @@ class CommandExecutorTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         if (IS_WIN) {
-            $this->markTestSkipped("Cannot test UnixCommandExecutor on ".PHP_OS);
+            $this->markTestSkipped('Cannot test UnixCommandExecutor on '.PHP_OS);
+
             return;
         }
         parent::setUp();
         $mockBuildLogger = $this->prophesize('PHPCI\Logging\BuildLogger');
         $class = IS_WIN ? 'PHPCI\Helper\WindowsCommandExecutor' : 'PHPCI\Helper\UnixCommandExecutor';
-        $this->testedExecutor = new $class($mockBuildLogger->reveal(), __DIR__ . "/");
+        $this->testedExecutor = new $class($mockBuildLogger->reveal(), __DIR__.'/');
     }
 
     public function testGetLastOutput_ReturnsOutputOfCommand()
     {
         $this->testedExecutor->executeCommand(array('echo "%s"', 'Hello World'));
         $output = $this->testedExecutor->getLastOutput();
-        $this->assertEquals("Hello World", $output);
+        $this->assertEquals('Hello World', $output);
     }
 
     public function testGetLastOutput_ForgetsPreviousCommandOutput()
@@ -43,7 +45,7 @@ class CommandExecutorTest extends \PHPUnit_Framework_TestCase
         $this->testedExecutor->executeCommand(array('echo "%s"', 'Hello World'));
         $this->testedExecutor->executeCommand(array('echo "%s"', 'Hello Tester'));
         $output = $this->testedExecutor->getLastOutput();
-        $this->assertEquals("Hello Tester", $output);
+        $this->assertEquals('Hello Tester', $output);
     }
 
     public function testExecuteCommand_ReturnsTrueForValidCommands()
@@ -60,9 +62,9 @@ class CommandExecutorTest extends \PHPUnit_Framework_TestCase
 
     public function testFindBinary_ReturnsPathInSpecifiedRoot()
     {
-        $thisFileName = "CommandExecutorTest.php";
+        $thisFileName = 'CommandExecutorTest.php';
         $returnValue = $this->testedExecutor->findBinary($thisFileName);
-        $this->assertEquals(__DIR__ . "/" . $thisFileName, $returnValue);
+        $this->assertEquals(__DIR__.'/'.$thisFileName, $returnValue);
     }
 
     /**
@@ -71,13 +73,13 @@ class CommandExecutorTest extends \PHPUnit_Framework_TestCase
      */
     public function testFindBinary_ThrowsWhenNotFound()
     {
-        $thisFileName = "WorldWidePeace";
+        $thisFileName = 'WorldWidePeace';
         $this->testedExecutor->findBinary($thisFileName);
     }
 
     public function testFindBinary_ReturnsNullWihQuietArgument()
     {
-        $thisFileName = "WorldWidePeace";
+        $thisFileName = 'WorldWidePeace';
         $this->assertNull($this->testedExecutor->findBinary($thisFileName, true));
     }
 }

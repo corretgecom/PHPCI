@@ -1,9 +1,10 @@
 <?php
 /**
- * PHPCI - Continuous Integration for PHP
+ * PHPCI - Continuous Integration for PHP.
  *
  * @copyright    Copyright 2014, Block 8 Limited.
  * @license      https://github.com/Block8/PHPCI/blob/master/LICENSE.md
+ *
  * @link         https://www.phptesting.org/
  */
 
@@ -14,10 +15,9 @@ use PHPCI\Helper\Lang;
 use PHPCI\Model\Build;
 
 /**
- * Hipchat Plugin
+ * Hipchat Plugin.
+ *
  * @author       James Inman <james@jamesinman.co.uk>
- * @package      PHPCI
- * @subpackage   Plugins
  */
 class HipchatNotify implements \PHPCI\Plugin
 {
@@ -27,9 +27,11 @@ class HipchatNotify implements \PHPCI\Plugin
 
     /**
      * Set up the plugin, configure options, etc.
+     *
      * @param Builder $phpci
-     * @param Build $build
-     * @param array $options
+     * @param Build   $build
+     * @param array   $options
+     *
      * @throws \Exception
      */
     public function __construct(Builder $phpci, Build $build, array $options = array())
@@ -37,8 +39,8 @@ class HipchatNotify implements \PHPCI\Plugin
         $this->phpci = $phpci;
         $this->build = $build;
 
-        $this->userAgent = "PHPCI/1.0 (+http://www.phptesting.org/)";
-        $this->cookie = "phpcicookie";
+        $this->userAgent = 'PHPCI/1.0 (+http://www.phptesting.org/)';
+        $this->cookie = 'phpcicookie';
 
         if (is_array($options) && isset($options['authToken']) && isset($options['room'])) {
             $this->authToken = $options['authToken'];
@@ -64,11 +66,11 @@ class HipchatNotify implements \PHPCI\Plugin
         } else {
             throw new \Exception(Lang::get('hipchat_settings'));
         }
-
     }
 
     /**
      * Run the HipChat plugin.
+     *
      * @return bool
      */
     public function execute()

@@ -22,7 +22,7 @@ class InitialMigration extends AbstractMigration
         $build = $this->table('build');
 
         if (!$build->hasForeignKey('project_id')) {
-            $build->addForeignKey('project_id', 'project', 'id', array('delete'=> 'CASCADE', 'update' => 'CASCADE'));
+            $build->addForeignKey('project_id', 'project', 'id', array('delete' => 'CASCADE', 'update' => 'CASCADE'));
         }
 
         $build->save();
@@ -30,11 +30,11 @@ class InitialMigration extends AbstractMigration
         $buildMeta = $this->table('build_meta');
 
         if (!$buildMeta->hasForeignKey('build_id')) {
-            $buildMeta->addForeignKey('build_id', 'build', 'id', array('delete'=> 'CASCADE', 'update' => 'CASCADE'));
+            $buildMeta->addForeignKey('build_id', 'build', 'id', array('delete' => 'CASCADE', 'update' => 'CASCADE'));
         }
 
         if (!$buildMeta->hasForeignKey('project_id')) {
-            $buildMeta->addForeignKey('project_id', 'project', 'id', array('delete'=> 'CASCADE', 'update' => 'CASCADE'));
+            $buildMeta->addForeignKey('project_id', 'project', 'id', array('delete' => 'CASCADE', 'update' => 'CASCADE'));
         }
 
         $buildMeta->save();
@@ -45,7 +45,6 @@ class InitialMigration extends AbstractMigration
      */
     public function down()
     {
-
     }
 
     protected function createBuildTable()
