@@ -7,7 +7,12 @@ coding_style:
                 bitwise: false
             other:
                 after_type_cast: false
-build: true
+build:
+    environment:
+        php:
+            version: 5.6
+            ini:
+                'date.timezone': 'Europe/Andorra'
 filter:
     paths: [PHPCI/*]
 tools:

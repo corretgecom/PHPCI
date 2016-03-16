@@ -35,7 +35,7 @@
     },
 
     "require": {
-        "php": ">=5.3.8",
+        "php": "~5.5.9",
         "ext-pdo": "*",
         "ext-pdo_mysql": "*",
         "block8/b8framework": "~1.0",
