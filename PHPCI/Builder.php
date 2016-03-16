@@ -373,6 +373,7 @@ class Builder implements LoggerAwareInterface
      * Add a success-coloured message to the log.
      *
      * @param string
+     * @param string $message
      */
     public function logSuccess($message)
     {

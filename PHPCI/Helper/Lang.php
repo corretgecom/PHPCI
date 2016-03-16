@@ -52,7 +52,7 @@ class Lang
     /**
      * Get the currently active language.
      *
-     * @return string|null
+     * @return string
      */
     public static function getLanguage()
     {
