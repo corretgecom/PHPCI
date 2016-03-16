@@ -39,6 +39,7 @@ PHPCI',
     'reset_email_title' => 'Réinitialisation du mot de passe PHPCI pour %s',
     'reset_invalid' => 'Requête de réinitialisation de mot de passe invalide.',
     'email_address' => 'Adresse email',
+    'login' => 'Login / Email Address',
     'password' => 'Mot de passe',
     'log_in' => 'Connexion',
 
@@ -114,6 +115,7 @@ PHPCI',
     'default_branch' => 'Nom de la branche par défaut',
     'allow_public_status' => 'Activer la page de statut publique et l\'image pour ce projet&nbsp;?',
     'archived' => 'Archived',
+    'archived_menu' => 'Archived',
     'save_project' => 'Enregistrer le projet',
 
     'error_mercurial' => 'Les URLs de dépôt Mercurial doivent commencer par http:// ou https://',
@@ -285,6 +287,17 @@ PHPCI',
     'search_packagist_for_more' => 'Rechercher sur Packagist pour trouver plus de paquets',
     'search' => 'Rechercher &raquo;',
 
+    // Summary plugin
+    'build-summary' => 'Résumé',
+    'stage' => 'Étape',
+    'duration' => 'Durée',
+    'plugin' => 'Plugin',
+    'stage_setup' => 'Préparation',
+    'stage_test' => 'Test',
+    'stage_complete' => 'Terminé',
+    'stage_success' => 'Succes',
+    'stage_failure' => 'Échec',
+
     // Installer
     'installation_url' => 'URL d\'installation de PHPCI',
     'db_host' => 'Hôte de la BDD',
@@ -339,6 +352,12 @@ PHPCI',
     // Create Admin
     'create_admin_user' => 'Créer un utilisateur admin',
     'incorrect_format' => 'Format incorrect',
+
+    // Create Build Command
+    'create_build_project' => 'Créer un build projet',
+    'project_id_argument' => 'ID du projet',
+    'commit_id_option' => 'ID du commit',
+    'branch_name_option' => 'Branche',
 
     // Run Command
     'run_all_pending' => 'Démarrage de tout les builds PHPCI en attente.',
