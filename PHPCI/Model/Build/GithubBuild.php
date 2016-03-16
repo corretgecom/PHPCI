@@ -12,7 +12,7 @@ namespace PHPCI\Model\Build;
 use PHPCI\Builder;
 use PHPCI\Helper\Diff;
 use PHPCI\Helper\Github;
-use PHPCI\Model\Build\RemoteGitBuild;
+use PHPCI\Model\BuildError;
 
 /**
 * Github Build Model
@@ -80,12 +80,12 @@ class GithubBuild extends RemoteGitBuild
 
         $phpciUrl = \b8\Config::getInstance()->get('phpci.url');
 
-        $params = array(
+        $params = [
             'state' => $status,
             'target_url' => $phpciUrl . '/build/view/' . $this->getId(),
             'description' => $description,
             'context' => 'PHPCI',
-        );
+        ];
 
         $headers = array(
             'Authorization: token ' . $token,
@@ -116,7 +116,7 @@ class GithubBuild extends RemoteGitBuild
      */
     public function getCommitMessage()
     {
-        $rtn = parent::getCommitMessage($this->data['commit_message']);
+        $rtn = parent::getCommitMessage();
 
         $project = $this->getProject();
 
