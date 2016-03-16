@@ -1,4 +1,5 @@
 global_exclude_dirs:
+    - vendor
     - Tests
     - lib/vendor
     - etc
