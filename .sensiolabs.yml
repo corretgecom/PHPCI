@@ -18,7 +18,7 @@ rules:
     composer.apc_class_loader_should_be_enabled:
         enabled: true
     composer.dependencies_not_installable:
-        enabled: false
+        enabled: true
     composer.invalid_file:
         enabled: true
     composer.security_issue_in_composer:

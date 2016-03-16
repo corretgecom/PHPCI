@@ -11,9 +11,7 @@ build: true
 filter:
         paths: [PHPCI/*]
 tools:
-    external_code_coverage:
-        runs: 4
-    php_cpd:
+   php_cpd:
         excluded_dirs: [vendor]
     php_pdepend:
         excluded_dirs: [vendor]
