@@ -39,6 +39,7 @@ PHPCI',
     'reset_email_title' => 'PHPCI Adgangskode-nulstilling for %s',
     'reset_invalid' => 'Ugyldig anmodning om adgangskode-nulstilling.',
     'email_address' => 'Email-addresse',
+    'login' => 'Login / Email Address',
     'password' => 'Adgangskode',
     'log_in' => 'Log ind',
 
@@ -113,6 +114,7 @@ i din foretrukne hosting-platform.',
     'default_branch' => 'Default branch navn',
     'allow_public_status' => 'Tillad offentlig status-side og -billede for dette projekt?',
     'archived' => 'Archived',
+    'archived_menu' => 'Archived',
     'save_project' => 'Gem Projekt',
 
     'error_mercurial' => 'Mercurial repository-URL skal starte med http:// eller https://',
@@ -202,7 +204,7 @@ Services</a> sektionen under dit Bitbucket-repository.',
     'build_finished' => 'Build Afsluttet',
     'test_message' => 'Message',
     'test_no_message' => 'No message',
-    'test_success' => 'Succesfull: %d',
+    'test_success' => 'Successful: %d',
     'test_fail' => 'Failures: %d',
     'test_skipped' => 'Skipped: %d',
     'test_error' => 'Errors: %d',
@@ -337,6 +339,12 @@ Kontrollér venligst nedenstående fejl før du fortsætter.',
     // Create Admin
     'create_admin_user' => 'Tilføj en administrator',
     'incorrect_format' => 'Forkert format',
+
+    // Create Build Command
+    'create_build_project' => 'Create a build for a project',
+    'project_id_argument' => 'A project ID',
+    'commit_id_option' => 'Commit ID to build',
+    'branch_name_option' => 'Branch to build',
 
     // Run Command
     'run_all_pending' => 'Kør alle PHPCI builds i køen.',

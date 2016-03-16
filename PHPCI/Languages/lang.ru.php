@@ -38,9 +38,9 @@ PHPCI',
     'reset_email_title' => 'Сброс пароля PHPCI для %s',
     'reset_invalid' => 'Некорректный запрос на сброс пароля.',
     'email_address' => 'Email',
+    'login' => 'Логин / Email',
     'password' => 'Пароль',
     'log_in' => 'Войти',
-
 
     // Top Nav
     'toggle_navigation' => 'Скрыть/показать панель навигации',
@@ -107,12 +107,13 @@ PHPCI',
     'repo_name' => 'Репозиторий / Внешний URL / Локальный путь',
     'project_title' => 'Название проекта',
     'project_private_key' => 'Приватный ключ для доступа к репозиторию
-                                (оставьте поле пустым для локального использования и/или анонимного доступа)',
+                              (оставьте поле пустым для локального использования и/или анонимного доступа)',
     'build_config' => 'Конфигурация сборки проекта для PHPCI
-                                (если вы не добавили файл phpci.yml в репозиторий вашего проекта)',
+                       (если вы не добавили файл phpci.yml в репозиторий вашего проекта)',
     'default_branch' => 'Ветка по умолчанию',
     'allow_public_status' => 'Разрешить публичный статус и изображение (статуса) для проекта',
-    'archived' => 'Archived',
+    'archived' => 'Архивный',
+    'archived_menu' => 'Архив',
     'save_project' => 'Сохранить проект',
 
     'error_mercurial' => 'URL репозитория Mercurial должен начинаться с http:// или https://',
@@ -138,13 +139,13 @@ PHPCI',
 
     'webhooks' => 'Webhooks',
     'webhooks_help_github' => 'Чтобы Автоматически собирать этот проект при публикации новых коммитов, добавьте URL ниже в качестве нового хука в разделе настроек <a href="https://github.com/%s/settings/hooks">Webhooks
-                                and Services</a> вашего GitHub репозитория.',
+                               and Services</a> вашего GitHub репозитория.',
 
     'webhooks_help_gitlab' => 'Чтобы Автоматически собирать этот проект при публикации новых коммитов, добавьте URL ниже в качестве "WebHook URL"
                                 в разделе "Web Hooks" вашего GitLab репозитория.',
 
     'webhooks_help_bitbucket' => 'Чтобы Автоматически собирать этот проект при публикации новых коммитов, добавьте URL ниже как "POST" сервис в разделе <a href="https://bitbucket.org/%s/admin/services">
-                                Services</a> вашего Bitbucket репозитория.',
+                                  Services</a> вашего Bitbucket репозитория.',
 
     // View Build
     'build_x_not_found' => 'Сборки с ID %d не существует.',
@@ -184,6 +185,11 @@ PHPCI',
     'technical_debt' => 'Технические долги',
     'behat' => 'Behat',
 
+    'codeception_feature' => 'Свойство',
+    'codeception_suite' => 'Набор',
+    'codeception_time' => 'Время',
+    'codeception_synopsis' => 'Тестов выполнено: <strong>%1$d</strong> (за <strong>%2$f</strong> сек.). Провалов: <strong>%3$d</strong>.',
+
     'file' => 'Файл',
     'line' => 'Строка',
     'class' => 'Класс',
@@ -201,12 +207,12 @@ PHPCI',
     'build_finished' => 'Сборка окончена',
     'test_message' => 'Message',
     'test_no_message' => 'No message',
-    'test_success' => 'Succesfull: %d',
-    'test_fail' => 'Failures: %d',
-    'test_skipped' => 'Skipped: %d',
-    'test_error' => 'Errors: %d',
-    'test_todo' => 'Todos: %d',
-    'test_total' => '%d test(s)',
+    'test_success' => 'Успешно: %d',
+    'test_fail' => 'Провалено: %d',
+    'test_skipped' => 'Пропущено: %d',
+    'test_error' => 'Ошибок: %d',
+    'test_todo' => 'Todo: %d',
+    'test_total' => 'Тестов: %d',
 
     // Users
     'name' => 'Имя',
@@ -281,6 +287,19 @@ PHPCI',
     'search_packagist_for_more' => 'Искать на Packagist',
     'search' => 'Искать &raquo;',
 
+    // Summary plugin
+    'build-summary' => 'Сводка',
+    'stage' => 'Этап',
+    'duration' => 'Продолжительность',
+    'plugin' => 'Плагин',
+    'stage_setup' => 'Установка',
+    'stage_test' => 'тестирование',
+    'stage_complete' => 'Завершение',
+    'stage_success' => 'Успешное завершение',
+    'stage_failure' => 'Провал',
+    'stage_broken'  => 'Поломка',
+    'stage_fixed' => 'Исправление',
+
     // Installer
     'installation_url' => 'URL-адрес PHPCI для установки',
     'db_host' => 'Хост базы данных',
@@ -335,6 +354,12 @@ PHPCI',
     // Create Admin
     'create_admin_user' => 'Добавить аккаунт администратора',
     'incorrect_format' => 'Неверный формат',
+
+    // Create Build Command
+    'create_build_project' => 'Создать сборку проекта',
+    'project_id_argument' => 'ID проекта',
+    'commit_id_option' => 'ID коммита для сборки',
+    'branch_name_option' => 'Ветка для сборки',
 
     // Run Command
     'run_all_pending' => 'Запустить все ожидающие PHPCI сборки.',

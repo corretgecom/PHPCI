@@ -1,5 +1,14 @@
 <?php
-namespace PHPCI\Plugin\Tests\Util;
+
+/**
+ * PHPCI - Continuous Integration for PHP
+ *
+ * @copyright    Copyright 2015, Block 8 Limited.
+ * @license      https://github.com/Block8/PHPCI/blob/master/LICENSE.md
+ * @link         https://www.phptesting.org/
+ */
+
+namespace Tests\PHPCI\Plugin\Util;
 
 use PHPCI\Plugin\Util\TapParser;
 
@@ -26,6 +35,28 @@ TAP;
         $this->assertEquals(1, $parser->getTotalFailures());
     }
 
+    public function testSimple2()
+    {
+        $content = <<<TAP
+Leading garbage !
+TAP version 13
+
+ok 1 - SomeTest::testAnother
+not ok
+1..2
+
+TAP;
+        $parser = new TapParser($content);
+        $result = $parser->parse();
+
+        $this->assertEquals(array(
+            array('pass' => true, 'severity' => 'success', 'message' => 'SomeTest::testAnother'),
+            array('pass' => false, 'severity' => 'fail', 'message' => ''),
+        ), $result);
+
+        $this->assertEquals(1, $parser->getTotalFailures());
+    }
+
     /**
      * @expectedException \Exception
      * @expectedExceptionMessageRegExp /No TAP/
@@ -37,6 +68,20 @@ Only garbage !
 TAP;
         $parser = new TapParser($content);
         $parser->parse();
+    }
+
+    public function testTapCoverage()
+    {
+        $content = <<<TAP
+TAP version 13
+
+Generating code coverage report in HTML format ... done
+
+TAP;
+        $parser = new TapParser($content);
+        $result = $parser->parse();
+
+        $this->assertEquals(array(), $result);
     }
 
     /**
