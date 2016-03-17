@@ -24,7 +24,7 @@ class Lang
     /**
      * Get a specific string from the language file.
      *
-     * @param $string
+     * @param string $string
      *
      * @return mixed|string
      */
