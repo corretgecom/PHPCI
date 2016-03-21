@@ -151,6 +151,7 @@ class Builder implements LoggerAwareInterface
      * Access a variable from the phpci.yml file.
      *
      * @param string
+     * @param string $key
      *
      * @return mixed
      */
@@ -168,7 +169,7 @@ class Builder implements LoggerAwareInterface
     /**
      * Access a variable from the config.yml.
      *
-     * @param $key
+     * @param string $key
      *
      * @return mixed
      */
